@@ -11,8 +11,8 @@
 
 > Memoization: 계산된 값을 memo (caching)
 
-> Top-down 방식: 재귀함수 + memoization으로 caching된 부분 결과를 읽어와 해결
-> Bottom-up 방식: 작은 문제부터 해결하여 큰 문제로 반복진행
+- **Top-down 방식**: 재귀함수 + memoization으로 caching된 부분 결과를 읽어와 해결
+- **Bottom-up 방식**: 작은 문제부터 해결하여 큰 문제로 반복진행
 
 ```c
 // Top-down
