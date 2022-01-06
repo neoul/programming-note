@@ -9,7 +9,7 @@
 
 ![e.g. Fibonacci numbers](https://media.vlpt.us/images/gillog/post/eb96e602-b7bf-47eb-9c49-2eda8465e158/1231313133.png)
 
-> Memoization: 계산된 값을 memo (caching to an array)
+> Memoization: 계산된 값을 memo (caching)
 
 > Top-down 방식: 재귀함수 + memoization으로 caching된 부분 결과를 읽어와 해결
 > Bottom-up 방식: 작은 문제부터 해결하여 큰 문제로 반복진행
