@@ -1,5 +1,28 @@
 # Algorithm note
 
+## Basic Data Structure
+
+- Stack
+- Queue
+- PQ (Priority Queue), Max Heap, Min Heap
+- DFS (Depth First Search)
+- BFS (Breadth First Search)
+
+### 최단 경로 알고리즘
+
+- Dijkstra Algorithm:
+  - 그래프의 단일 노드에서 모든 노드로의 경로 탐색; O((V+E)lgV)
+  - priority queue (heap)로 성능향상 가능
+- Bellman-Ford-Moore Algorithm:
+  - 가중 유향 그래프(Weighted-Directed Graph)에서 노드 사이의 최단 경로 탐색; O(VE)
+  - 음수 가중치 사용가능, negative-weight cycles 유무 판단 (무한 발산하므로 ...)
+  - 그래프의 단일 노드에서 모든 노드로의 경로 탐색
+  - https://victorydntmd.tistory.com/104
+- Floyd Warshall Algorithm:
+  - 그래프의 모든 노드에서 모든 노드로의 경로 탐색 (O(V * V * V))
+  - 임의의 노드 s에서 e까지 가는 데 걸리는 최단거리를 구하기 위해, s와 e 사이의 노드인 m에 대해 s에서 m까지 가는 데 걸리는 최단거리와 m에서 e까지 가는 데 걸리는 최단거리를 이용, 가능한 모든 m을 계산
+
+
 ## Dynamic programming (동적계획법)
 
 문제 유형이 다음과 같을 때 사용한다.
