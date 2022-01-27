@@ -4,6 +4,8 @@
 
 - Stack
 - Queue
+- Tree
+  - Prefix Tree (Trie)
 - PQ (Priority Queue), Max Heap, Min Heap
 - DFS (Depth First Search)
 - BFS (Breadth First Search)

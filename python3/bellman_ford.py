@@ -4,6 +4,7 @@ import heapq
 from typing import Any
 INF = sys.maxsize
 
+# pseudo code;
 # function BellmanFord(list vertices, list edges, vertex source) is
 #     // This implementation takes in a graph, represented as
 #     // lists of vertices (represented as integers [0..n-1]) and edges,
@@ -35,18 +36,18 @@ INF = sys.maxsize
 def bellman_ford(graph: list[Any], start: int):
     distance = [INF] * len(graph)
     distance[start] = 0 # set starting vertex
-    predecessor = [None] * len(graph)
-    for _ in range(len(graph) -1):
+    predecessor = [None] * len(graph) #  not sure the predecessor is working ?
+    for _ in range(len(graph) -1): # loop for all other vertexs
         for u in range(len(graph)):
-            for v, w in enumerate(graph[u]):
+            for v, w in enumerate(graph[u]): # loop for all edges of a vertex
                 if w >= INF: # skip not connected
                     continue
                 # print((v,u), w)
-                if distance[u] + w < distance[v]:
-                    distance[v] = distance[u] + w
+                if distance[u] + w < distance[v]: # check the recorded distance is smaller.
+                    distance[v] = distance[u] + w # update the distance
                     predecessor[v] = u
                     
-    for u in range(len(graph)):
+    for u in range(len(graph)): # bellman_ford is able to check a negative-weight cycle in the graph.
         for v, w in enumerate(graph[u]):
             if distance[u] + w < distance[v]:
                 raise Exception(f"Graph contains a negative-weight cycle in %d %d" %(v, u))
@@ -77,7 +78,7 @@ def main():
     ]
     print(bellman_ford(graph, 0))
     
-    graph = [ # 음 가중치가 커 발산할 경우
+    graph = [ # 음 가중치가 커 반복시 발산할 경우
         # E(4) -> B(1)로 -30 가중치 부여
         [0, 10, 30, 15, INF, INF],
         [INF, 0, INF, INF, 20, INF],

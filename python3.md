@@ -1,6 +1,6 @@
-# Python3
+# Python3 handbook
 
-- [Python3](#python3)
+- [Python3 handbook](#python3-handbook)
   - [Reference](#reference)
   - [Variables](#variables)
   - [String](#string)
@@ -20,12 +20,15 @@
   - [dict (dictionary) = map](#dict-dictionary--map)
   - [Decorator](#decorator)
   - [Comprehesion](#comprehesion)
-  - [Useful libraries](#useful-libraries)
+  - [Useful libraries or simple implementation](#useful-libraries-or-simple-implementation)
+    - [Prefix Tree (Trie)](#prefix-tree-trie)
     - [itertools](#itertools)
     - [functools](#functools)
       - [LRU (least recently used) caching for memoization (dynamic programming)](#lru-least-recently-used-caching-for-memoization-dynamic-programming)
     - [heapq (Min heap)](#heapq-min-heap)
     - [collections](#collections)
+      - [deque](#deque)
+      - [Counter](#counter)
   - [Type Hint (Type Annotation)](#type-hint-type-annotation)
     - [Variable Type Annotation](#variable-type-annotation)
     - [Function Type Annotation](#function-type-annotation)
@@ -36,9 +39,6 @@
     - [Abstraction Type Annotation](#abstraction-type-annotation)
     - [User Type Annotation](#user-type-annotation)
   - [Type Check](#type-check)
-  - [String Formatting](#string-formatting-1)
-    - [“Old Style” String Formatting (% Operator)](#old-style-string-formatting--operator)
-    - [“New Style” String Formatting (str.format)](#new-style-string-formatting-strformat)
   - [Environment Variables](#environment-variables)
   - [File](#file)
     - [Create, Write](#create-write)
@@ -46,7 +46,6 @@
     - [Copy](#copy)
     - [Get files](#get-files)
   - [Exception](#exception)
-
 
 ## Reference
 
@@ -102,12 +101,50 @@ f'tuple: {tuple}' # "tuple: ('Hi, I am', 'song', 123)"
 
 ```python
 'x + y = %d | x * y = %d' %(x+y, x*y) # 'x + y = 13 | x * y = 30'
+# Positional argument
+'Hey %s, there is a 0x%x error!' % (name, errno)
+# 'Hey Bob, there is a 0xbadc0ffee error!'
+
+# keyward argument
+'Hey %(name)s, there is a 0x%(errno)x error!' % {"name": name, "errno": errno }
+# 'Hey Bob, there is a 0xbadc0ffee error!'
 ```
 
 ### str.format()
 
 ```python
 'x + y = {} | x * y = {}'.format(x+y, x*y) # 'x + y = 13 | x * y = 30'
+
+'Hey {name}, there is a 0x{errno:x} error!'.format(name=name, errno=errno)
+# 'Hey Bob, there is a 0xbadc0ffee error!'
+```
+
+
+> REF> 
+> - https://docs.python.org/3/library/string.html#string-formatting
+> - https://realpython.com/python-string-formatting
+
+```python
+"First, thou shalt count to {0}"  # References first positional argument
+"Bring me a {}"                   # Implicitly references the first positional argument
+"From {} to {}"                   # Same as "From {0} to {1}"
+"My quest is {name}"              # References keyword argument 'name'
+"Weight in tons {0.weight}"       # 'weight' attribute of first positional arg
+"Units destroyed: {players[0]}"   # First element of keyword argument 'players'.
+"Harold's a clever {0!s}"        # Calls str() on the argument first
+"Bring out the holy {name!r}"    # Calls repr() on the argument first
+"More {!a}"                      # Calls ascii() on the argument first
+```
+
+```python
+format_spec     ::=  [[fill]align][sign][#][0][width][grouping_option][.precision][type]
+fill            ::=  <any character>
+align           ::=  "<" | ">" | "=" | "^"
+sign            ::=  "+" | "-" | " "
+width           ::=  digit+
+grouping_option ::=  "_" | ","
+precision       ::=  digit+
+type            ::=  "b" | "c" | "d" | "e" | "E" | "f" | "F" | "g" | "G" | "n" | "o" | "s" | "x" | "X" | "%"
 ```
 
 ## Condition (if/elif/else)
@@ -402,7 +439,43 @@ country_capital = {'대한민국':'서울', '영국' :'런던', '미국' :'워�
 capital_country = {capital: country for country, capital in country_capital.items()}
 ```
 
-## Useful libraries
+## Useful libraries or simple implementation
+
+### Prefix Tree (Trie)
+
+```python
+class Trie(object):
+    def __init__(self):
+        self.child = {}
+    def insert(self, word):
+        current = self.child
+        for l in word:
+            if l not in current:
+            current[l] = {}
+            current = current[l]
+        current['#']=1
+    def search(self, word):
+        current = self.child
+        for l in word:
+            if l not in current:
+            return False
+            current = current[l]
+        return '#' in current
+    def startsWith(self, prefix):
+        current = self.child
+        for l in prefix:
+            if l not in current:
+            return False
+            current = current[l]
+        return True
+ob1 = Trie()
+ob1.insert("apple")
+print(ob1.search("apple"))
+print(ob1.search("app"))
+print(ob1.startsWith("app"))
+ob1.insert("app")
+print(ob1.search("app"))
+```
 
 ### itertools
 
@@ -491,6 +564,62 @@ while heap:
 
 ### collections
 
+#### deque
+
+```python
+from collections import deque
+
+q = deque()
+q.append('a')
+q.append('b')
+q.append('c')
+print("Initial queue")
+print(q)
+print("\nElements dequeued from the queue")
+print(q.popleft())
+print(q.popleft())
+print(q.popleft())
+print("\nQueue after removing elements")
+print(q)
+ 
+# Uncommenting q.popleft()
+# will raise an IndexError
+# as queue is now empty
+```
+
+#### Counter
+
+A Counter is a dict subclass for counting hashable objects (e.g. dict).
+
+```python
+
+# A Python program to show different ways to create
+# Counter
+from collections import Counter
+  
+# With sequence of items 
+print(Counter(['B','B','A','B','C','A','B','B','A','C']))
+# with dictionary
+print(Counter({'A':3, 'B':5, 'C':2}))
+# with keyword arguments
+print(Counter(A=3, B=5, C=2))
+
+# output
+# Counter({'B': 5, 'A': 3, 'C': 2})
+# Counter({'B': 5, 'A': 3, 'C': 2})
+# Counter({'B': 5, 'A': 3, 'C': 2})
+
+coun = Counter()
+coun.update([1, 2, 3, 1, 2, 1, 1, 2]) # Counter({1: 4, 2: 3, 3: 1})
+coun.update([1, 2, 4]) # Counter({1: 5, 2: 4, 3: 1, 4: 1})
+
+# Python program to demonstrate that counts in 
+# Counter can be 0 and negative
+c1 = Counter(A=4,  B=3, C=10)
+c2 = Counter(A=10, B=3, C=4)
+c1.subtract(c2) #  Counter({'c': 6, 'B': 0, 'A': -6})
+c1 - c2 ##  Counter({'c': 6, 'B': 0, 'A': -6})
+```
 
 ## Type Hint (Type Annotation)
 
@@ -610,56 +739,6 @@ def create_user(user: User) -> User:
 ```python
 pip install mypy
 mypy our_file.py our_directory
-```
-
-## String Formatting
-
-> https://realpython.com/python-string-formatting
-
-### “Old Style” String Formatting (% Operator)
-
-```python
-# Positional argument
->>> 'Hey %s, there is a 0x%x error!' % (name, errno)
-'Hey Bob, there is a 0xbadc0ffee error!'
-
-# keyward argument
->>> 'Hey %(name)s, there is a 0x%(errno)x error!' % {
-...     "name": name, "errno": errno }
-'Hey Bob, there is a 0xbadc0ffee error!'
-```
-
-### “New Style” String Formatting (str.format)
-
-```python
->>> 'Hey {name}, there is a 0x{errno:x} error!'.format(
-...     name=name, errno=errno)
-'Hey Bob, there is a 0xbadc0ffee error!'
-```
-
-> REF: https://docs.python.org/3/library/string.html#string-formatting
-
-```python
-"First, thou shalt count to {0}"  # References first positional argument
-"Bring me a {}"                   # Implicitly references the first positional argument
-"From {} to {}"                   # Same as "From {0} to {1}"
-"My quest is {name}"              # References keyword argument 'name'
-"Weight in tons {0.weight}"       # 'weight' attribute of first positional arg
-"Units destroyed: {players[0]}"   # First element of keyword argument 'players'.
-"Harold's a clever {0!s}"        # Calls str() on the argument first
-"Bring out the holy {name!r}"    # Calls repr() on the argument first
-"More {!a}"                      # Calls ascii() on the argument first
-```
-
-```python
-format_spec     ::=  [[fill]align][sign][#][0][width][grouping_option][.precision][type]
-fill            ::=  <any character>
-align           ::=  "<" | ">" | "=" | "^"
-sign            ::=  "+" | "-" | " "
-width           ::=  digit+
-grouping_option ::=  "_" | ","
-precision       ::=  digit+
-type            ::=  "b" | "c" | "d" | "e" | "E" | "f" | "F" | "g" | "G" | "n" | "o" | "s" | "x" | "X" | "%"
 ```
 
 ## Environment Variables
