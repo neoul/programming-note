@@ -237,17 +237,25 @@ b.sort(key = lambda x: x[1], reverse=True)
 
 ```
 
-- map(호출함수, Iterable_Object):
-
 ```python
-# map example
->>> a = [1.2, 2.5, 3.7, 4.6]
->>> for i in range(len(a)):
-...     a[i] = int(a[i])
+# ITERABLE 순회하며 FUNC호출
+# map(FUNC, ITERABLE)
+a = [1.2, 2.5, 3.7, 4.6]
+for i in range(len(a)):
+    a[i] = int(a[i])
+a = [1.2, 2.5, 3.7, 4.6]
+a = list(map(int, a))
+a # [1, 2, 3, 4]
 
->>> a = [1.2, 2.5, 3.7, 4.6]
->>> a = list(map(int, a))
->>> a # [1, 2, 3, 4]
+
+# ITERABLE 순회하며 FUNC호출하고, 결과를 병합
+# reduce(FUNC, ITERABLE)
+from functools import reduce 
+data = [1, 2, 3, 4, 5]
+def sum(a, b):
+    return a + b
+reduce(sum, data) # 15
+
 ```
 
 ## Input
