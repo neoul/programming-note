@@ -9,8 +9,10 @@
 - PQ (Priority Queue), Max Heap, Min Heap
 - DFS (Depth First Search)
 - BFS (Breadth First Search)
+- DFS with stack
+- BFS with queue
 
-### 최단 경로 알고리즘
+### Shortest Path Algorithm (최단 경로 알고리즘)
 
 - Dijkstra Algorithm:
   - 그래프의 단일 노드에서 모든 노드로의 경로 탐색; O((V+E)lgV)
@@ -28,7 +30,6 @@
 ## Dynamic programming (동적계획법)
 
 문제 유형이 다음과 같을 때 사용한다.
-
 - 부분 반복 문제(Overlapping Subproblem)
 - 최적 부분 구조(Optimal Substructure)
 

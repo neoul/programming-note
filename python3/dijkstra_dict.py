@@ -47,7 +47,7 @@ def dijkstra_prioque(graph: Dict[str, Any], start: str):
             if alt < distance[nextv]:
                 distance[nextv] = alt
                 heapq.heappush(Q, nextv)
-    # S로 특정 end vertex까지의 path 계산 가능
+    # S로 특정 end vertex까지의 path 계산 가능?
     return distance, S
 
 

@@ -3,10 +3,11 @@
 - [Golang handbook](#golang-handbook)
   - [commands](#commands)
   - [environment](#environment)
-  - [Build, install and execute a go executable binary](#build-install-and-execute-a-go-executable-binary)
+  - [Build, install and execute a Go executable binary](#build-install-and-execute-a-go-executable-binary)
+  - [Building Go Executables for Multiple Platforms](#building-go-executables-for-multiple-platforms)
   - [Package](#package)
     - [import other packages](#import-other-packages)
-  - [Go syntax](#go-syntax)
+  - [Go Syntax](#go-syntax)
     - [type syntax](#type-syntax)
     - [variables](#variables)
     - [constant](#constant)
@@ -18,8 +19,8 @@
     - [function](#function)
     - [Pointers](#pointers)
     - [Structure (field and method)](#structure-field-and-method)
-    - [Anonymous fields in structs](#anonymous-fields-in-structs)
-    - [interface (method generalization or a set of methods)](#interface-method-generalization-or-a-set-of-methods)
+    - [Anonymous fields in Go Structure](#anonymous-fields-in-go-structure)
+    - [Interface (collections of methods)](#interface-collections-of-methods)
     - [empty interface](#empty-interface)
     - [Errors](#errors)
     - [Concurrency (goroutine)](#concurrency-goroutine)
@@ -44,39 +45,42 @@
   - [Useful documents](#useful-documents)
   - [gRPC with simple password authentication](#grpc-with-simple-password-authentication)
   - [vscode with golang](#vscode-with-golang)
+  - [Go Fuzzing](#go-fuzzing)
 
 ## commands
 
 Commands of golang to use
 
-- **go env**: show environment variables for golang.
-- **go build** `<SOURCE>`: Compile `<SOURCE>` and place it to `$PWD`
-- **go install** `<SOURCE>`: Compile and Install `<SOURCE>` to `$GOBIN`.
+- `go env`: show environment variables for golang.
+- `go build`: `<SOURCE>`: Compile `<SOURCE>` and place it to `$PWD`
+- `go install`: `<SOURCE>`: Compile and Install `<SOURCE>` to `$GOBIN`.
 
 ## environment
 
-- `$GOROOT`: The path to the go command installed
-- `$GOPATH`: The path to the go project
-- `$GOBIN`: The path to the project executable binary
+- `$GOROOT`: The path of Go binary distribution (default: `/usr/local/go`)
+- `$GOPATH`: The path to Go packages to install and build
+- `$GOBIN`: The path to Go executable binaries built
 
 ```bash
 #!/bin/bash
-
-export GOPATH=$PWD
+export GO111MODULE=off
+export GOPATH=$HOME/go
 export GOBIN=$GOPATH/bin
-PATH1=${PATH%:${GOPATH}}
-export PATH=${PATH1}:${GOPATH}
-PATH1=${PATH%:${GOBIN}}
-export PATH=${PATH1}:${GOBIN}
 ```
 
-## Build, install and execute a go executable binary
+## Build, install and execute a Go executable binary
 
 ```bash
 cd go-project
 source env.sh
 go install src/hello/hello.go
 hello
+```
+
+## Building Go Executables for Multiple Platforms
+
+```bash
+CFLAGS="-I$INCLUDE" CPPFLAGS="-I$INCLUDE" CC=$TARGET_ARCHITECTURE-gcc GOOS=linux GOARCH=arm64 CGO_ENABLED=1 go build
 ```
 
 ## Package
@@ -92,11 +96,11 @@ import {
 }
 ```
 
-## Go syntax
+## Go Syntax
 
 ### type syntax
 
-- 변수 type은 뒤에 명시
+- 타입 후위 정의: 변수 선언시 type은 뒤에 명시
 - Go는 정적 타입 프로그래밍 언어
 
 ```go
@@ -122,20 +126,15 @@ f func(func(int,int) int, int) int
 
 // function variable (return a function)
 f func(func(int,int) int, int) func(int, int) int
-```
 
-> One merit of this left-to-right style is how well it works as the types become more complex. Here's a declaration of a function variable (analogous to a function pointer in C):
-
-The distinction between type and expression syntax makes it easy to write and invoke closures in Go:
-
-```go
+// 선언과 함께 함수 구현/ 할당
 sum := func(a, b int) int { return a+b } (3, 4)
 ```
 
 ### variables
 
 - `var` keyword 사용
-- `:=` 축약형 존재
+- `:=` 축약형 존재 (`var` 생략)
 - namespace: global vs local
 
 ```go
@@ -202,7 +201,7 @@ func control() {
     } else {
     }
 
-    // if statement with map
+    // if statement with map (dict or hash)
     elements := make(map[string]string)
     elements["H"] = "Hydrogen"
     if name, ok := elements["Un"]; ok {
@@ -446,6 +445,9 @@ func main() {
 
 ### Structure (field and method)
 
+- Field가 대문자로 시작시 C++의 public의 특성을 가짐 (외부 package에서 참조 가능)
+- Field가 소문자로 시작시 C++의 private의 특성을 가짐 (외부 package에서 참조 불가능)
+- 아래 예제에서 X, Y, Z는 외부 package에서 참조 가능
 ```go
 
 // Clircle blarara o
@@ -453,6 +455,10 @@ type Circle struct {
     x float64
     y float64
     r float64
+    
+    X float64
+    Y float64
+    R float64
 }
 
 // call by value function
@@ -502,9 +508,10 @@ func main() {
 }
 ```
 
-### Anonymous fields in structs
+### Anonymous fields in Go Structure
 
-Type이 곧 field 이름이 됨
+- Type이름으로 field가 생성됨
+- Anonymous field로 정의된 structure의 field 및 method를 선언된 structure가 상속함.
 
 ```go
 type Kitchen struct {
@@ -512,7 +519,7 @@ type Kitchen struct {
 }
 
 type House struct {
-    Kitchen    //anonymous field
+    Kitchen    // anonymous field
     numOfRooms int
 }
 
@@ -528,12 +535,16 @@ func main() {
 }
 ```
 
-### interface (method generalization or a set of methods)
+### Interface (collections of methods)
 
+- Interfaces are named collections of method signatures.
 - 구조체(struct)가 필드들의 집합체라면, interface는 메서드들의 집합체
 - interface는 타입(type)이 구현해야 하는 메서드 원형(prototype)들을 정의함.
 - type의 interface를 구현하기 위해서는 단순히 그 인터페이스가 갖는 모든 메서드들을 구현하면 됨.
-- Interfaces are named collections of method signatures.
+- Interface 변수는 1) interface type과 2) 실제 가리키는 data 주소로 이루어짐
+
+
+![interface 구조](https://miro.medium.com/max/700/1*nLosvZkY_o-ltxnUNsRyqQ.png)
 
 ```go
 // Shape interface type definition
@@ -622,8 +633,11 @@ func (v *Vertex) Abs() float64 {
 
 ### empty interface
 
-- 흔히 Go에서 모든 Type을 나타내기 위해 빈 인터페이스를 사용
-- 즉, 빈 인터페이스는 어떠한 타입도 담을 수 있는 컨테이너라고 볼 수 있으며, 여러 다른 언어에서 흔히 일컫는 Dynamic Type 이라고 볼 수 있다. (주: empty interface는 C#, Java 에서 object라 볼 수 있으며, C/C++ 에서는 void* 와 같다고 볼 수 있다)
+- 어떠한 Type도 담을 수 interface
+
+![empty interface](https://miro.medium.com/max/513/1*EQuV1IIhITb12L2As1QndA.png)
+
+
 
 ```go
 func Marshal(v interface{}) ([]byte, error);
@@ -1370,3 +1384,12 @@ func authorize(ctx context.Context) error {
 ```shell
 go get -u github.com/nsf/gocode
 ```
+
+## Go Fuzzing
+
+Fuzzing is a type of automated testing which continuously manipulates inputs to a program to find bugs.
+
+> 임의의 값을 입력하여 functional test를 수행하는 test framework이라 볼 수 있음.
+
+![Fuzzing Test](https://go.dev/doc/fuzz/example.png)
+

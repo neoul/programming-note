@@ -8,6 +8,7 @@
     - [f-string (Literal String Interpolation)](#f-string-literal-string-interpolation)
     - [%-string](#-string)
     - [str.format()](#strformat)
+  - [Byte](#byte)
   - [Condition (if/elif/else)](#condition-ifelifelse)
   - [while / for](#while--for)
   - [function and lambda express](#function-and-lambda-express)
@@ -18,6 +19,7 @@
   - [tuple](#tuple)
   - [set (집합)](#set-집합)
   - [dict (dictionary) = map](#dict-dictionary--map)
+  - [Iterable Generators (yield)](#iterable-generators-yield)
   - [Decorator](#decorator)
   - [Comprehesion](#comprehesion)
   - [Useful libraries or simple implementation](#useful-libraries-or-simple-implementation)
@@ -25,6 +27,7 @@
     - [itertools](#itertools)
     - [functools](#functools)
       - [LRU (least recently used) caching for memoization (dynamic programming)](#lru-least-recently-used-caching-for-memoization-dynamic-programming)
+      - [reduce](#reduce)
     - [heapq (Min heap)](#heapq-min-heap)
     - [collections](#collections)
       - [deque](#deque)
@@ -74,6 +77,11 @@ c = """hello\nworld"""
 d = a+b # helloworld
 c = ["goodbye", "world", "!"]
 " ".join(c) # goodbye world !
+
+a.startswith("Hello")
+txt = "welcome to the jungle"
+x = txt.split() # ['welcome', 'to', 'the', 'jungle']
+
 
 ```
 
@@ -145,6 +153,13 @@ width           ::=  digit+
 grouping_option ::=  "_" | ","
 precision       ::=  digit+
 type            ::=  "b" | "c" | "d" | "e" | "E" | "f" | "F" | "g" | "G" | "n" | "o" | "s" | "x" | "X" | "%"
+```
+
+## Byte
+
+```python
+b'\xde\xad\xbe\xef'.hex() # 'deadbeef'
+bytes.fromhex('deadbeef') # b'\xde\xad\xbe\xef'
 ```
 
 ## Condition (if/elif/else)
@@ -230,6 +245,7 @@ sorted(a) # 오름차순 정렬
 sorted(a, reverse=True) # 내림차순 정렬
 a.sort() # 정렬
 b = [('A', 1),('D', 0),('B', 2)]
+sorted(jobs, key = lambda x: x[0]) # 첫번째값으로 정렬
 sorted(b, key = lambda x: x[1], reverse=True) # 두번째값으로 정렬
 b.sort(key = lambda x: x[1], reverse=True)
 
@@ -395,17 +411,17 @@ name_and_ages = (['alice', 5], ['Bob', 13])
 dict(name_and_ages) # 위 동일한 결과
 
 # deepcopy
->>> import copy
->>> a = {'alice': [1, 2, 3], 'bob': 20, 'tony': 15, 'suzy': 30}
->>> b = copy.deepcopy(a)
->>> b['alice'].append(5)
-# >>> b {'alice': [1, 2, 3, 5], 'bob': 20, 'tony': 15, 'suzy': 30}
-# >>> a {'alice': [1, 2, 3], 'bob': 20, 'tony': 15, 'suzy': 30}
+import copy
+a = {'alice': [1, 2, 3], 'bob': 20, 'tony': 15, 'suzy': 30}
+b = copy.deepcopy(a)
+b['alice'].append(5)
+# b {'alice': [1, 2, 3, 5], 'bob': 20, 'tony': 15, 'suzy': 30}
+# a {'alice': [1, 2, 3], 'bob': 20, 'tony': 15, 'suzy': 30}
 
 # update
->>> a = {'alice': [1, 2, 3], 'bob': 20, 'tony': 15, 'suzy': 30}
->>> a.update({'bob':99, 'tony':99, 'kim': 30})
-# >>> a {'alice': [1, 2, 3], 'bob': 99, 'tony': 99, 'suzy': 30, 'kim': 30}
+a = {'alice': [1, 2, 3], 'bob': 20, 'tony': 15, 'suzy': 30}
+a.update({'bob':99, 'tony':99, 'kim': 30})
+# a {'alice': [1, 2, 3], 'bob': 99, 'tony': 99, 'suzy': 30, 'kim': 30}
 
 # loop
 for key in a: # key loop
@@ -423,6 +439,22 @@ for key, val in a.items(): # key, value loop
 
 # delete
 del a['alice']
+```
+
+## Iterable Generators (yield)
+
+Generators are iterators, a kind of iterable you can only iterate over once. Generators do not store all the values in memory, they generate the values on the fly:
+
+```python
+def generater():
+   mylist = range(3)
+   for i in mylist:
+       yield i * i
+
+iterable = generater() # Generater 생성
+print(iterable) # <generator object generater at 0xb7555c34>
+for i in iterable:
+    print(i)
 ```
 
 ## Decorator
@@ -537,6 +569,10 @@ CacheInfo(hits=28, misses=16, maxsize=None, currsize=16)
 #버전 3.2에 추가.
 ```
 
+#### reduce
+
+위에서 언급함.
+
 ### heapq (Min heap)
 
 - 최소 힙
@@ -544,6 +580,7 @@ CacheInfo(hits=28, misses=16, maxsize=None, currsize=16)
 - O(NlogN)
 
 ```python
+import heapq
 heaplist = []
 heapq.heappush(heaplist, 4)
 heapq.heappush(heaplist, 1)
