@@ -2,7 +2,7 @@
 
 이 문서는 아래 javascript tutorial을 보고 정리한 것임
 
-https://ko.javascript.info
+📁 https://ko.javascript.info
 
 > 자바스크립트의 공식이름?: `ECMAScript`
 
@@ -97,8 +97,19 @@ https://ko.javascript.info
     - [중첩 구조 분해(nested destructuring)](#중첩-구조-분해nested-destructuring)
     - [function argument with destructuring assignment](#function-argument-with-destructuring-assignment)
   - [`Promise`](#promise)
-    - [`.then`, `.catch`, `.finally`](#then-catch-finally)
+    - [`.then`](#then)
+    - [`.catch`](#catch)
+    - [`.finally`](#finally)
+    - [Promise chaining](#promise-chaining)
+    - [`thenable`](#thenable)
+    - [`fetch`](#fetch)
+    - [Throw an error in promise](#throw-an-error-in-promise)
+    - [Mutilple promises](#mutilple-promises)
+    - [promisify](#promisify)
+    - [Microtask queue](#microtask-queue)
   - [`Async` and `Await`](#async-and-await)
+    - [async 클래스 메서드](#async-클래스-메서드)
+    - [`async` & `await` error handling](#async--await-error-handling)
   - [File Read/Write](#file-readwrite)
   - [Decorator (wrapping function)](#decorator-wrapping-function)
     - [객체의 `call`함수 사용하기](#객체의-call함수-사용하기)
@@ -2350,8 +2361,9 @@ showMenu(); // Menu 100 200 // 에러 안남
 
 The Promise object represents the eventual completion (or failure) of an asynchronous operation and its resulting value.
 
-
-> Producing code와 Consuming code 사이의 비동기적인 처리를 위한 장치
+> - Producing code와 Consuming code 사이의 비동기적인 처리를 위한 장치
+> - 프라미스가 대기 상태일 때, .then/catch/finally 핸들러는 프라미스 완료를 대기
+> - 프라미스가 이미 처리상태라면 핸들러가 즉각 실행
 
 - 내부적으로 `state`, `result` 정보 유지
 - executor 함수에서 `resolve(Object)` 호출시 `state` => `fulfiled`
@@ -2368,7 +2380,228 @@ let promise = new Promise(function(resolve, reject) {
 });
 ```
 
-### `.then`, `.catch`, `.finally`
+### `.then`
+
+Promise가 완료되길 대기하고 resolve, reject를 수행
+
+```javascript
+let promise = new Promise(function(resolve, reject) {
+  setTimeout(() => reject(new Error("에러 발생!")), 1000);
+});
+
+// reject 함수는 .then의 두 번째 함수를 실행합니다.
+promise.then(
+  result => alert(result), // 실행되지 않음
+  error => alert(error) // 1초 후 "Error: 에러 발생!"를 출력
+);
+```
+
+### `.catch`
+
+`.catch(f)`과 `.then(null,f)` 동일한 동작을 수행하며, 에러를 처리
+
+```javascript
+let promise = new Promise((resolve, reject) => {
+  setTimeout(() => reject(new Error("에러 발생!")), 1000);
+});
+
+// .catch(f)는 promise.then(null, f)과 동일하게 작동합니다
+promise.catch(alert); // 1초 뒤 "Error: 에러 발생!" 출력
+```
+
+### `.finally`
+
+에러 유무와 관계없이 실행해야 할 작업을 수행
+
+```javascript
+new Promise((resolve, reject) => {
+  setTimeout(() => resolve("결과"), 2000)
+})
+  .finally(() => alert("프라미스가 준비되었습니다."))
+  .then(result => alert(result)); // <-- .then에서 result를 다룰 수 있음
+```
+
+### Promise chaining
+
+Promise chaining이란 promise 대기함수들의 연쇄 실행을 의미한다.
+아래와 같이 핸들러를 등록했을 경우에만 Promise 대기함수들을 연속적 실행됨
+
+```javascript
+new Promise(function(resolve, reject) {
+  setTimeout(() => resolve(1), 1000); // (*)
+}).then(function(result) { // (**)
+  alert(result); // 1
+  return result * 2;
+}).then(function(result) { // (***)
+  alert(result); // 2
+  return result * 2;
+}).then(function(result) {
+  alert(result); // 4
+  return result * 2;
+});
+```
+
+Promise chaining에서 신규 promise를 반환하여 chaining할 수 있음.
+
+```javascript
+new Promise(function(resolve, reject) {
+  setTimeout(() => resolve(1), 1000);
+}).then(function(result) {
+  alert(result); // 1
+  return new Promise((resolve, reject) => { // (*)
+    setTimeout(() => resolve(result * 2), 1000);
+  });
+}).then(function(result) { // (**)
+  alert(result); // 2
+  return new Promise((resolve, reject) => {
+    setTimeout(() => resolve(result * 2), 1000);
+  });
+}).then(function(result) {
+  alert(result); // 4
+});
+```
+
+### `thenable`
+
+`.then`이라는 메서드를 가진 객체는 모두 thenable객체라고 부르며, promise와 같은 방식으로 처리함.
+
+```javascript
+class Thenable {
+  constructor(num) {
+    this.num = num;
+  }
+  then(resolve, reject) {
+    alert(resolve); // function() { 네이티브 코드 }
+    // 1초 후 this.num*2와 함께 이행됨
+    setTimeout(() => resolve(this.num * 2), 1000); // (**)
+  }
+}
+
+new Promise(resolve => resolve(1))
+  .then(result => {
+    return new Thenable(result); // (*)
+  })
+  .then(alert); // 1000밀리 초 후 2를 보여줌
+```
+
+### `fetch`
+
+비동기적으로 추가 정보를 받아오는 동작을 수행함; javascript 내에서 promise를 사용하여 동작함
+
+- AJAX(Asynchronous JavaScript And XML)
+- https://ko.javascript.info/fetch
+
+```javascript
+let promise = fetch(url, [options]);
+```
+
+- url – 접근하고자 하는 URL
+- options – 선택 매개변수, method나 header 등을 지정할 수 있음
+
+```javascript
+let response = await fetch(url);
+
+if (response.ok) { // HTTP 상태 코드가 200~299일 경우
+  // 응답 몬문을 받습니다(관련 메서드는 아래에서 설명).
+  let json = await response.json();
+} else {
+  alert("HTTP-Error: " + response.status);
+}
+```
+
+### Throw an error in promise
+
+```javascript
+// case 1) Throw an error
+new Promise((resolve, reject) => {
+  throw new Error("에러 발생!");
+}).catch(alert); // Error: 에러 발생!
+
+// case 2) Throw an error
+new Promise((resolve, reject) => {
+  reject(new Error("에러 발생!"));
+}).catch(alert); // Error: 에러 발생!
+
+// case 3) Throw an error
+new Promise((resolve, reject) => {
+  resolve("ok");
+}).then((result) => {
+  throw new Error("에러 발생!"); // 프라미스가 거부됨
+}).catch(alert); // Error: 에러 발생!
+
+// case 4)
+// 실행 순서: catch -> then
+new Promise((resolve, reject) => {
+  throw new Error("에러 발생!");
+}).catch(function(error) {
+  alert("에러가 잘 처리되었습니다. 정상적으로 실행이 이어집니다.");
+}).then(() => alert("다음 핸들러가 실행됩니다."));
+```
+
+### Mutilple promises
+
+다수의 promise에 대한 단일 handler 처리
+
+```javascript
+Promise.all([
+  new Promise(resolve => setTimeout(() => resolve(1), 3000)), // 1
+  new Promise(resolve => setTimeout(() => resolve(2), 2000)), // 2
+  new Promise(resolve => setTimeout(() => resolve(3), 1000))  // 3
+]).then(alert); // 프라미스 전체가 처리되면 1, 2, 3이 반환됩니다. 각 프라미스는 배열을 구성하는 요소가 됩니다.
+
+let urls = [
+  'https://api.github.com/users/iliakan',
+  'https://api.github.com/users/remy',
+  'https://api.github.com/users/jeresig'
+];
+
+// fetch를 사용해 url을 프라미스로 매핑합니다.
+let requests = urls.map(url => fetch(url));
+// Promise.all은 모든 작업이 이행될 때까지 기다립니다.
+Promise.all(requests)
+  .then(responses => responses.forEach(
+    response => alert(`${response.url}: ${response.status}`)
+  ));
+```
+
+- `Promise.all`: 어느 하나의 promise가 거절되면, reject handler 수행
+- `Promise.allSettled`: 모든 promise 처리 대기, 각 promise 상태 반환
+  - 응답이 성공할 경우 – `{status:"fulfilled", value:result}`
+  - 에러가 발생한 경우 – `{status:"rejected", reason:error}`
+- `Promise.race`: 가장 먼저 처리된 promise 결과 반환
+- `Promise.resolve/reject`: 많이 안쓰임
+
+### promisify
+
+```javascript
+function promisify(f) {
+  return function (...args) { // 래퍼 함수를 반환함
+    return new Promise((resolve, reject) => {
+      function callback(err, result) { // f에 사용할 커스텀 콜백
+        if (err) {
+          reject(err);
+        } else {
+          resolve(result);
+        }
+      }
+
+      args.push(callback); // 위에서 만든 커스텀 콜백을 함수 f의 인수 끝에 추가합니다.
+
+      f.call(this, ...args); // 기존 함수를 호출합니다.
+    });
+  };
+};
+
+let loadScriptPromise = promisify(loadScript);
+loadScriptPromise(...).then(...);
+```
+
+### Microtask queue
+
+javascript의 비동기 작업을 처리하기 위한 internal work queue로 완료된 promise의 handler를 처리함
+
+- FIFO, first-in-first-out
+- 실행될 것이 없을 대 task queue가 작동됨
 
 ## `Async` and `Await`
 
@@ -2382,7 +2615,12 @@ async function f() {
 f().then(alert); // 1
 ```
 
-`await`은 `async` 함수 내에서 promise가 이행될 때까지 대기한다.
+- `await`은 `async` 함수 내에서 promise가 이행될 때까지 대기한다.
+- `await`은 일반함수에서 사용불가
+- promise chaining 대체 사용
+- `await`는 `thenable` 객체도 수신
+- class에 `await` 선언 가능
+
 
 ```javascript
 async function f() {
@@ -2401,6 +2639,84 @@ f();
   let user = await response.json();
   ...
 })();
+```
+
+```javascript
+// .then 대신 await 사용
+async function showAvatar() {
+  // JSON 읽기
+  let response = await fetch('/article/promise-chaining/user.json');
+  let user = await response.json();
+
+  // github 사용자 정보 읽기
+  let githubResponse = await fetch(`https://api.github.com/users/${user.name}`);
+  let githubUser = await githubResponse.json();
+
+  // 아바타 보여주기
+  let img = document.createElement('img');
+  img.src = githubUser.avatar_url;
+  img.className = "promise-avatar-example";
+  document.body.append(img);
+
+  // 3초 대기
+  await new Promise((resolve, reject) => setTimeout(resolve, 3000));
+  img.remove();
+  return githubUser;
+}
+showAvatar();
+```
+
+### async 클래스 메서드
+
+```javascript
+class Waiter {
+  async wait() {
+    return await Promise.resolve(1);
+  }
+}
+new Waiter()
+  .wait()
+  .then(alert); // 1
+```
+
+### `async` & `await` error handling
+
+```javascript
+// case 1
+async function f() {
+  await Promise.reject(new Error("에러 발생!"));
+}
+// case 2
+async function f() {
+  throw new Error("에러 발생!");
+}
+
+// case 3 - try..catch
+async function f() {
+  try {
+    let response = await fetch('http://유효하지-않은-url');
+    let user = await response.json();
+  } catch(err) {
+    // fetch와 response.json에서 발행한 에러 모두를 여기서 잡습니다.
+    alert(err);
+  }
+}
+f();
+
+// case 4
+async function f() {
+  let response = await fetch('http://유효하지-않은-url');
+}
+f().catch(alert); // TypeError: failed to fetch // (*)
+
+// case 5 - await Promise.all
+// 프라미스 처리 결과가 담긴 배열을 기다립니다.
+let results = await Promise.all([
+  fetch(url1),
+  fetch(url2),
+  ...
+]);
+
 ```
 
 ## File Read/Write
