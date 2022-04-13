@@ -69,6 +69,7 @@
     - [할당 연산자](#할당-연산자)
     - [쉼표 연산자](#쉼표-연산자)
   - [비교 연산자](#비교-연산자)
+    - [error 비교](#error-비교)
     - [문자열 비교](#문자열-비교)
     - [다른형간의 비교](#다른형간의-비교)
     - [일치 연산자(strict equality operator) ===](#일치-연산자strict-equality-operator-)
@@ -1671,6 +1672,13 @@ for (a = 1, b = 3, c = a * b; a < 10; a++) {
 - a `<=` b
 - a `==` b
 - a `!=` b
+
+### error 비교
+
+```javascript
+const err = new Error('💣️ Something went wrong');
+console.log(err instanceof Error); // 👉️ true
+```
 
 ### 문자열 비교
 
