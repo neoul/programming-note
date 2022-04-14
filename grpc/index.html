@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>gRPC handbook - Programming Note</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "gRPC handbook";
+        var mkdocs_page_input_path = "grpc.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <script src="../js/jquery-3.6.0.min.js" defer></script>
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+      <script>hljs.initHighlightingOnLoad();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> Programming Note
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">Programming Note</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../algorithm/">Algorithm note</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../cpp/">C++ study</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../go/">Go handbook</a>
+                </li>
+              </ul>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="./">gRPC handbook</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#grpc-reflection-grpc-service">grpc reflection (gRPC service 정보 조회용)</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#check-reflection-for-grpc-cli">Check reflection for gRPC CLI</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#grpc-encryption-grpc-communication-channel-encryption">gRPC Encryption (gRPC communication channel encryption)</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#terms">Terms</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#generate-ceritificate">Generate ceritificate (인증서 성성)</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#generate-crt-without-asking-subjectaltname">Generate crt without asking subjectAltName</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#another-example">another example</a>
+    </li>
+        </ul>
+    </li>
+    </ul>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../javascript/">Javascript</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../python3/">Python3 handbook</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../rust/">Rust</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">Programming Note</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" alt="Docs"></a> &raquo;</li><li>gRPC handbook</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="grpc-handbook">gRPC handbook</h1>
+<h2 id="grpc-reflection-grpc-service">grpc reflection (gRPC service 정보 조회용)</h2>
+<p>gRPC Server Reflection provides information about publicly-accessible gRPC services on a server, and assists clients at runtime to construct RPC requests and responses without precompiled service information. It is used by gRPC CLI, which can be used to introspect server protos and send/receive test RPCs.</p>
+<pre><code class="language-go">
+import &quot;google.golang.org/grpc/reflection&quot;
+
+        s := grpc.NewServer()
+        pb.RegisterGreeterServer(s, &amp;server{})
++       // Register reflection service on gRPC server.
++       reflection.Register(s)
+        if err := s.Serve(lis); err != nil {
+                log.Fatalf(&quot;failed to serve: %v&quot;, err)
+        }
+</code></pre>
+<h3 id="check-reflection-for-grpc-cli">Check reflection for gRPC CLI</h3>
+<pre><code class="language-bash">git clone https://github.com/grpc/grpc
+cd grpc
+git submodule update --init
+make grpc_cli
+cd bins/opt # grpc_cli is in directory bins/opt/
+</code></pre>
+<pre><code class="language-bash">./grpc_cli ls localhost:50051
+
+# Result
+grpc.examples.echo.Echo
+grpc.reflection.v1alpha.ServerReflection
+helloworld.Greeter
+
+# List services and method
+./grpc_cli ls localhost:50051 helloworld.Greeter -l
+
+# Result
+filename: helloworld.proto
+package: helloworld;
+service Greeter {
+  rpc SayHello(helloworld.HelloRequest) returns (helloworld.HelloReply) {}
+}
+
+# Inspect message types
+./grpc_cli type localhost:50051 helloworld.HelloRequest
+
+# Result
+message HelloRequest {
+  string name = 1[json_name = &quot;name&quot;];
+}
+
+# Call a remote method
+./grpc_cli call localhost:50051 SayHello &quot;name: 'gRPC CLI'&quot;
+
+# Result
+connecting to localhost:50051
+message: &quot;Hello gRPC CLI&quot;
+
+Rpc succeeded with OK status
+</code></pre>
+<h2 id="grpc-encryption-grpc-communication-channel-encryption">gRPC Encryption (gRPC communication channel encryption)</h2>
+<h3 id="terms">Terms</h3>
+<ul>
+<li><code>CA (Certificate Authority)</code>: 인증기관</li>
+<li><code>PEM (Privacy Enhanced Mail)</code>: certificate info + public key encoded by base64</li>
+<li><code>CSR (Certificate Signing Request)</code>: CA 인증서 생성 요청을 위한 파일</li>
+<li><code>CRT (CeRTificate)</code>: CA가 증명하는 인증서</li>
+<li><code>$SERVER.key</code>: server private key</li>
+<li><code>$SERVER.pem</code>: PKCS#8 certificate with server public key</li>
+<li><code>$SERVER.csr</code>: server CSR (Certificate Signing Request) file</li>
+<li><code>$SERVER.crt</code>: server certificate file (서버 인증서)</li>
+<li><code>$ROOTCA.key</code>: CA private key</li>
+<li><code>$ROOTCA.crt</code>: CA certificate file for <code>$SERVER.crt</code> (<code>$SERVER.pem</code>)</li>
+</ul>
+<h3 id="generate-ceritificate">Generate ceritificate (인증서 성성)</h3>
+<pre><code class="language-bash">openssl genrsa -out ca.key 2048
+openssl req -new -x509 -days 365 -key ca.key -subj &quot;/C=KR/L=AY/O=HFR,Inc./CN=HFR's Self Signed CA&quot; -out ca.crt
+
+openssl req -newkey rsa:2048 -nodes -keyout service.key -subj &quot;/C=KR/L=AY/O=HFR,Inc./CN=HFR NE&quot; -out service.csr
+openssl x509 -req -extfile &lt;(printf &quot;subjectAltName=DNS:localhost&quot;) -days 365 -in service.csr -CA ca.crt -CAkey ca.key -CAcreateserial -out service.crt
+
+
+$ openssl genrsa -out server.key 2048
+
+# crt 바로 생성
+$ openssl req -new -x509 -sha256 -key server.key \
+              -out server.crt -days 3650
+# csr -&gt; crt 으로 변환
+$ openssl req -new -sha256 -key server.key -out server.csr
+$ openssl x509 -req -sha256 -in server.csr -signkey server.key \
+               -out server.crt -days 3650
+$ openssl req -new -x509 -sha256 -key server.key -out server.crt -days 36500 -subj &quot;/C=KR/ST=Gyeonggi/O=HFR,Inc./CN=HFR NE&quot;
+</code></pre>
+<pre><code class="language-bash"># Create ROOT certificate (TSL/SSL 인증서 생성하기)
+
+# The name of ROOT CA (Certificate Authority)
+export ROOTCA=&quot;HFR's Self Signed CA&quot;
+# Name of SERVER
+export SERVERCA=&quot;HFR NE&quot;
+# Generated file name
+export SERVER=&quot;server&quot;
+
+# Generate ROOT CA Private key (rootca.key)
+openssl genrsa -aes256 -out rootca.key 2048
+
+# Create ROOT certificate (rootca.crt) of ROOT CA (인증서 생성)
+openssl req -new -x509 -days 36500 -key rootca.key -out rootca.crt -subj &quot;/C=KR/ST=Gyeonggi/O=HFR,Inc./CN=$ROOTCA&quot;
+
+# check ROOT certificate (인증서 확인)
+openssl x509 -text -in rootca.crt
+
+
+# Create Server certificate
+
+# Generate server Private key ($SERVER.key)
+openssl genrsa -aes256 -out $SERVER.key 2048
+
+# Create Certificate request ($SERVER.csr)
+openssl req -new -key $SERVER.key -out $SERVER.csr -subj &quot;/C=KR/ST=Gyeonggi/O=HFR,Inc./CN=$SERVERCA&quot;
+
+# Create certificate (digital certificate file; 인증서)
+openssl x509 -req -days 36500 -in $SERVER.csr -CA rootca.crt -CAkey rootca.key -set_serial 01 -out $SERVER.crt
+
+# Create PKCS#8 certificate for gRPC
+# openssl pkcs8 -topk8 -nocrypt -in $SERVER.key -out $SERVER.pem
+
+
+</code></pre>
+<h3 id="generate-crt-without-asking-subjectaltname">Generate crt without asking subjectAltName</h3>
+<pre><code class="language-bash">openssl req -new -sha256 \
+    -key domain.key \
+    -subj &quot;/C=US/ST=CA/O=Acme, Inc./CN=example.com&quot; \
+    -reqexts SAN \
+    -config &lt;(cat /etc/ssl/openssl.cnf \
+        &lt;(printf &quot;\n[SAN]\nsubjectAltName=DNS:example.com,DNS:www.example.com&quot;)) \
+    -out domain.csr
+</code></pre>
+<h3 id="another-example">another example</h3>
+<pre><code class="language-bash"># Generate CA key:
+openssl genrsa -des3 -out ca.key 4096
+
+# Generate CA certificate:
+openssl req -new -x509 -days 365 -key ca.key -out ca.crt
+
+# Generate server key:
+openssl genrsa -des3 -out server.key 4096
+
+# Generate server signing request:
+openssl req -new -key server.key -out server.csr
+
+# Self-sign server certificate:
+openssl x509 -req -days 365 -in server.csr -CA ca.crt -CAkey ca.key -set_serial 01 -out server.crt
+
+# Remove passphrase from the server key:
+openssl rsa -in server.key -out server.key
+
+# Generate client key:
+openssl genrsa -des3 -out client.key 4096
+
+# Generate client signing request:
+openssl req -new -key client.key -out client.csr
+
+# Self-sign client certificate:
+openssl x509 -req -days 365 -in client.csr -CA ca.crt -CAkey ca.key -set_serial 01 -out client.crt
+
+# Remove passphrase from the client key:
+openssl rsa -in client.key -out client.key
+</code></pre>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../go/" class="btn btn-neutral float-left" title="Go handbook"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../javascript/" class="btn btn-neutral float-right" title="Javascript">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../go/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../javascript/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme_extra.js" defer></script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>

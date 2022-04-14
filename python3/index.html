@@ -1,0 +1,982 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Python3 handbook - Programming Note</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Python3 handbook";
+        var mkdocs_page_input_path = "python3.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <script src="../js/jquery-3.6.0.min.js" defer></script>
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+      <script>hljs.initHighlightingOnLoad();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> Programming Note
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">Programming Note</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../algorithm/">Algorithm note</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../cpp/">C++ study</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../go/">Go handbook</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../grpc/">gRPC handbook</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../javascript/">Javascript</a>
+                </li>
+              </ul>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="./">Python3 handbook</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#reference">Reference</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#variables">Variables</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#string">String</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#string-formatting">String formatting</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#f-string-literal-string-interpolation">f-string (Literal String Interpolation)</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#-string">%-string</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#strformat">str.format()</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#byte">Byte</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#condition-ifelifelse">Condition (if/elif/else)</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#while-for">while / for</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#function-and-lambda-express">function and lambda express</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#built-in-functions">built-in functions</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#input">Input</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#math">Math</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#list">list</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#tuple">tuple</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#set">set (집합)</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#dict-dictionary-map">dict (dictionary) = map</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#iterable-generators-yield">Iterable Generators (yield)</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#decorator">Decorator</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#comprehesion">Comprehesion</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#useful-libraries-or-simple-implementation">Useful libraries or simple implementation</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#prefix-tree-trie">Prefix Tree (Trie)</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#itertools">itertools</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#functools">functools</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#lru-least-recently-used-caching-for-memoization-dynamic-programming">LRU (least recently used) caching for memoization (dynamic programming)</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#reduce">reduce</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#heapq-min-heap">heapq (Min heap)</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#collections">collections</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#deque">deque</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#counter">Counter</a>
+    </li>
+        </ul>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#type-hint-type-annotation">Type Hint (Type Annotation)</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#variable-type-annotation">Variable Type Annotation</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#function-type-annotation">Function Type Annotation</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#type-module">Type Module</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#final-constraint-union-multiple-types">Final (Constraint), Union (Multiple Types)</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#optional">Optional</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#callable-function-type-annotation">Callable (Function Type Annotation)</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#abstraction-type-annotation">Abstraction Type Annotation</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#user-type-annotation">User Type Annotation</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#type-check">Type Check</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#environment-variables">Environment Variables</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#file">File</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#create-write">Create, Write</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#exist">Exist</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#copy">Copy</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#get-files">Get files</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#exception">Exception</a>
+    </li>
+    </ul>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../rust/">Rust</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">Programming Note</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" alt="Docs"></a> &raquo;</li><li>Python3 handbook</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="python3-handbook">Python3 handbook</h1>
+<ul>
+<li><a href="#python3-handbook">Python3 handbook</a></li>
+<li><a href="#reference">Reference</a></li>
+<li><a href="#variables">Variables</a></li>
+<li><a href="#string">String</a></li>
+<li><a href="#string-formatting">String formatting</a><ul>
+<li><a href="#f-string-literal-string-interpolation">f-string (Literal String Interpolation)</a></li>
+<li><a href="#-string">%-string</a></li>
+<li><a href="#strformat">str.format()</a></li>
+</ul>
+</li>
+<li><a href="#byte">Byte</a></li>
+<li><a href="#condition-ifelifelse">Condition (if/elif/else)</a></li>
+<li><a href="#while--for">while / for</a></li>
+<li><a href="#function-and-lambda-express">function and lambda express</a></li>
+<li><a href="#built-in-functions">built-in functions</a></li>
+<li><a href="#input">Input</a></li>
+<li><a href="#math">Math</a></li>
+<li><a href="#list">list</a></li>
+<li><a href="#tuple">tuple</a></li>
+<li><a href="#set-집합">set (집합)</a></li>
+<li><a href="#dict-dictionary--map">dict (dictionary) = map</a></li>
+<li><a href="#iterable-generators-yield">Iterable Generators (yield)</a></li>
+<li><a href="#decorator">Decorator</a></li>
+<li><a href="#comprehesion">Comprehesion</a></li>
+<li><a href="#useful-libraries-or-simple-implementation">Useful libraries or simple implementation</a><ul>
+<li><a href="#prefix-tree-trie">Prefix Tree (Trie)</a></li>
+<li><a href="#itertools">itertools</a></li>
+<li><a href="#functools">functools</a></li>
+<li><a href="#lru-least-recently-used-caching-for-memoization-dynamic-programming">LRU (least recently used) caching for memoization (dynamic programming)</a></li>
+<li><a href="#reduce">reduce</a></li>
+<li><a href="#heapq-min-heap">heapq (Min heap)</a></li>
+<li><a href="#collections">collections</a></li>
+<li><a href="#deque">deque</a></li>
+<li><a href="#counter">Counter</a></li>
+</ul>
+</li>
+<li><a href="#type-hint-type-annotation">Type Hint (Type Annotation)</a><ul>
+<li><a href="#variable-type-annotation">Variable Type Annotation</a></li>
+<li><a href="#function-type-annotation">Function Type Annotation</a></li>
+<li><a href="#type-module">Type Module</a></li>
+<li><a href="#final-constraint-union-multiple-types">Final (Constraint), Union (Multiple Types)</a></li>
+<li><a href="#optional">Optional</a></li>
+<li><a href="#callable-function-type-annotation">Callable (Function Type Annotation)</a></li>
+<li><a href="#abstraction-type-annotation">Abstraction Type Annotation</a></li>
+<li><a href="#user-type-annotation">User Type Annotation</a></li>
+</ul>
+</li>
+<li><a href="#type-check">Type Check</a></li>
+<li><a href="#environment-variables">Environment Variables</a></li>
+<li><a href="#file">File</a><ul>
+<li><a href="#create-write">Create, Write</a></li>
+<li><a href="#exist">Exist</a></li>
+<li><a href="#copy">Copy</a></li>
+<li><a href="#get-files">Get files</a></li>
+</ul>
+</li>
+<li><a href="#exception">Exception</a></li>
+</ul>
+<h2 id="reference">Reference</h2>
+<ul>
+<li>https://note.nkmk.me/en/python-list-clear-pop-remove-del/</li>
+<li>https://freedeveloper.tistory.com/271 # summary</li>
+<li>https://seongbindb.tistory.com/54 # summary</li>
+<li>https://wikidocs.net/book/1553</li>
+</ul>
+<h2 id="variables">Variables</h2>
+<pre><code class="language-python">a = 5. # 5.0
+a = 1e9 # 100000000.0
+a = 0.3 + 0.6
+
+import sys
+sys.maxsize # max int
+</code></pre>
+<h2 id="string">String</h2>
+<pre><code class="language-python">a = &quot;hello&quot;
+b = 'world'
+c = &quot;&quot;&quot;hello\nworld&quot;&quot;&quot;
+d = a+b # helloworld
+c = [&quot;goodbye&quot;, &quot;world&quot;, &quot;!&quot;]
+&quot; &quot;.join(c) # goodbye world !
+
+a.startswith(&quot;Hello&quot;)
+txt = &quot;welcome to the jungle&quot;
+x = txt.split() # ['welcome', 'to', 'the', 'jungle']
+
+
+</code></pre>
+<h2 id="string-formatting">String formatting</h2>
+<h3 id="f-string-literal-string-interpolation">f-string (Literal String Interpolation)</h3>
+<p>다른 formatting 방법보다 직관적임</p>
+<pre><code class="language-python">name = 'Song'
+sex = 'male'
+f'Hi, I am {name}. I am {sex}.' # 'Hi, I am song. I am male.'
+F'Hi, I am {name}. I am {sex}.' # 'Hi, I am song. I am male.'
+
+x = 10
+y = 3
+f'x + y = {x+y} | x * y = {x*y}' # 'x + y = 13 | x * y = 30'
+
+tuple = ('Hi, I am', 'song', 123)
+f'tuple: {tuple}' # &quot;tuple: ('Hi, I am', 'song', 123)&quot;
+</code></pre>
+<h3 id="-string">%-string</h3>
+<pre><code class="language-python">'x + y = %d | x * y = %d' %(x+y, x*y) # 'x + y = 13 | x * y = 30'
+# Positional argument
+'Hey %s, there is a 0x%x error!' % (name, errno)
+# 'Hey Bob, there is a 0xbadc0ffee error!'
+
+# keyward argument
+'Hey %(name)s, there is a 0x%(errno)x error!' % {&quot;name&quot;: name, &quot;errno&quot;: errno }
+# 'Hey Bob, there is a 0xbadc0ffee error!'
+</code></pre>
+<h3 id="strformat">str.format()</h3>
+<pre><code class="language-python">'x + y = {} | x * y = {}'.format(x+y, x*y) # 'x + y = 13 | x * y = 30'
+
+'Hey {name}, there is a 0x{errno:x} error!'.format(name=name, errno=errno)
+# 'Hey Bob, there is a 0xbadc0ffee error!'
+</code></pre>
+<blockquote>
+<p>REF&gt; 
+- https://docs.python.org/3/library/string.html#string-formatting
+- https://realpython.com/python-string-formatting</p>
+</blockquote>
+<pre><code class="language-python">&quot;First, thou shalt count to {0}&quot;  # References first positional argument
+&quot;Bring me a {}&quot;                   # Implicitly references the first positional argument
+&quot;From {} to {}&quot;                   # Same as &quot;From {0} to {1}&quot;
+&quot;My quest is {name}&quot;              # References keyword argument 'name'
+&quot;Weight in tons {0.weight}&quot;       # 'weight' attribute of first positional arg
+&quot;Units destroyed: {players[0]}&quot;   # First element of keyword argument 'players'.
+&quot;Harold's a clever {0!s}&quot;        # Calls str() on the argument first
+&quot;Bring out the holy {name!r}&quot;    # Calls repr() on the argument first
+&quot;More {!a}&quot;                      # Calls ascii() on the argument first
+</code></pre>
+<pre><code class="language-python">format_spec     ::=  [[fill]align][sign][#][0][width][grouping_option][.precision][type]
+fill            ::=  &lt;any character&gt;
+align           ::=  &quot;&lt;&quot; | &quot;&gt;&quot; | &quot;=&quot; | &quot;^&quot;
+sign            ::=  &quot;+&quot; | &quot;-&quot; | &quot; &quot;
+width           ::=  digit+
+grouping_option ::=  &quot;_&quot; | &quot;,&quot;
+precision       ::=  digit+
+type            ::=  &quot;b&quot; | &quot;c&quot; | &quot;d&quot; | &quot;e&quot; | &quot;E&quot; | &quot;f&quot; | &quot;F&quot; | &quot;g&quot; | &quot;G&quot; | &quot;n&quot; | &quot;o&quot; | &quot;s&quot; | &quot;x&quot; | &quot;X&quot; | &quot;%&quot;
+</code></pre>
+<h2 id="byte">Byte</h2>
+<pre><code class="language-python">b'\xde\xad\xbe\xef'.hex() # 'deadbeef'
+bytes.fromhex('deadbeef') # b'\xde\xad\xbe\xef'
+</code></pre>
+<h2 id="condition-ifelifelse">Condition (if/elif/else)</h2>
+<pre><code class="language-python"># 비교 연산
+x == y 
+x != y 
+x &gt; y 
+x &lt; y 
+x &gt;= y 
+x &lt;= y
+
+# 논리 연산
+x and y
+x or y
+not x
+
+x in [1, 2, 3]
+x not in [1, 2, 3]
+
+# if/elif/else
+x = 100
+if x &gt;= 100:
+    pass
+elif x &gt;= 200:
+    print(&quot;&gt;=200&quot;)
+else:
+    print(&quot;&lt;100&quot;)
+
+if x &gt;= 100: pass
+else: print(&quot;x &gt;= 100&quot;)
+
+r = &quot;&gt;=100&quot; if x &gt;= 100 else &quot;&lt;100&quot;
+
+# list 생성시 조건문
+a = [1,2,3,4,5,5,5]
+remove_set = {3,5}
+result = [i for i in a if i not in remove_set]
+</code></pre>
+<h2 id="while-for">while / for</h2>
+<pre><code class="language-python">i = 0
+while i &lt; 10:
+    i++
+
+# for i in ITERATABLE_OBJECT: e.g. list, tuple, set, dict
+for i in range(5): # 0,1,2,3,4
+    pass
+
+for i in range(1, 10, 2): # 1,3,5,7,9
+    pass
+
+for i in range(1, 10, 2): # 1
+    break # break the loop
+</code></pre>
+<h2 id="function-and-lambda-express">function and lambda express</h2>
+<pre><code class="language-python"># function declaration
+def add(a,b):
+    return a + b
+
+# call a function
+print(add(3,7))
+print(add(b=3, a=7))
+
+print((lambda a, b: a+b)(3, 7))
+</code></pre>
+<h2 id="built-in-functions">built-in functions</h2>
+<pre><code class="language-python">a = [6,2,3,4,5]
+sum(a) # 합
+min(a) # 작은 수 선택
+max(a) # 큰 수 선택
+eval(&quot;(3+3) * 10&quot;) # 문자 수식 계산
+sorted(a) # 오름차순 정렬
+sorted(a, reverse=True) # 내림차순 정렬
+a.sort() # 정렬
+b = [('A', 1),('D', 0),('B', 2)]
+sorted(jobs, key = lambda x: x[0]) # 첫번째값으로 정렬
+sorted(b, key = lambda x: x[1], reverse=True) # 두번째값으로 정렬
+b.sort(key = lambda x: x[1], reverse=True)
+
+# sort 참고: https://docs.python.org/ko/3/howto/sorting.html#sortinghowto
+
+</code></pre>
+<pre><code class="language-python"># ITERABLE 순회하며 FUNC호출
+# map(FUNC, ITERABLE)
+a = [1.2, 2.5, 3.7, 4.6]
+for i in range(len(a)):
+    a[i] = int(a[i])
+a = [1.2, 2.5, 3.7, 4.6]
+a = list(map(int, a))
+a # [1, 2, 3, 4]
+
+
+# ITERABLE 순회하며 FUNC호출하고, 결과를 병합
+# reduce(FUNC, ITERABLE)
+from functools import reduce 
+data = [1, 2, 3, 4, 5]
+def sum(a, b):
+    return a + b
+reduce(sum, data) # 15
+
+</code></pre>
+<h2 id="input">Input</h2>
+<pre><code class="language-python"># Example1
+&gt;&gt;&gt; a = input().split()
+10 20 (입력) # a=['10', '20']
+
+&gt;&gt;&gt; a = map(int, input().split())
+10 20 (입력)
+&gt;&gt;&gt; a
+&lt;map object at 0x03DFB0D0&gt;
+&gt;&gt;&gt; list(a)
+[10, 20]
+
+# Example2
+import sys 
+sys.stdin.readline().rstrip()
+</code></pre>
+<h2 id="math">Math</h2>
+<pre><code class="language-python">a = 7 b = 3
+a / b # 나누기
+a % b # 나머지
+a // b # 몫
+a ** b # 거듭제곱; a의 b승
+</code></pre>
+<pre><code class="language-python">import math
+
+math.log10(5) # log10
+math.log2(5) # log2
+math.log(2) # log e 자연로그 밑
+math.ceil(3.1) # 올림함수
+math.floor(2.5) # 내림함수
+math.factorial(a) # !a
+math.sqrt(a) # 제곱근
+math.pow(a) # a의 제곱
+math.trunc(f) # 소수점을 자르는 함수
+math.gcd(a, b) # a, b의 최대공약수
+math.radians(t) # 각도 -&gt; 라디안
+math.degrees(t) # 라디안 -&gt; 각도
+math.fabs(x) # x의 절대값; 내장함수 abs와 달리 실수 가능
+math.exp(x) # e의 x승
+round(a,4) # 반올림
+</code></pre>
+<h2 id="list">list</h2>
+<pre><code class="language-python">a = [1,2,3,4,5,6]
+a[-1] # 6
+a[-3] # 4
+a[1:4] # [2,3,4]
+
+# 초기화
+array = [i for i in range(20) if i % 2 == 1] # [1, 3, 5, 7, 9, 11, 13, 15, 17, 19]
+m = 3
+n = 4
+array = [[0] * m for _ in range(n) ] # [[0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0]]
+array[2][0] = 1 # [[0, 0, 0], [0, 0, 0], [1, 0, 0], [0, 0, 0]]s
+
+a = [1,4,3]
+a.append(2) 
+a.sort() # 오름차순 정렬
+a.sort(reverse = True) # 내림차순 정렬
+a.reverse() # 리스트 원소 뒤집기
+a.insert(2,3) # 특정 인덱스에 데이터 추가
+a.count(3) # 데이터 개수 
+a.remove(1) # 데이터 삭제 # 시간복잡도를 고려해서 remove는 사용하지 않는 것을 추천 (?)
+a.pop(0) # 데이터 삭제 (index가 없으면, 마지막 데이터 삭제)
+a.clear() # 데이터 모두 삭제
+del a[1] # 데이터 삭제
+del a[1:4] # 범위 삭제
+del a[:] # 모두 삭제
+del a[::step] # step 간격에 있는 데이터 삭제
+</code></pre>
+<h2 id="tuple">tuple</h2>
+<ul>
+<li>list와 동일</li>
+<li>immutable value: 수정 x</li>
+<li>소괄호 사용</li>
+</ul>
+<pre><code class="language-python">a = (10, 20)
+a[0] = 20 # error
+</code></pre>
+<h2 id="set">set (집합)</h2>
+<pre><code class="language-python"># 초기화
+a = set([1,1,2,3,4,4,5]) 
+b = {1,2,5,6}
+
+a | b # {1, 2, 3, 4, 5, 6}
+a &amp; b # {1, 2, 5}
+a - b # {3, 4}
+
+a.add(7)
+a.update([8, 9])
+a.remove(7) # {1, 2, 3, 4, 5, 8, 9}
+</code></pre>
+<h2 id="dict-dictionary-map">dict (dictionary) = map</h2>
+<ul>
+<li>mapping immutable key to mutable value</li>
+<li>not duplicatable key</li>
+<li>value access through keys</li>
+</ul>
+<pre><code class="language-python">&gt;&gt;&gt; a = {1: 5, 2: 3}   # int 사용
+&gt;&gt;&gt; a = {(1,5): 5, (3,3): 3} # tuple사용
+&gt;&gt;&gt; a = { 3.6: 5, &quot;abc&quot;: 3} # float 사용
+&gt;&gt;&gt; a = { True: 5, &quot;abc&quot;: 3} # bool 사용
+</code></pre>
+<pre><code class="language-python">d = dict()
+d = dict( alice = 5, bob = 20, tony= 15, suzy = 30)
+
+d = {}
+d = {'abc' : 1, 'def' : 2}
+d['abc'] = 5
+
+# nested list (tuple) to a dict
+name_and_ages = [['alice', 5], ['Bob', 13]]
+name_and_ages = [('alice', 5), ('Bob', 13)]
+name_and_ages = (('alice', 5), ('Bob', 13))
+name_and_ages = (['alice', 5], ['Bob', 13])
+dict(name_and_ages) # 위 동일한 결과
+
+# deepcopy
+import copy
+a = {'alice': [1, 2, 3], 'bob': 20, 'tony': 15, 'suzy': 30}
+b = copy.deepcopy(a)
+b['alice'].append(5)
+# b {'alice': [1, 2, 3, 5], 'bob': 20, 'tony': 15, 'suzy': 30}
+# a {'alice': [1, 2, 3], 'bob': 20, 'tony': 15, 'suzy': 30}
+
+# update
+a = {'alice': [1, 2, 3], 'bob': 20, 'tony': 15, 'suzy': 30}
+a.update({'bob':99, 'tony':99, 'kim': 30})
+# a {'alice': [1, 2, 3], 'bob': 99, 'tony': 99, 'suzy': 30, 'kim': 30}
+
+# loop
+for key in a: # key loop
+    print(key, a[key])
+
+for val in a.values(): # value loop
+    print(val)
+
+for key, val in a.items(): # key, value loop
+    print(&quot;key = {key}, value={value}&quot;.format(key=key,value=val))
+
+# check a key available
+'alice' in {'alice': [1, 2, 3], 'bob': 20, 'tony': 15, 'suzy': 30} # True
+'teacher' in {'alice': [1, 2, 3], 'bob': 20, 'tony': 15, 'suzy': 30} # False
+
+# delete
+del a['alice']
+</code></pre>
+<h2 id="iterable-generators-yield">Iterable Generators (yield)</h2>
+<p>Generators are iterators, a kind of iterable you can only iterate over once. Generators do not store all the values in memory, they generate the values on the fly:</p>
+<pre><code class="language-python">def generater():
+   mylist = range(3)
+   for i in mylist:
+       yield i * i
+
+iterable = generater() # Generater 생성
+print(iterable) # &lt;generator object generater at 0xb7555c34&gt;
+for i in iterable:
+    print(i)
+</code></pre>
+<h2 id="decorator">Decorator</h2>
+<h2 id="comprehesion">Comprehesion</h2>
+<blockquote>
+<p>REF: https://wikidocs.net/16064</p>
+</blockquote>
+<pre><code class="language-python">
+words = &quot;나는 파이썬을 공부하고 있습니다. 파이썬은 무척 심플하고 명료합니다.&quot;.split()
+
+# List representation
+[len(word) for word in words if len(word)&gt; 3]
+
+# Set representation
+{len(word) for word in words if len(word)&gt; 3}
+
+# dict (hash)
+# {key표현식 : value표현식 for item in iterable}
+country_capital = {'대한민국':'서울', '영국' :'런던', '미국' :'워싱턴', '일본' :'도쿄'}
+capital_country = {capital: country for country, capital in country_capital.items()}
+</code></pre>
+<h2 id="useful-libraries-or-simple-implementation">Useful libraries or simple implementation</h2>
+<h3 id="prefix-tree-trie">Prefix Tree (Trie)</h3>
+<pre><code class="language-python">class Trie(object):
+    def __init__(self):
+        self.child = {}
+    def insert(self, word):
+        current = self.child
+        for l in word:
+            if l not in current:
+            current[l] = {}
+            current = current[l]
+        current['#']=1
+    def search(self, word):
+        current = self.child
+        for l in word:
+            if l not in current:
+            return False
+            current = current[l]
+        return '#' in current
+    def startsWith(self, prefix):
+        current = self.child
+        for l in prefix:
+            if l not in current:
+            return False
+            current = current[l]
+        return True
+ob1 = Trie()
+ob1.insert(&quot;apple&quot;)
+print(ob1.search(&quot;apple&quot;))
+print(ob1.search(&quot;app&quot;))
+print(ob1.startsWith(&quot;app&quot;))
+ob1.insert(&quot;app&quot;)
+print(ob1.search(&quot;app&quot;))
+</code></pre>
+<h3 id="itertools">itertools</h3>
+<blockquote>
+<p>https://docs.python.org/ko/3/library/itertools.html</p>
+</blockquote>
+<ul>
+<li>permutations (순열)</li>
+<li>combinations (조합)</li>
+<li>product (중복을 허용하는 순열)</li>
+<li>combinations_with_replacement (중복을 허용하는 모든 조합)</li>
+</ul>
+<pre><code class="language-python">from itertools import permutations, combinations, product, combinations_with_replacement
+
+# 데카르트 곱(cartesian product) - 중복허용 순열
+product('ABCD', repeat=2) # AA AB AC AD BA BB BC BD CA CB CC CD DA DB DC DD
+
+# 순열
+permutations('ABCD', 2) # AB AC AD BA BC BD CA CB CD DA DB DC
+
+# 조합 (중복X)
+combinations('ABCD', 2) # AB AC AD BC BD CD
+
+# 조합 (중복허용)
+combinations_with_replacement('ABCD', 2) # AA AB AC AD BB BC BD CC CD DD
+</code></pre>
+<h3 id="functools">functools</h3>
+<blockquote>
+<p>https://docs.python.org/ko/3/library/functools.html</p>
+</blockquote>
+<h4 id="lru-least-recently-used-caching-for-memoization-dynamic-programming">LRU (least recently used) caching for memoization (dynamic programming)</h4>
+<p>functools의 lru_cache decorator를 사용해 memoization 구현</p>
+<pre><code class="language-python">from functools import lru_cache
+# 동적 프로그래밍(dynamic programming) 기법을 구현하기 위해 
+# 캐시를 사용하여 피보나치 수를 효율적으로 계산하는 예:
+
+@lru_cache(maxsize=None)
+def fib(n):
+    if n &lt; 2:
+        return n
+    return fib(n-1) + fib(n-2)
+
+&gt;&gt;&gt; [fib(n) for n in range(16)]
+[0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, 233, 377, 610]
+
+&gt;&gt;&gt; fib.cache_info()
+CacheInfo(hits=28, misses=16, maxsize=None, currsize=16)
+#버전 3.2에 추가.
+</code></pre>
+<h4 id="reduce">reduce</h4>
+<p>위에서 언급함.</p>
+<h3 id="heapq-min-heap">heapq (Min heap)</h3>
+<ul>
+<li>최소 힙</li>
+<li>PriorityQueue</li>
+<li>O(NlogN)</li>
+</ul>
+<pre><code class="language-python">import heapq
+heaplist = []
+heapq.heappush(heaplist, 4)
+heapq.heappush(heaplist, 1)
+heapq.heappush(heaplist, 7)
+heapq.heappush(heaplist, 3) # [1, 3, 7, 4]
+a = heapq.heappop(heaplist) # [3, 4, 7]
+print(a) # 1
+print(heaplist) # [3, 4, 7]
+
+# list -&gt; priority queue
+a = [10, 4, 111, 40]
+heapq.heapify(a) # min heap order로 정렬
+# [4, 10, 111, 40]
+
+# max heap
+nums = [4, 1, 7, 3, 8, 5]
+heap = []
+
+for num in nums:
+  heapq.heappush(heap, (-num, num))  # (우선 순위, 값)
+
+while heap:
+  print(heapq.heappop(heap)[1])  # index 1
+</code></pre>
+<h3 id="collections">collections</h3>
+<h4 id="deque">deque</h4>
+<pre><code class="language-python">from collections import deque
+
+q = deque()
+q.append('a')
+q.append('b')
+q.append('c')
+print(&quot;Initial queue&quot;)
+print(q)
+print(&quot;\nElements dequeued from the queue&quot;)
+print(q.popleft())
+print(q.popleft())
+print(q.popleft())
+print(&quot;\nQueue after removing elements&quot;)
+print(q)
+
+# Uncommenting q.popleft()
+# will raise an IndexError
+# as queue is now empty
+</code></pre>
+<h4 id="counter">Counter</h4>
+<p>A Counter is a dict subclass for counting hashable objects (e.g. dict).</p>
+<pre><code class="language-python">
+# A Python program to show different ways to create
+# Counter
+from collections import Counter
+
+# With sequence of items 
+print(Counter(['B','B','A','B','C','A','B','B','A','C']))
+# with dictionary
+print(Counter({'A':3, 'B':5, 'C':2}))
+# with keyword arguments
+print(Counter(A=3, B=5, C=2))
+
+# output
+# Counter({'B': 5, 'A': 3, 'C': 2})
+# Counter({'B': 5, 'A': 3, 'C': 2})
+# Counter({'B': 5, 'A': 3, 'C': 2})
+
+coun = Counter()
+coun.update([1, 2, 3, 1, 2, 1, 1, 2]) # Counter({1: 4, 2: 3, 3: 1})
+coun.update([1, 2, 4]) # Counter({1: 5, 2: 4, 3: 1, 4: 1})
+
+# Python program to demonstrate that counts in 
+# Counter can be 0 and negative
+c1 = Counter(A=4,  B=3, C=10)
+c2 = Counter(A=10, B=3, C=4)
+c1.subtract(c2) #  Counter({'c': 6, 'B': 0, 'A': -6})
+c1 - c2 ##  Counter({'c': 6, 'B': 0, 'A': -6})
+</code></pre>
+<h2 id="type-hint-type-annotation">Type Hint (Type Annotation)</h2>
+<blockquote>
+<p>REF: https://www.daleseo.com/python-type-annotations/</p>
+</blockquote>
+<pre><code class="language-python">def greeting(name: str) -&gt; str:
+    return 'Hello ' + name
+</code></pre>
+<h3 id="variable-type-annotation">Variable Type Annotation</h3>
+<pre><code class="language-python">name: str = &quot;John Doe&quot;
+age: int = 25
+emails: list: [&quot;john1@doe.com&quot;, &quot;john2@doe.com&quot;]
+address: dict = {
+  &quot;state&quot;: &quot;NM&quot;,
+  &quot;zip&quot;: &quot;80556&quot;
+}
+</code></pre>
+<h3 id="function-type-annotation">Function Type Annotation</h3>
+<pre><code class="language-python">def stringify(num: int) -&gt; str:
+    return str(num)
+
+def plus(num1: int, num2: float = 3.5) -&gt; float:
+    return num1 + num2
+
+def greet(name: str) -&gt; None:
+    return &quot;Hi! &quot; + str
+
+def repeat(message: str, times: int = 2) -&gt; list:
+    return [message] * times
+</code></pre>
+<h3 id="type-module">Type Module</h3>
+<pre><code class="language-python">from typing import List, Set, Dict, Tuple
+
+nums: List[int] = [1]
+unique_nums: Set[int] = {6, 7}
+vision: Dict[str, float] = {'left': 1.0, 'right': 0.9}
+john: Tuple[int, str, List[float]] = (25, &quot;John Doe&quot;, [1.0, 0.9])
+</code></pre>
+<h4 id="final-constraint-union-multiple-types">Final (Constraint), Union (Multiple Types)</h4>
+<pre><code class="language-python">from typing import Final, Union
+
+TIME_OUT: Final[int] = 10
+
+def toString(num: Union[int, float]) -&gt; str:
+    return str(num)
+
+toString(1)
+toString(1.5)
+</code></pre>
+<h4 id="optional">Optional</h4>
+<p>Optional은 None이 허용되는 함수의 매개 변수에 대한 타입을 명시할 때 유용</p>
+<pre><code class="language-python">from typing import Optional
+
+def repeat(message: str, times: Optional[int] = None) -&gt; list:
+    if times:
+        return [message] * times
+    else:
+        return [message]
+</code></pre>
+<h4 id="callable-function-type-annotation">Callable (Function Type Annotation)</h4>
+<pre><code class="language-python">from typing import Callable
+
+def repeat(greet: Callable[[str], str], name: str, times: int = 2) -&gt; None:
+    for _ in range(times):
+        print(greet(name))
+
+# Lamda
+greet: Callable[[str], str] = lambda name: f&quot;Hi, {name}!&quot;
+</code></pre>
+<h3 id="abstraction-type-annotation">Abstraction Type Annotation</h3>
+<pre><code class="language-python">from typing import Iterable, List
+
+def toStrings(nums: Iterable[int]) -&gt; List[str]:
+    return [str(x) for x in nums]
+</code></pre>
+<blockquote>
+<p>Other types: <code>Sequence</code>, <code>Mapping</code>, <code>MutableMapping</code></p>
+</blockquote>
+<h3 id="user-type-annotation">User Type Annotation</h3>
+<pre><code class="language-python">class User:
+    ...
+
+def find_user(id: str) -&gt; User:
+    ...
+
+def create_user(user: User) -&gt; User:
+    ...
+</code></pre>
+<h2 id="type-check">Type Check</h2>
+<pre><code class="language-python">pip install mypy
+mypy our_file.py our_directory
+</code></pre>
+<h2 id="environment-variables">Environment Variables</h2>
+<pre><code class="language-python">&gt;&gt;&gt; import os
+&gt;&gt;&gt; user = os.environ['USER']
+&gt;&gt;&gt; user
+'willing'
+</code></pre>
+<h2 id="file">File</h2>
+<h3 id="create-write">Create, Write</h3>
+<pre><code class="language-python">try:
+    #  w: write, +: newly
+    with open('docs/readme.txt', 'w+') as f:
+        f.write('Create a new text file!')
+except FileNotFoundError:
+    print(&quot;The 'docs' directory does not exist&quot;)
+</code></pre>
+<pre><code class="language-python">f = open('docs/readme.txt', 'w+')
+f.write(&quot;write data&quot;)
+f.close()
+</code></pre>
+<h3 id="exist">Exist</h3>
+<pre><code class="language-python">import os.path
+from os import path
+path.exists(&quot;guru99.txt&quot;)
+</code></pre>
+<h3 id="copy">Copy</h3>
+<pre><code class="language-python">shutil.copyfile(original, target) # copy a file to a target file.
+shutil.copy(src, dest) # copy a file to a directory.
+</code></pre>
+<h3 id="get-files">Get files</h3>
+<pre><code class="language-python">import os
+import glob
+from pprint import pprint as pp
+file_info = {os.path.realpath(p) : os.stat(p).st_size for p in glob.glob('*.*')}
+pp(file_info)
+{'/Users/Blidkaga/Documents/CodeLab/Python_Basic/a.log': 68,
+ '/Users/Blidkaga/Documents/CodeLab/Python_Basic/a.txt': 0,
+ '/Users/Blidkaga/Documents/CodeLab/Python_Basic/b.log': 0,
+ '/Users/Blidkaga/Documents/CodeLab/Python_Basic/b.txt': 0,
+ '/Users/Blidkaga/Documents/CodeLab/Python_Basic/c.log': 68,
+ '/Users/Blidkaga/Documents/CodeLab/Python_Basic/err.log': 13,
+ '/Users/Blidkaga/Documents/CodeLab/Python_Basic/exceptional.py': 566,
+ '/Users/Blidkaga/Documents/CodeLab/Python_Basic/words.py': 910}
+</code></pre>
+<h2 id="exception">Exception</h2>
+<blockquote>
+<p>https://docs.python.org/3/library/exceptions.html</p>
+</blockquote>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../javascript/" class="btn btn-neutral float-left" title="Javascript"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../rust/" class="btn btn-neutral float-right" title="Rust">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../javascript/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../rust/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme_extra.js" defer></script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>

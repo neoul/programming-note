@@ -1,0 +1,3017 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Javascript - Programming Note</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Javascript";
+        var mkdocs_page_input_path = "javascript.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <script src="../js/jquery-3.6.0.min.js" defer></script>
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+      <script>hljs.initHighlightingOnLoad();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> Programming Note
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">Programming Note</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../algorithm/">Algorithm note</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../cpp/">C++ study</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../go/">Go handbook</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../grpc/">gRPC handbook</a>
+                </li>
+              </ul>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="./">Javascript</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#javascript-engine">Javascript engine</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#garbage-collection">Garbage Collection</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#javascript-framework">javascript framework</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#linter">Linter</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#js">JS 문서화</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#polyfill">Polyfill</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_1">테스트 자동화</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#comment">Comment 주석</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#use-strict">use strict</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_2">브라우저 콘솔</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_3">전역 객체</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#polyfill_1">Polyfill의 구현</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_4">변수와 상수</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#_5">변수 명명 규칙</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_6">함수형 언어</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_7">즉시 실행 함수 표현식</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_8">자료형</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#_9">숫자형</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#isnan-isfinite">isNaN, isFinite</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#parseint-parsefloat">parseInt, parseFloat</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#math">Math</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_10">문자형</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#boolean">boolean형</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#null">null 값</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#undefined">undefined 값</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#object">object</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#const-object">const object의 내부 정보 변경 가능</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#-ok">예약어 키로 사용 - ok</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#0-0">키에 숫자 0을 넣으면 문자열 "0"으로 자동변환</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#object_1">object 비교</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#objectassign">객체 복사, 병합과 Object.assign</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#methods-and-this">Methods and this</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#constructor-function">객체 생성 함수 constructor function</a>
+    </li>
+        </ul>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#-constructor-function">- 생성자 함수(constructor function)와 일반 함수에 기술적인 차이는 없음</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#optional-chaining">옵셔널 체이닝(optional chaining) ?., ?.(), ?.[]</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#object_2">object 순회 함수</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#symbol">symbol</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#symboltoprimitive">객체의 형변환; Symbol.toPrimitive</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#iterable-symboliterator">iterable 객체 만들기; Symbol.iterator</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#array">Array</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#mapping-function-for-array">mapping function for array</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#sort">sort</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#_11">문자열 &lt;==&gt; 배열</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#reduce-reduceright">reduce와 reduceRight (누산기)</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#_12">배열인지 확인</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#map">map</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#_13">제공 함수</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#set">set</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#weakmap-and-weakset">WeakMap and WeakSet</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#date">Date</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#autocorrection">Autocorrection</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#benchmarking-test">Benchmarking Test</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#dateparse">Date.parse</a>
+    </li>
+        </ul>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#json-javascript-object-notation-serialization">JSON (JavaScript Object Notation) Serialization</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#tojson-for-customized-serialization">toJSON() for customized serialization</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#typeof">typeof</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#browser-functions">Browser functions</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#type-conversion">형변환 (type conversion)</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_14">연산자</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#operator-precedence-table">연산자 우선순위 Operator precedence table</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_15">할당 연산자</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_16">쉼표 연산자</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_17">비교 연산자</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#error">error 비교</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_18">문자열 비교</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_19">다른형간의 비교</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#strict-equality-operator">일치 연산자(strict equality operator) ===</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#null-undefined">null이나 undefined와 비교하기</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#-short-circuit-evaluation">단락 평가 - short circuit evaluation</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#nullish-nullish-coalescing-operator">nullish 병합 연산자 (nullish coalescing operator) ??</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_20">조건문</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_21">반복문</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#switchcase">switch/case문</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#function">Function</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#function-expression">Function Expression (함수 표현식)</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#arrow-function">Arrow function (화살표 함수)</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#debugger">debugger</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#consolelog">console.log</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#function-property">Function property</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#variable-arguments">variable arguments</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#input-argument-spreading">Input argument spreading</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#closure-and-lexical-scoping">Closure and Lexical scoping 클로저와 어휘 범위 지정</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#new-function">new Function</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#time-scheduling-settimeout-setinterval">Time scheduling - setTimeout, setInterval</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#testing-mocha">Testing - Mocha</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#chai-assertion-logic">chai (assertion logic)</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#destructuring-assignment">구조 분해 할당 (destructuring assignment)</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#_22">배열 분해 할당</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_23">객체 분해 할당</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#nested-destructuring">중첩 구조 분해(nested destructuring)</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#function-argument-with-destructuring-assignment">function argument with destructuring assignment</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#promise">Promise</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#then">.then</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#catch">.catch</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#finally">.finally</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#promise-chaining">Promise chaining</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#thenable">thenable</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#fetch">fetch</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#throw-an-error-in-promise">Throw an error in promise</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#mutilple-promises">Mutilple promises</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#promisify">promisify</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#microtask-queue">Microtask queue</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#async-and-await">Async and Await</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#async">async 클래스 메서드</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#async-await-error-handling">async &amp; await error handling</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#file-readwrite">File Read/Write</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#decorator-wrapping-function">Decorator (wrapping function)</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#call">객체의 call함수 사용하기</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_24">함수의 호출 함수</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#object-property">object property 속성 설정</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#getter-setter-properties">getter, setter properties</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#nodejs">nodejs</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#import-package">import package</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#nodejs-getting-start">nodejs getting start</a>
+    </li>
+        </ul>
+    </li>
+    </ul>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../python3/">Python3 handbook</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../rust/">Rust</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">Programming Note</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" alt="Docs"></a> &raquo;</li><li>Javascript</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="javascript">Javascript</h1>
+<p>이 문서는 아래 javascript tutorial을 보고 정리한 것임</p>
+<p>📁 https://ko.javascript.info</p>
+<blockquote>
+<p>자바스크립트의 공식이름?: <code>ECMAScript</code></p>
+</blockquote>
+<ul>
+<li><a href="#javascript">Javascript</a></li>
+<li><a href="#javascript-engine">Javascript engine</a></li>
+<li><a href="#garbage-collection">Garbage Collection</a></li>
+<li><a href="#javascript-framework">javascript framework</a></li>
+<li><a href="#linter">Linter</a></li>
+<li><a href="#js-문서화">JS 문서화</a></li>
+<li><a href="#polyfill">Polyfill</a></li>
+<li><a href="#테스트-자동화">테스트 자동화</a></li>
+<li><a href="#comment-주석">Comment 주석</a></li>
+<li><a href="#use-strict">use strict</a></li>
+<li><a href="#브라우저-콘솔">브라우저 콘솔</a></li>
+<li><a href="#전역-객체">전역 객체</a><ul>
+<li><a href="#polyfill의-구현">Polyfill의 구현</a></li>
+</ul>
+</li>
+<li><a href="#변수와-상수">변수와 상수</a><ul>
+<li><a href="#변수-명명-규칙">변수 명명 규칙</a></li>
+<li><a href="#함수형-언어">함수형 언어</a></li>
+<li><a href="#즉시-실행-함수-표현식">즉시 실행 함수 표현식</a></li>
+</ul>
+</li>
+<li><a href="#자료형">자료형</a><ul>
+<li><a href="#숫자형">숫자형</a></li>
+<li><a href="#isnan-isfinite">isNaN, isFinite</a></li>
+<li><a href="#parseint-parsefloat">parseInt, parseFloat</a></li>
+<li><a href="#math">Math</a></li>
+<li><a href="#문자형">문자형</a></li>
+<li><a href="#boolean형"><code>boolean</code>형</a></li>
+<li><a href="#null-값"><code>null</code> 값</a></li>
+<li><a href="#undefined-값"><code>undefined</code> 값</a></li>
+<li><a href="#object"><code>object</code></a></li>
+<li><a href="#const-object의-내부-정보-변경-가능">const object의 내부 정보 변경 가능</a></li>
+<li><a href="#예약어-키로-사용---ok">예약어 키로 사용 - ok</a></li>
+<li><a href="#키에-숫자-0을-넣으면-문자열-0으로-자동변환">키에 숫자 0을 넣으면 문자열 "0"으로 자동변환</a></li>
+<li><a href="#object-비교">object 비교</a></li>
+<li><a href="#객체-복사-병합과-objectassign">객체 복사, 병합과 Object.assign</a></li>
+<li><a href="#methods-and-this">Methods and this</a></li>
+<li><a href="#객체-생성-함수-constructor-function">객체 생성 함수 constructor function</a></li>
+<li><a href="#옵셔널-체이닝optional-chaining---">옵셔널 체이닝(optional chaining) <code>?.</code>, <code>?.()</code>, <code>?.[]</code></a></li>
+<li><a href="#object-순회-함수">object 순회 함수</a></li>
+<li><a href="#symbol"><code>symbol</code></a></li>
+<li><a href="#객체의-형변환-symboltoprimitive">객체의 형변환; Symbol.toPrimitive</a></li>
+<li><a href="#iterable-객체-만들기-symboliterator">iterable 객체 만들기; Symbol.iterator</a></li>
+<li><a href="#array"><code>Array</code></a></li>
+<li><a href="#mapping-function-for-array">mapping function for array</a></li>
+<li><a href="#sort">sort</a></li>
+<li><a href="#문자열--배열">문자열 &lt;==&gt; 배열</a></li>
+<li><a href="#reduce와-reduceright-누산기">reduce와 reduceRight (누산기)</a></li>
+<li><a href="#배열인지-확인">배열인지 확인</a></li>
+<li><a href="#map"><code>map</code></a></li>
+<li><a href="#제공-함수">제공 함수</a></li>
+<li><a href="#set"><code>set</code></a></li>
+<li><a href="#weakmap-and-weakset"><code>WeakMap</code> and <code>WeakSet</code></a></li>
+<li><a href="#date"><code>Date</code></a></li>
+<li><a href="#autocorrection">Autocorrection</a></li>
+<li><a href="#benchmarking-test">Benchmarking Test</a></li>
+<li><a href="#dateparse">Date.parse</a></li>
+</ul>
+</li>
+<li><a href="#json-javascript-object-notation-serialization">JSON (JavaScript Object Notation) Serialization</a><ul>
+<li><a href="#tojson-for-customized-serialization"><code>toJSON()</code> for customized serialization</a></li>
+</ul>
+</li>
+<li><a href="#typeof"><code>typeof</code></a></li>
+<li><a href="#browser-functions">Browser functions</a></li>
+<li><a href="#형변환-type-conversion">형변환 (type conversion)</a></li>
+<li><a href="#연산자">연산자</a><ul>
+<li><a href="#연산자-우선순위-operator-precedence-table">연산자 우선순위 Operator precedence table</a></li>
+<li><a href="#할당-연산자">할당 연산자</a></li>
+<li><a href="#쉼표-연산자">쉼표 연산자</a></li>
+</ul>
+</li>
+<li><a href="#비교-연산자">비교 연산자</a><ul>
+<li><a href="#error-비교">error 비교</a></li>
+<li><a href="#문자열-비교">문자열 비교</a></li>
+<li><a href="#다른형간의-비교">다른형간의 비교</a></li>
+<li><a href="#일치-연산자strict-equality-operator-">일치 연산자(strict equality operator) ===</a></li>
+<li><a href="#null이나-undefined와-비교하기">null이나 undefined와 비교하기</a></li>
+<li><a href="#단락-평가---short-circuit-evaluation">단락 평가 - short circuit evaluation</a></li>
+<li><a href="#nullish-병합-연산자-nullish-coalescing-operator-">nullish 병합 연산자 (nullish coalescing operator) <code>??</code></a></li>
+</ul>
+</li>
+<li><a href="#조건문">조건문</a></li>
+<li><a href="#반복문">반복문</a></li>
+<li><a href="#switchcase문">switch/case문</a></li>
+<li><a href="#function">Function</a><ul>
+<li><a href="#function-expression-함수-표현식">Function Expression (함수 표현식)</a></li>
+<li><a href="#arrow-function-화살표-함수">Arrow function (화살표 함수)</a></li>
+<li><a href="#debugger">debugger</a></li>
+<li><a href="#consolelog">console.log</a></li>
+<li><a href="#function-property">Function property</a></li>
+<li><a href="#variable-arguments">variable arguments</a></li>
+<li><a href="#input-argument-spreading">Input argument spreading</a></li>
+<li><a href="#closure-and-lexical-scoping-클로저와-어휘-범위-지정">Closure and Lexical scoping 클로저와 어휘 범위 지정</a></li>
+<li><a href="#new-function">new Function</a></li>
+</ul>
+</li>
+<li><a href="#time-scheduling---settimeout-setinterval">Time scheduling - <code>setTimeout</code>, <code>setInterval</code></a></li>
+<li><a href="#testing---mocha">Testing - Mocha</a><ul>
+<li><a href="#chai-assertion-logic">chai (assertion logic)</a></li>
+</ul>
+</li>
+<li><a href="#구조-분해-할당-destructuring-assignment">구조 분해 할당 (destructuring assignment)</a><ul>
+<li><a href="#배열-분해-할당">배열 분해 할당</a></li>
+<li><a href="#객체-분해-할당">객체 분해 할당</a></li>
+<li><a href="#중첩-구조-분해nested-destructuring">중첩 구조 분해(nested destructuring)</a></li>
+<li><a href="#function-argument-with-destructuring-assignment">function argument with destructuring assignment</a></li>
+</ul>
+</li>
+<li><a href="#promise"><code>Promise</code></a><ul>
+<li><a href="#then"><code>.then</code></a></li>
+<li><a href="#catch"><code>.catch</code></a></li>
+<li><a href="#finally"><code>.finally</code></a></li>
+<li><a href="#promise-chaining">Promise chaining</a></li>
+<li><a href="#thenable"><code>thenable</code></a></li>
+<li><a href="#fetch"><code>fetch</code></a></li>
+<li><a href="#throw-an-error-in-promise">Throw an error in promise</a></li>
+<li><a href="#mutilple-promises">Mutilple promises</a></li>
+<li><a href="#promisify">promisify</a></li>
+<li><a href="#microtask-queue">Microtask queue</a></li>
+</ul>
+</li>
+<li><a href="#async-and-await"><code>Async</code> and <code>Await</code></a><ul>
+<li><a href="#async-클래스-메서드">async 클래스 메서드</a></li>
+<li><a href="#async--await-error-handling"><code>async</code> &amp; <code>await</code> error handling</a></li>
+</ul>
+</li>
+<li><a href="#file-readwrite">File Read/Write</a></li>
+<li><a href="#decorator-wrapping-function">Decorator (wrapping function)</a><ul>
+<li><a href="#객체의-call함수-사용하기">객체의 <code>call</code>함수 사용하기</a></li>
+</ul>
+</li>
+<li><a href="#함수의-호출-함수">함수의 호출 함수</a></li>
+<li><a href="#object-property-속성-설정">object property 속성 설정</a></li>
+<li><a href="#getter-setter-properties">getter, setter properties</a></li>
+<li><a href="#nodejs">nodejs</a><ul>
+<li><a href="#import-package">import package</a></li>
+<li><a href="#nodejs-getting-start">nodejs getting start</a></li>
+</ul>
+</li>
+</ul>
+<h2 id="javascript-engine">Javascript engine</h2>
+<ul>
+<li><code>V8</code></li>
+<li><code>Firefox</code>?</li>
+</ul>
+<h2 id="garbage-collection">Garbage Collection</h2>
+<ul>
+<li>reachability 도달 가능성이 없는 변수는 삭제</li>
+<li>mark-and-sweep</li>
+<li>generational collection: 오랜시간 남은 개체 덜 감시</li>
+<li>incremental collection: 확인 개체 grouping하고 분산 처리</li>
+<li>idle-time collection: 유휴 시간 실행</li>
+</ul>
+<h2 id="javascript-framework">javascript framework</h2>
+<ul>
+<li><code>jQuery</code></li>
+<li><code>Lodash</code></li>
+</ul>
+<h2 id="linter">Linter</h2>
+<ul>
+<li><code>JSLint</code> – 역사가 오래된 linter</li>
+<li><code>JSHint</code> – JSLint보다 세팅이 좀 더 유연한 linter</li>
+<li><code>ESLint</code> – 가장 최근에 나온 linter, <code>npm install -g eslint</code></li>
+</ul>
+<h2 id="js">JS 문서화</h2>
+<ul>
+<li><code>JSDoc</code>: http://usejsdoc.org/</li>
+</ul>
+<pre><code class="language-javascript">/**
+ * x를 n번 곱한 수를 반환함
+ *
+ * @param {number} x 거듭제곱할 숫자
+ * @param {number} n 곱할 횟수, 반드시 자연수여야 함
+ * @return {number} x의 n 거듭제곱을 반환함
+ */
+function pow(x, n) {
+  ...
+}
+</code></pre>
+<h2 id="polyfill">Polyfill</h2>
+<p>폴리필(Polyfill)이란 브라우저가 지원하지 않는 자바스크립트 코드를 지원 가능하도록 변환한 코드
+하위 브라우저가 지원하는 자바스크립트 코드를 사용해 자바스크립트의 최신 기능을 똑같이 구현한 library?</p>
+<ul>
+<li>트랜스파일러: 바벨은 개발자의 컴퓨터에서 돌아가는데, 이를 실행하면 기존 코드가 구 표준을 준수하는 코드로 변경되어 웹을 통해 load됨, 웹팩(webpack)</li>
+<li>폴리필: 생략</li>
+</ul>
+<p>주목할 만한 폴리필 두 가지는 아래와 같습니다.</p>
+<ul>
+<li><code>core js</code> – 다양한 폴리필을 제공합니다. 특정 기능의 폴리필만 사용하는 것도 가능합니다.</li>
+<li><code>polyfill.io</code> – 기능이나 사용자의 브라우저에 따라 폴리필 스크립트를 제공해주는 서비스입니다.</li>
+<li><code>Babel</code></li>
+</ul>
+<h2 id="_1">테스트 자동화</h2>
+<ul>
+<li><code>Mocha</code>: describe, it과 같은 테스팅 함수와 테스트 실행 관련 주요 함수를 제공, https://mochajs.org/</li>
+<li><code>Chai</code> – 다양한 assertion을 제공해 주는 라이브러리</li>
+<li><code>Sinon</code> – 함수의 정보를 캐내는 데 사용되는 라이브러리로, 내장 함수 등을 모방</li>
+</ul>
+<p>FIXME: https://ko.javascript.info/testing-mocha</p>
+<h2 id="comment">Comment 주석</h2>
+<p><code>//</code>, <code>/* */</code></p>
+<h2 id="use-strict">use strict</h2>
+<ul>
+<li><code>ECMAScript5(ES5)</code> 기본 문법 일부 </li>
+</ul>
+<pre><code class="language-javascript">&quot;use strict&quot;
+// ES5 모드로 동작
+</code></pre>
+<h2 id="_2">브라우저 콘솔</h2>
+<p>개발한 기능을 테스트하기 위해 브라우저 콘솔을 사용하는 경우, 기본적으로 use strict가 적용되어 있지 않음</p>
+<h2 id="_3">전역 객체</h2>
+<p>브라우저 환경에선 전역 객체를 <code>window</code>, Node.js 환경에선 <code>global</code> (<code>globalThis</code>)</p>
+<pre><code class="language-javascript">var gVar = 5;
+// var로 선언한 변수는 전역 객체 property)
+alert(window.gVar); // 5
+</code></pre>
+<h3 id="polyfill_1">Polyfill의 구현</h3>
+<pre><code class="language-javascript">if (!window.Promise) {
+  alert(&quot;구식 브라우저를 사용 중이시군요!&quot;);
+}
+if (!window.Promise) {
+  window.Promise = ... // 모던 자바스크립트에서 지원하는 기능을 직접 구현함
+}
+</code></pre>
+<h2 id="_4">변수와 상수</h2>
+<ul>
+<li>javascript primitive variables: 문자(string), 숫자(number), bigint, 불린(boolean), 심볼(symbol), null, undefined형</li>
+<li>javascript의 변수는 값 수정이 아니라 교체되는 개념</li>
+</ul>
+<pre><code class="language-javascript">let message;
+
+message = 'Hello'; // 문자열을 저장합니다.
+alert(message); // 변수에 저장된 값을 보여줍니다.
+
+// 선언 방법
+let user = 'John', age = 25, message = 'Hello';
+
+let user = 'John';
+let age = 25;
+let message = 'Hello';
+
+let user = 'John',
+  age = 25,
+  message = 'Hello';
+
+// var는 let과 거의 동일하나, local에서 선언하더라도 global
+var message = 'Hello';
+
+// 상수 선언; 한번 할당되면 변경 불가
+const myBirthday = '18.04.1982';
+myBirthday = '01.01.2001'; // error, can't reassign the constant!
+
+// 대문자 상수 (일반적 관습)
+const COLOR_RED = &quot;#F00&quot;;
+const COLOR_GREEN = &quot;#0F0&quot;;
+
+// 상수 사용
+let color = COLOR_ORANGE;
+alert(color); // #FF7F00
+
+// 아래 상수는 값 할당 전이므로 이후 할당 가능
+// 할당후에는 변경 불가
+const pageLoadTime = ;
+
+</code></pre>
+<h3 id="_5">변수 명명 규칙</h3>
+<ul>
+<li><code>문자</code>와 <code>숫자</code>, 그리고 기호 <code>$</code>와 <code>_</code> 사용</li>
+<li>카멜 표기법(camelCase) 주로 사용</li>
+<li>예약어(reserved name) 사용 X</li>
+<li>첫단어 <code>숫자</code> X</li>
+<li>대소문자 구별</li>
+</ul>
+<h3 id="_6">함수형 언어</h3>
+<ul>
+<li>함수형(functional) 프로그래밍 언어는 변숫값 변경을 금지</li>
+<li>e.g. 스칼라(Scala)와 얼랭(Erlang)</li>
+<li>병렬 계산(parallel computation)에 유용</li>
+</ul>
+<h3 id="_7">즉시 실행 함수 표현식</h3>
+<p>즉시 실행 함수 표현식(immediately-invoked function expressions): 선언과 함께 함수 실행</p>
+<pre><code class="language-javascript">// IIFE를 만드는 방법
+
+(function() {
+  alert(&quot;함수를 괄호로 둘러싸기&quot;);
+})();
+
+(function() {
+  alert(&quot;전체를 괄호로 둘러싸기&quot;);
+}());
+
+!function() {
+  alert(&quot;표현식 앞에 비트 NOT 연산자 붙이기&quot;);
+}();
+
++function() {
+  alert(&quot;표현식 앞에 단항 덧셈 연산자 붙이기&quot;);
+}();
+</code></pre>
+<h2 id="_8">자료형</h2>
+<h3 id="_9">숫자형</h3>
+<ul>
+<li>숫자형 범위: <code>(2^53-1)</code> ~ <code>-(2^53-1)</code>; <code>9007199254740991</code></li>
+<li><code>BigInt</code>: 끝에 <code>n</code>을 붙이면 <code>BigInt</code></li>
+<li><code>Infinity</code> : 무한대, <code>1/0</code> 로도 구해짐</li>
+<li><code>-Infinity</code></li>
+<li><code>NaN</code>: 계산 오류, e.g. <code>"STR"/2</code>, 수로 문자를 나눌 경우</li>
+</ul>
+<pre><code class="language-javascript">let n = 123;
+n = 12.345;
+
+// 끝에 'n'이 붙으면 BigInt형 자료입니다.
+const bigInt = 1234567890123456789012345678901234567890n;
+
+let billion = 1000000000;
+let billion = 1e9;  // 10억, 1과 9개의 0
+alert( 7.3e9 );  // 73억 (7,300,000,000)
+1e3 = 1 * 1000
+1.23e6 = 1.23 * 1000000
+let ms = 0.000001;
+let ms = 1e-6; // 1에서 왼쪽으로 6번 소수점 이동
+// 10을 세 번 거듭제곱한 수로 나눔
+1e-3 = 1 / 1000 (=0.001)
+// 10을 여섯 번 거듭제곱한 수로 나눔
+1.23e-6 = 1.23 / 1000000 (=0.00000123)
+
+// 16, 8, 2진수표현
+alert( 0xff ); // 255
+alert( 0xFF ); // 255 (대·소문자를 가리지 않으므로 둘 다 같은 값을 나타냅니다.)
+let a = 0b11111111; // 255의 2진수
+let b = 0o377; // 255의 8진수
+alert( a == b ); // true, 진법은 다르지만, a와 b는 같은 수임
+let num = 255;
+alert( num.toString(16) );  // ff
+alert( num.toString(2) );   // 11111111
+alert( 123456..toString(36) ); // 2n9c // base36
+
+// Rounding 어림수
+Math.floor // 소수점 첫번째 자리 버림
+Math.ceil // 소수점 올림
+Math.round // 반올림
+// https://ko.javascript.info/number
+
+//  숫자가 너무 커지면 64비트 공간이 넘쳐서 Infinity
+alert( 1e500 ); // Infinity
+// 정밀도 손실
+alert( 0.1 + 0.2 == 0.3 ); // false
+// 정밀도 손실 확인 toFixed(n), n은 소수점 자릿수에서 어림
+alert( 0.1.toFixed(20) ); // 0.10000000000000000555
+let sum = 0.1 + 0.2;
+alert( sum.toFixed(2) ); // 0.30
+</code></pre>
+<h4 id="isnan-isfinite">isNaN, isFinite</h4>
+<pre><code class="language-javascript">// NaN은 NaN 자기 자신을 포함하여 그 어떤 값과도 같지 않다는 점에서 독특합니다.
+alert( NaN === NaN ); // false
+
+alert( isNaN(NaN) ); // true
+alert( isNaN(&quot;str&quot;) ); // true
+
+alert( isFinite(&quot;15&quot;) ); // true
+alert( isFinite(&quot;str&quot;) ); // false, NaN이기 때문입니다.
+alert( isFinite(Infinity) ); // false, Infinity이기 때문입니다.
+
+</code></pre>
+<h4 id="parseint-parsefloat">parseInt, parseFloat</h4>
+<pre><code class="language-javascript">alert( parseInt('100px') ); // 100
+alert( parseFloat('12.5em') ); // 12.5
+alert( parseInt('12.3') ); // 12, 정수 부분만 반환됩니다.
+alert( parseFloat('12.3.4') ); // 12.3, 두 번째 점에서 숫자 읽기를 멈춥니다.
+alert( parseInt('a123') ); // NaN, a는 숫자가 아니므로 숫자를 읽는 게 중지됩니다.
+alert( parseInt('0xff', 16) ); // 255
+alert( parseInt('ff', 16) ); // 255, 0x가 없어도 동작합니다.
+alert( parseInt('2n9c', 36) ); // 123456
+</code></pre>
+<h4 id="math">Math</h4>
+<pre><code class="language-javascript">alert( Math.random() ); // 0.1234567894322
+alert( Math.random() ); // 0.5435252343232
+alert( Math.random() ); // ... (무작위 수)
+alert( Math.max(3, 5, -10, 0, 1) ); // 5
+alert( Math.min(1, 2) ); // 1
+alert( Math.pow(2, 10) ); // 2의 10제곱 = 1024
+
+// 비트 NOT 연산자를 사용한 기법
+alert( ~2 ); // -3, -(2+1)과 같음
+alert( ~1 ); // -2, -(1+1)과 같음
+alert( ~0 ); // -1, -(0+1)과 같음
+alert( ~-1 ); // 0, -(-1+1)과 같음
+</code></pre>
+<h3 id="_10">문자형</h3>
+<ul>
+<li>character type 없음</li>
+<li>큰따옴표: "Hello"</li>
+<li>작은따옴표: 'Hello'</li>
+<li>역 따옴표(백틱, backtick): <code>Hello</code></li>
+<li>문자열 길이: 문자열.length</li>
+<li>문자 수정 X, 문자열로만 취급</li>
+<li>모든 문자열은 UTF-16을 사용해 인코딩</li>
+</ul>
+<pre><code class="language-javascript">let str = &quot;Hello&quot;;
+let str2 = 'Single quotes are ok too';
+let phrase = `can embed another ${str}`;
+
+let name = &quot;John&quot;;
+// backtick 사용시 - 변수를 문자열 중간에 삽입하거나 계산 가능
+alert( `Hello, ${name}!` ); // Hello, John!
+alert( `the result is ${1 + 2}` ); // the result is 3
+
+// multi-lines
+let guestList = `손님:
+ * John
+ * Pete
+ * Mary
+`;
+let guestList = &quot;손님:\n * John\n * Pete\n * Mary&quot;;
+alert( &quot;\u00A9&quot; ); // ©
+alert( &quot;\u{20331}&quot; ); // 佫, 중국어(긴 유니코드)
+alert( &quot;\u{1F60D}&quot; ); // 😍, 웃는 얼굴 기호(긴 유니코드)
+alert( 'I\'m the Walrus!' ); // I'm the Walrus!
+
+// 문자열 길이
+alert( `My\n`.length ); // 3
+
+// 문자 접근
+let str = `Hello`;
+alert( str[0] ); // H
+alert( str.charAt(0) ); // H
+alert( str[str.length - 1] ); // o; // 마지막 글자
+// 대소문자
+alert( 'Interface'.toUpperCase() ); // INTERFACE
+alert( 'Interface'.toLowerCase() ); // interface
+
+// 부분 문자열 찾기
+let str = 'Widget with id';
+alert( str.indexOf('Widget') ); // 0, str은 'Widget'으로 시작함
+alert( str.indexOf('widget') ); // -1, indexOf는 대·소문자를 따지므로 원하는 문자열을 찾지 못함
+alert( str.indexOf(&quot;id&quot;) ); // 1, &quot;id&quot;는 첫 번째 위치에서 발견됨 (Widget에서 id)
+
+let str = &quot;As sly as a fox, as strong as an ox&quot;;
+let target = &quot;as&quot;;
+let pos = -1;
+while ((pos = str.indexOf(target, pos + 1)) != -1) {
+  alert( `위치: ${pos}` );
+}
+
+// bit not 연산자 사용 기법
+let str = &quot;Widget&quot;;
+if (~str.indexOf(&quot;Widget&quot;)) {
+  alert( '찾았다!' ); // 의도한 대로 동작합니다.
+}
+
+alert( &quot;Widget with id&quot;.includes(&quot;Widget&quot;) ); // true
+alert( &quot;Widget&quot;.startsWith(&quot;Wid&quot;) ); // true, &quot;Widget&quot;은 &quot;Wid&quot;로 시작합니다.
+alert( &quot;Widget&quot;.endsWith(&quot;get&quot;) ); // true, &quot;Widget&quot;은 &quot;get&quot;으로 끝납니다.
+
+// 부분 문자열 추출
+let str = &quot;stringify&quot;;
+alert( str.slice(0, 5) ); // 'strin', 0번째부터 5번째 위치까지(5번째 위치의 글자는 포함하지 않음)
+alert( str.slice(0, 1) ); // 's', 0번째부터 1번째 위치까지(1번째 위치의 자는 포함하지 않음)
+alert( str.slice(2) ); // ringify, 2번째부터 끝까지
+alert( str.slice(-4, -1) ); // gif
+
+alert( str.substring(2, 6) ); // &quot;ring&quot;
+alert( str.substring(6, 2) ); // &quot;ring&quot;
+
+let str = &quot;stringify&quot;;
+alert( str.substr(2, 4) ); // ring, 두 번째부터 글자 네 개
+
+// 문자열 비교 UTF-16
+alert( 'a' &gt; 'Z' ); // true
+alert( 'Österreich' &gt; 'Zealand' ); // true
+
+alert( &quot;z&quot;.codePointAt(0) ); // 122
+alert( &quot;Z&quot;.codePointAt(0) ); // 90
+alert( String.fromCodePoint(90) ); // Z
+alert( '\u005a' ); // Z
+
+alert( 'Österreich'.localeCompare('Zealand') ); // -1
+</code></pre>
+<h3 id="boolean"><code>boolean</code>형</h3>
+<pre><code class="language-javascript">let nameFieldChecked = true;
+let ageFieldChecked = false;
+let isGreater = 4 &gt; 1;
+</code></pre>
+<h3 id="null"><code>null</code> 값</h3>
+<p>일반 null point의 이미가 아니라, <code>존재하지 않는(nothing)</code> 값, 
+<code>비어 있는(empty)</code> 값, <code>알 수 없는(unknown)</code> 값을 나타내는 데 사용</p>
+<pre><code class="language-javascript">let age = null; // 나이(age)를 알 수 없거나 그 값이 비어있음
+</code></pre>
+<h3 id="undefined"><code>undefined</code> 값</h3>
+<p><code>undefined</code>는 '값이 할당되지 않은 상태’를 나타낼 때 사용</p>
+<pre><code class="language-javascript">let age;
+alert(age); // 'undefined' 출력
+</code></pre>
+<h3 id="object"><code>object</code></h3>
+<ul>
+<li>= <code>json</code>?</li>
+<li>This is non-primitive type.</li>
+<li><strong>property</strong>: {key: value} pair, key=문자형, 심볼형, value=모든 자료형</li>
+<li><strong>dot notation</strong>, <strong>square bracket notation</strong>으로 property 접근,추가,삭제 가능</li>
+<li><code>in</code>을 사용해 property 존재여부 확인 가능 (<code>true</code>/<code>false</code>)</li>
+<li>property는 object에 참조로 구현됨, object를 다른 변수에 할당할 경우 같은 property를 참조함</li>
+</ul>
+<pre><code class="language-javascript">// empty object
+let user = new Object(); // 객체 생성자로 생성
+let user = {};  // 객체 리터럴(object literal)로 생성
+
+let user = {     // 객체
+  name: &quot;John&quot;,  // 키: &quot;name&quot;,  값: &quot;John&quot;
+  age: 30,       // 키: &quot;age&quot;, 값: 30
+  &quot;likes birds&quot;: true  // 복수의 단어는 따옴표
+};
+
+alert( user.name ); // John, dot notation을 사용해 접근
+alert( user[&quot;name&quot;] ); // square bracket notation을 사용한 접근
+
+user.likes birds = false; // error, 구문해석 불능
+user[&quot;likes birds&quot;] = false; // ok
+
+alart( user.weight === undefined ); // property가 없을 경우, undefined
+alart( user[&quot;weight&quot;] === undefined );
+alart( &quot;key&quot; in user ); // in 연산자 사용해 존재유무 확인
+
+
+user.isAdmin = true; // add property
+delete user.age; // delete a property
+delete user[&quot;likes birds&quot;];
+
+let user = {
+  name: &quot;John&quot;,
+  age: 30,
+};
+
+// computed property!
+let fruit = &quot;apple&quot;
+let fruit2 = &quot;banana&quot;
+let bag = {
+  [fruit]: 5, // fruit를 key로 사용
+  [fruit + 'Computers']: 5 // key로 복합 연산 가능
+};
+bag[fruit2] = 6; // fruit2를 key로 사용
+alert( bag.apple ); // fruit에 &quot;apple&quot;이 할당되었다면, 5가 출력
+
+// property value shorthand (단축 구문)
+function makeUser(name, age) {
+  return {
+    name, // name: name 과 같음
+    age,  // age: age 와 같음
+    // ...
+  };
+}
+
+let user = {
+  name,  // name: name 과 같음
+  age: 30
+};
+
+// property iteration
+for (key in object) {
+  // 각 프로퍼티 키(key)를 이용하여 본문(body)을 실행합니다.
+}
+
+// object의 property는 선언할 필요없음
+function marry(man, woman) {
+  woman.husband = man;
+  man.wife = woman;
+
+  return {
+    father: man,
+    mother: woman
+  }
+}
+
+let family = marry({
+  name: &quot;John&quot;
+}, {
+  name: &quot;Ann&quot;
+});
+</code></pre>
+<h4 id="const-object">const object의 내부 정보 변경 가능</h4>
+<pre><code class="language-javascript">const user = {
+  name: &quot;John&quot;
+};
+user.name = &quot;Pete&quot;; // (*)
+alert(user.name); // Pete
+</code></pre>
+<h4 id="-ok">예약어 키로 사용 - ok</h4>
+<pre><code class="language-javascript">// 예약어를 키로 사용해도 괜찮습니다.
+let obj = {
+  for: 1,
+  let: 2,
+  return: 3
+};
+</code></pre>
+<h4 id="0-0">키에 숫자 0을 넣으면 문자열 "0"으로 자동변환</h4>
+<pre><code class="language-javascript">let obj = {
+  0: &quot;test&quot; // &quot;0&quot;: &quot;test&quot;와 동일합니다.
+};
+
+alert( obj[&quot;0&quot;] ); // test
+alert( obj[0] ); // test
+</code></pre>
+<h4 id="object_1">object 비교</h4>
+<pre><code class="language-javascript">let a = {};
+let b = a; // 참조에 의한 복사
+alert( a == b ); // true, 두 변수는 같은 객체를 참조합니다.
+alert( a === b ); // true
+
+let a = {};
+let b = {}; // 독립된 두 객체
+alert( a == b ); // false
+</code></pre>
+<h4 id="objectassign">객체 복사, 병합과 Object.assign</h4>
+<ul>
+<li>property loop를 통해서 복사</li>
+<li><code>Object.assign(dest, [src1, src2, src3...])</code> 사용</li>
+<li>깊은 복사(deep cloning)는 직접 만들던지, lodash의 <code>_.cloneDeep(obj)</code> 사용</li>
+</ul>
+<pre><code class="language-javascript">let user = {
+  name: &quot;John&quot;,
+  age: 30
+};
+
+let clone = {}; // 새로운 빈 객체
+// 빈 객체에 user 프로퍼티 전부를 복사해 넣습니다.
+for (let key in user) {
+  clone[key] = user[key];
+}
+
+// Object.assign 사용
+let user = { name: &quot;John&quot; };
+let permissions1 = { canView: true };
+let permissions2 = { canEdit: true };
+
+// permissions1과 permissions2의 프로퍼티를 user로 복사
+Object.assign(user, permissions1, permissions2);
+</code></pre>
+<h4 id="methods-and-this">Methods and this</h4>
+<ul>
+<li>개체의 동작을 명세</li>
+<li>= property에 할당된 함수</li>
+<li><code>this</code>: method에서 해당 객체의 property 접근을 위해 사용</li>
+<li>Arrow function은 <code>this</code>가 없음, 별개의 this가 만들어지는 건 원하지 않고, 외부 컨텍스트에 있는 this를 이용하고 싶은 경우 화살표 함수가 유용</li>
+</ul>
+<pre><code class="language-javascript">let user = {
+  sayHi: function() {
+    alert(&quot;Hello&quot;);
+  }
+};
+
+// method 축약형
+let user = {
+  sayHi() { // &quot;sayHi: function()&quot;과 동일
+    alert(&quot;Hello&quot;);
+  }
+};
+
+// Arrow function은 상위 namespace의 this를 가져옴
+let user = {
+  firstName: &quot;보라&quot;,
+  sayHi() {
+    let arrow = () =&gt; alert(this.firstName);
+    arrow();
+  }
+};
+
+user.sayHi(); // sayHi의 this 차용; 결과 '보라'
+</code></pre>
+<h4 id="constructor-function">객체 생성 함수 constructor function</h4>
+<h2 id="-constructor-function">- 생성자 함수(constructor function)와 일반 함수에 기술적인 차이는 없음</h2>
+<ul>
+<li>관례1: 함수 이름의 첫 글자는 대문자로 시작</li>
+<li>관례2: 반드시 'new' 연산자를 붙여 실행</li>
+<li>new Constructor(...) 시</li>
+<li>빈 객체 생성, this에 할당</li>
+<li>함수 실행 =&gt; property 추가</li>
+<li>생성된 this를 반환</li>
+</ul>
+<pre><code class="language-javascript">// constructor function
+function User(name) {
+  // this = {};  (빈 객체가 암시적으로 만들어짐)
+  // 새로운 프로퍼티를 this에 추가함
+  this.name = name;
+  this.isAdmin = false;
+  // return this;  (this가 암시적으로 반환됨)
+}
+
+let user = new User(&quot;보라&quot;);
+alert(user.isAdmin); // false
+
+// 익명 생성자 (anonymous constructor) - 한번만 사용
+let user = new function() {
+  this.name = &quot;John&quot;;
+  this.isAdmin = false;
+};
+
+// new.target으로 constructor가 new함께 호출되었는지 알 수 있음.
+function User() {
+  alert(new.target);
+}
+// 'new' 없이 호출함
+User(); // undefined
+// 'new'를 붙여 호출함
+new User(); // function User { ... }
+
+// 생성자 () 괄호 생략
+let user = new User; // &lt;-- 괄호가 없음
+let user = new User(); // 위 코드와 똑같이 동작합니다.
+
+// 생성자에서 method 추가
+function User(name) {
+  this.name = name;
+
+  this.sayHi = function() {
+    alert( &quot;제 이름은 &quot; + this.name + &quot;입니다.&quot; );
+  };
+}
+let bora = new User(&quot;이보라&quot;);
+bora.sayHi(); // 제 이름은 이보라입니다.
+</code></pre>
+<h4 id="optional-chaining">옵셔널 체이닝(optional chaining) <code>?.</code>, <code>?.()</code>, <code>?.[]</code></h4>
+<ul>
+<li>property 존재 유무 평가</li>
+<li>method에서도 사용 가능</li>
+<li>property 쓰기에는 사용 불가</li>
+</ul>
+<pre><code class="language-javascript">let user = {}; // 주소 정보가 없는 사용자
+alert(user.address.street); // TypeError: Cannot read property 'street' of undefined
+alert( user &amp;&amp; user.address &amp;&amp; user.address.street ); // undefined, 에러가 발생하지 않습니다.
+alert( user?.address?.street ); // undefined, 에러가 발생하지 않습니다. &lt;= optional chaining
+
+// 함수 호출에도 사용
+let user1 = {
+  firstName: &quot;Violet&quot;
+  admin() {
+    alert(&quot;관리자 계정입니다.&quot;);
+  }
+}
+
+let user2 = {};
+
+user1.admin?.(); // 관리자 계정입니다.
+user2.admin?.();
+alert( user1?.[&quot;firstName&quot;] ); // Violet
+</code></pre>
+<h4 id="object_2">object 순회 함수</h4>
+<p>아래 함수는 ‘진짜’ 배열을 반환하며, Symbol은 무시</p>
+<ul>
+<li><code>Object.keys(obj)</code>: 객체의 키만 담은 배열을 반환</li>
+<li><code>Object.values(obj)</code>: 객체의 값만 담은 배열을 반환</li>
+<li><code>Object.entries(obj)</code>: [키, 값] 쌍을 담은 배열을 반환</li>
+<li><code>Object.fromEntries(array)</code>: <code>Object.entries(obj)</code>의 역변환</li>
+</ul>
+<pre><code class="language-javascript">let user = {
+  name: &quot;John&quot;,
+  age: 30
+};
+// Object.keys(user) = [&quot;name&quot;, &quot;age&quot;]
+// Object.values(user) = [&quot;John&quot;, 30]
+// Object.entries(user) = [ [&quot;name&quot;,&quot;John&quot;], [&quot;age&quot;,30] ]
+for (let value of Object.values(user)) {
+  alert(value);
+}
+
+let prices = {
+  banana: 1,
+  orange: 2,
+  meat: 4,
+};
+let doublePrices = Object.fromEntries(
+  // 객체를 배열로 변환해서 배열 전용 메서드인 map을 적용하고 fromEntries를 사용해 배열을 다시 객체로 되돌립니다.
+  Object.entries(prices).map(([key, value]) =&gt; [key, value * 2])
+);
+alert(doublePrices.meat); // 8
+</code></pre>
+<h3 id="symbol"><code>symbol</code></h3>
+<ul>
+<li>외부 객체에 자신의 정보를 hidden property로 추가시 유용</li>
+<li><code>for..in</code> 반복문에서 배제</li>
+<li><code>Object.assign</code>은 symbol도 복사함</li>
+<li><code>global symbol registry</code>: global 영역에 symbol을 저장, script 곳곳에서 symbol을 호출하여 사용</li>
+<li><code>system symbol</code>: javascript 내부 symbol; https://tc39.github.io/ecma262/#sec-well-known-symbols</li>
+<li><code>Symbol.hasInstance</code></li>
+<li><code>Symbol.isConcatSpreadable</code></li>
+<li><code>Symbol.iterator</code></li>
+<li><code>Symbol.toPrimitive</code></li>
+</ul>
+<pre><code class="language-javascript">let id = Symbol(&quot;id&quot;);
+alert(id); // TypeError: Cannot convert a Symbol value to a string
+alert(id.toString()); // Symbol(id)가 얼럿 창에 출력됨
+alert(id.description); // id
+
+// Hidden property
+let user = { // 서드파티 코드에서 가져온 객체
+  name: &quot;John&quot;
+};
+let id = Symbol(&quot;id&quot;);
+user[id] = 1;
+alert( user[id] ); // 심볼을 키로 사용해 데이터에 접근할 수 있습니다.
+
+// 다른 방법
+let id = Symbol(&quot;id&quot;);
+let user = {
+  name: &quot;John&quot;,
+  [id]: 123 // &quot;id&quot;: 123은 안됨
+};
+
+// Object.assign과 symbol 동작
+let id = Symbol(&quot;id&quot;);
+let user = {
+  [id]: 123
+};
+
+let clone = Object.assign({}, user);
+
+alert( clone[id] ); // 123
+</code></pre>
+<pre><code class="language-javascript">// 전역 레지스트리에서 심볼 읽기
+let id = Symbol.for(&quot;id&quot;); // 심볼이 존재하지 않으면 새로운 심볼 생성
+let idAgain = Symbol.for(&quot;id&quot;);
+alert( id === idAgain ); // true
+// 심볼을 이용해 이름을 얻음
+alert( Symbol.keyFor(id) ); // &quot;id&quot;
+alert( Symbol.keyFor(localSymbol) ); // 전역 심볼이 아님, undefined 반환
+</code></pre>
+<h4 id="symboltoprimitive">객체의 형변환; Symbol.toPrimitive</h4>
+<ul>
+<li>객체에 <code>obj[Symbol.toPrimitive](hint)</code>메서드가 있는지 찾고, 있다면 메서드를 호출합니다.</li>
+<li><code>Symbol.toPrimitive</code>는 시스템 심볼로, 심볼형 키로 사용됩니다.</li>
+<li>1에 해당하지 않고 hint가 "string"이라면,</li>
+<li><code>obj.toString()</code>이나 <code>obj.valueOf()</code>를 호출합니다(존재하는 메서드만 실행됨).</li>
+<li>1과 2에 해당하지 않고, hint가 "number"나 "default"라면</li>
+<li><code>obj.valueOf()</code>나 <code>obj.toString()</code>을 호출합니다(존재하는 메서드만 실행됨).</li>
+<li>hint는 "string", "number", "default" 중 하나</li>
+</ul>
+<pre><code class="language-javascript">let user = {
+  name: &quot;John&quot;,
+  money: 1000,
+
+  [Symbol.toPrimitive](hint) {
+    alert(`hint: ${hint}`);
+    return hint == &quot;string&quot; ? `{name: &quot;${this.name}&quot;}` : this.money;
+  }
+};
+
+// 데모:
+alert(user); // hint: string -&gt; {name: &quot;John&quot;}
+alert(+user); // hint: number -&gt; 1000
+alert(user + 500); // hint: default -&gt; 1500
+
+// toString, valueOf
+let user = {
+  name: &quot;John&quot;,
+  money: 1000,
+
+  // hint가 &quot;string&quot;인 경우
+  toString() {
+    return `{name: &quot;${this.name}&quot;}`;
+  },
+
+  // hint가 &quot;number&quot;나 &quot;default&quot;인 경우
+  valueOf() {
+    return this.money;
+  }
+
+};
+
+alert(user); // toString -&gt; {name: &quot;John&quot;}
+alert(+user); // valueOf -&gt; 1000
+alert(user + 500); // valueOf -&gt; 1500
+</code></pre>
+<h4 id="iterable-symboliterator">iterable 객체 만들기; Symbol.iterator</h4>
+<ul>
+<li>주로 array에 사용되던 <code>for..in</code> 이 동작 가능함</li>
+<li><code>next()</code> 다음 값 iterater를 반환</li>
+</ul>
+<pre><code class="language-javascript">let range = {
+  from: 1,
+  to: 5,
+
+  [Symbol.iterator]() {
+    this.current = this.from;
+    return this;
+  },
+
+  next() {
+    if (this.current &lt;= this.to) {
+      return { done: false, value: this.current++ };
+    } else {
+      return { done: true };
+    }
+  }
+};
+
+for (let num of range) {
+  alert(num); // 1, then 2, 3, 4, 5
+}
+</code></pre>
+<p>문자열 = iterable</p>
+<pre><code class="language-javascript">for (let char of &quot;test&quot;) {
+  // 글자 하나당 한 번 실행됩니다(4회 호출).
+  alert( char ); // t, e, s, t가 차례대로 출력됨
+}
+</code></pre>
+<p><code>Array.from</code>으로 객체를 배열로 만들기</p>
+<pre><code class="language-javascript">let arrayLike = {
+  0: &quot;Hello&quot;,
+  1: &quot;World&quot;,
+  length: 2
+};
+
+let arr = Array.from(arrayLike); // (*)
+alert(arr.pop()); // World (메서드가 제대로 동작합니다.)
+</code></pre>
+<h3 id="array"><code>Array</code></h3>
+<ul>
+<li>push와 pop은 빠르지만 shift와 unshift는 느림</li>
+<li>https://ko.javascript.info/array</li>
+<li>for..in loop 사용시 내부 property로 같이 순회하므로 사용 X</li>
+</ul>
+<pre><code class="language-javascript">// 선언
+let arr = new Array();
+let arr = [];
+let arr = new Array(2); // [undefined, undefined]
+let fruits = [&quot;사과&quot;, &quot;오렌지&quot;, &quot;자두&quot;];
+let fruits = [
+  &quot;사과&quot;,
+  &quot;오렌지&quot;,
+  &quot;자두&quot;,
+];
+let matrix = [
+  [1, 2, 3],
+  [4, 5, 6],
+  [7, 8, 9]
+];
+
+// 접근
+alert( fruits[0] ); // 사과
+fruits[2] = '배';
+
+// 크기
+alert( fruits.length ); // 3
+
+// 복합 배열
+let arr = [ '사과', { name: '이보라' }, true, function() { alert('안녕하세요.'); } ];
+
+// pop·push와 shift·unshift
+let fruits = [&quot;사과&quot;, &quot;오렌지&quot;, &quot;배&quot;];
+alert( fruits.pop() ); // 배열에서 &quot;배&quot;를 제거하고 제거된 요소를 얼럿창에 띄웁니다.
+alert( fruits ); // 사과,오렌지
+fruits.push(&quot;배&quot;);
+alert( fruits ); // 사과,오렌지,배
+alert( fruits.shift() ); // 배열에서 &quot;사과&quot;를 제거하고 제거된 요소를 얼럿창에 띄웁니다.
+alert( fruits ); // 오렌지,배
+fruits.unshift('사과'); // 앞에 요소 추가
+alert( fruits ); // 사과,오렌지,배
+
+// 여러 요소 삽입
+fruits.push(&quot;오렌지&quot;, &quot;배&quot;);
+fruits.unshift(&quot;파인애플&quot;, &quot;레몬&quot;);
+
+// 요소 삭제
+let arr = [&quot;I&quot;, &quot;go&quot;, &quot;home&quot;];
+delete arr[1]; // &quot;go&quot;를 삭제합니다.
+arr.splice(1, 1); // 인덱스 1부터 요소 한 개를 제거
+
+// 요소 대체
+let arr = [&quot;I&quot;, &quot;study&quot;, &quot;JavaScript&quot;, &quot;right&quot;, &quot;now&quot;];
+// 처음(0) 세 개(3)의 요소를 지우고, 이 자리를 다른 요소로 대체합니다.
+arr.splice(0, 3, &quot;Let's&quot;, &quot;dance&quot;);
+alert( arr ) // now [&quot;Let's&quot;, &quot;dance&quot;, &quot;right&quot;, &quot;now&quot;]
+
+// 요소 추가 (deleteCount를 0으로 설정하면 요소를 제거하지 않으면서 새로운 요소를 추가)
+arr.splice(2, 0, &quot;complex&quot;, &quot;language&quot;);
+
+// slicing, concat
+let arr = [1, 2];
+// arr의 요소 모두와 [3,4]의 요소 모두를 한데 모은 새로운 배열이 만들어집니다.
+alert( arr.concat([3, 4]) ); // 1,2,3,4
+// arr의 요소 모두와 [3,4]의 요소 모두, [5,6]의 요소 모두를 모은 새로운 배열이 만들어집니다.
+alert( arr.concat([3, 4], [5, 6]) ); // 1,2,3,4,5,6
+// arr의 요소 모두와 [3,4]의 요소 모두, 5와 6을 한데 모은 새로운 배열이 만들어집니다.
+alert( arr.concat([3, 4], 5, 6) ); // 1,2,3,4,5,6
+
+let arr = [&quot;t&quot;, &quot;e&quot;, &quot;s&quot;, &quot;t&quot;];
+alert( arr.slice(1, 3) ); // e,s (인덱스가 1인 요소부터 인덱스가 3인 요소까지를 복사(인덱스가 3인 요소는 제외))
+alert( arr.slice(-2) ); // s,t (인덱스가 -2인 요소부터 제일 끝 요소까지를 복사)
+
+// 반복문, 순회
+let arr = [&quot;사과&quot;, &quot;오렌지&quot;, &quot;배&quot;];
+
+for (let i = 0; i &lt; arr.length; i++) {
+  alert( arr[i] );
+}
+
+// for..of
+for (let fruit of fruits) {
+  alert( fruit );
+}
+
+arr.forEach(function(item, index, array) {
+  // 요소에 무언가를 할 수 있습니다.
+});
+
+[&quot;Bilbo&quot;, &quot;Gandalf&quot;, &quot;Nazgul&quot;].forEach(alert);
+[&quot;Bilbo&quot;, &quot;Gandalf&quot;, &quot;Nazgul&quot;].forEach((item, index, array) =&gt; {
+  alert(`${item} is at index ${index} in ${array}`);
+});
+
+// 배열 탐색: indexOf, lastIndexOf와 includes
+let arr = [1, 0, false];
+alert( arr.indexOf(0) ); // 1
+alert( arr.indexOf(false) ); // 2
+alert( arr.indexOf(null) ); // -1
+alert( arr.includes(1) ); // true
+
+const arr = [NaN];
+alert( arr.indexOf(NaN) ); // -1 (완전 항등 비교 === 는 NaN엔 동작하지 않으므로 0이 출력되지 않습니다.)
+alert( arr.includes(NaN) );// true (NaN의 여부를 확인하였습니다.)
+
+let result = arr.find(function(item, index, array) {
+});
+let users = [
+  {id: 1, name: &quot;John&quot;},
+  {id: 2, name: &quot;Pete&quot;},
+  {id: 3, name: &quot;Mary&quot;}
+];
+let user = users.find(item =&gt; item.id == 1);
+alert(user.name); // John
+
+// 조건 탐색
+let users = [
+  {id: 1, name: &quot;John&quot;},
+  {id: 2, name: &quot;Pete&quot;},
+  {id: 3, name: &quot;Mary&quot;}
+];
+
+// 앞쪽 사용자 두 명을 반환합니다.
+let someUsers = users.filter(item =&gt; item.id &lt; 3);
+alert(someUsers.length); // 2
+</code></pre>
+<h4 id="mapping-function-for-array">mapping function for array</h4>
+<p>배열을 변형시키거나 요소를 재 정렬해주는 메서드</p>
+<pre><code class="language-javascript">let result = arr.map(function(item, index, array) {
+  // 요소 대신 새로운 값을 반환합니다.
+});
+
+let lengths = [&quot;Bilbo&quot;, &quot;Gandalf&quot;, &quot;Nazgul&quot;].map(item =&gt; item.length);
+alert(lengths); // 5,7,6
+</code></pre>
+<h4 id="sort">sort</h4>
+<pre><code class="language-javascript">let arr = [ 1, 2, 15 ];
+arr.sort(); // arr 내부가 재 정렬됩니다.
+alert( arr );  // 1, 15, 2
+
+function compareNumeric(a, b) {
+  if (a &gt; b) return 1;
+  if (a == b) return 0;
+  if (a &lt; b) return -1;
+}
+let arr = [ 1, 2, 15 ];
+arr.sort(compareNumeric);
+alert(arr);  // 1, 2, 15
+
+[1, -2, 15, 2, 0, 8].sort(function(a, b) {
+  alert( a + &quot; &lt;&gt; &quot; + b );
+  return a - b;
+});
+
+// arrow function 사용
+arr.sort( (a, b) =&gt; a - b );
+
+// 문자열 정렬시에는 localeCompare 사용
+let countries = ['Österreich', 'Andorra', 'Vietnam'];
+alert( countries.sort( (a, b) =&gt; a &gt; b ? 1 : -1) ); // Andorra, Vietnam, Österreich (제대로 정렬이 되지 않았습니다.)
+alert( countries.sort( (a, b) =&gt; a.localeCompare(b) ) ); // Andorra,Österreich,Vietnam (제대로 정렬되었네요!)
+
+// 역정렬
+let arr = [1, 2, 3, 4, 5];
+arr.reverse();
+alert( arr ); // 5,4,3,2,1
+</code></pre>
+<h4 id="_11">문자열 &lt;==&gt; 배열</h4>
+<pre><code class="language-javascript">let names = 'Bilbo, Gandalf, Nazgul';
+let arr = names.split(', ');
+for (let name of arr) {
+  alert( `${name}에게 보내는 메시지` ); // Bilbo에게 보내는 메시지
+}
+
+let str = &quot;test&quot;;
+alert( str.split('') ); // t,e,s,t
+
+
+let arr = ['Bilbo', 'Gandalf', 'Nazgul'];
+let str = arr.join(';'); // 배열 요소 모두를 ;를 사용해 하나의 문자열로 합칩니다.
+alert( str ); // Bilbo;Gandalf;Nazgul
+</code></pre>
+<h4 id="reduce-reduceright">reduce와 reduceRight (누산기)</h4>
+<pre><code class="language-javascript">let value = arr.reduce(function(accumulator, item, index, array) {
+  // ...
+}, [initial]);
+let arr = [1, 2, 3, 4, 5];
+let result = arr.reduce((sum, current) =&gt; sum + current, 0);
+alert(result); // 15
+</code></pre>
+<h4 id="_12">배열인지 확인</h4>
+<pre><code class="language-javascript">alert(Array.isArray({})); // false
+alert(Array.isArray([])); // true
+</code></pre>
+<h3 id="map"><code>map</code></h3>
+<p>객체와 유사하지만, key에 다양한 자료형 지원</p>
+<ul>
+<li>되도록 get(), set()을 사용?</li>
+<li>map은 키로 객체를 허용</li>
+<li><code>SameValueZero</code>라 불리는 알고리즘을 사용해 값의 등가 여부를 확인</li>
+<li>call chaining 사용가능: 호출마다 map 자신을 반환함</li>
+<li>삽입 순서를 기억함 = ordered map</li>
+<li><code>Object.entries</code>: 객체를 map으로 바꾸기</li>
+<li><code>Object.fromEntries</code>: map을 객체로 바꾸기</li>
+</ul>
+<h4 id="_13">제공 함수</h4>
+<ul>
+<li><code>new Map()</code>: 생성</li>
+<li><code>map.set(key, value)</code>: {key: value} 저장</li>
+<li><code>map.get(key)</code>: value 반환, key가 존재하지 않으면 undefined</li>
+<li><code>map.has(key)</code>: true if the key exists</li>
+<li><code>map.delete(key)</code>: key, value 삭제</li>
+<li><code>map.clear()</code>: clear all in the map.</li>
+<li><code>map.size</code>:  size of the map</li>
+<li><code>map.keys()</code>: 각 요소의 키를 모은 반복 가능한(iterable, 이터러블) 객체를 반환; <code>for..of</code></li>
+<li><code>map.values()</code>: 각 요소의 값을 모은 이터러블 객체를 반환; <code>for..of</code></li>
+<li><code>map.entries()</code>: 요소의 [키, 값]을 한 쌍으로 하는 이터러블 객체를 반환; <code>for..of</code></li>
+<li><code>map.forEach((value, key, map) =&gt; {})</code>: map의 {key: value} 순회</li>
+</ul>
+<pre><code class="language-javascript">let map = new Map();
+
+map.set('1', 'str1');   // 문자형 키
+map.set(1, 'num1');     // 숫자형 키
+map.set(true, 'bool1'); // 불린형 키
+
+// map은 key의 타입을 변환시키지 않고 그대로 유지
+alert( map.get(1)   ); // 'num1'
+alert( map.get('1') ); // 'str1'
+alert( map.size ); // 3
+
+// map call chaining
+map.set('1', 'str1')
+  .set(1, 'num1')
+  .set(true, 'bool1');
+
+// map 요소 반복문
+let recipeMap = new Map([
+  ['cucumber', 500],
+  ['tomatoes', 350],
+  ['onion',    50]
+]);
+
+// 키(vegetable)를 대상으로 순회합니다.
+for (let vegetable of recipeMap.keys()) {
+  alert(vegetable); // cucumber, tomatoes, onion
+}
+
+// 값(amount)을 대상으로 순회합니다.
+for (let amount of recipeMap.values()) {
+  alert(amount); // 500, 350, 50
+}
+
+// [키, 값] 쌍을 대상으로 순회합니다.
+for (let entry of recipeMap) { // recipeMap.entries()와 동일합니다.
+  alert(entry); // cucumber,500 ...
+}
+
+// 각 (키, 값) 쌍을 대상으로 함수를 실행
+recipeMap.forEach( (value, key, map) =&gt; {
+  alert(`${key}: ${value}`); // cucumber: 500 ...
+});
+
+// map으로 변환
+let map = new Map([ // 각 요소가 [키, 값] 쌍인 배열
+  ['1',  'str1'],
+  [1,    'num1'],
+  [true, 'bool1']
+]);
+alert( map.get('1') ); // str1
+
+let obj = {
+  name: &quot;John&quot;,
+  age: 30
+};
+
+let map = new Map(Object.entries(obj));
+alert( map.get('name') ); // John
+
+// map을 object로 변환
+let prices = Object.fromEntries([
+  ['banana', 1],
+  ['orange', 2],
+  ['meat', 4]
+]);
+</code></pre>
+<h3 id="set"><code>set</code></h3>
+<p>값의 중복 불가한 collection으로 call chaining 사용가능</p>
+<ul>
+<li><code>new Set(iterable)</code>: set 생성; iterable (보통 array) 일 경우 값 복사</li>
+<li><code>set.add(value)</code>: 값을 추가</li>
+<li><code>set.delete(value)</code>: 값 삭제, it returns true or false.</li>
+<li><code>set.has(value)</code>: 값 존재 유무 반환</li>
+<li><code>set.clear()</code>: set의 모든 값 삭제</li>
+<li><code>set.size</code>: set 내 요소의 수</li>
+<li><code>set.forEach((value, valueAgain, set) =&gt; {})</code>: set 요소 반복 순회</li>
+<li><code>set.keys()</code></li>
+<li><code>set.values()</code></li>
+<li><code>set.entries()</code></li>
+</ul>
+<pre><code class="language-javascript">let set = new Set();
+let john = { name: &quot;John&quot; };
+let pete = { name: &quot;Pete&quot; };
+let mary = { name: &quot;Mary&quot; };
+set.add(john);
+set.add(pete);
+set.add(mary);
+set.add(john);
+set.add(mary);
+alert( set.size ); // 3
+for (let user of set) {
+  alert(user.name); // // John, Pete, Mary 순으로 출력됩니다.
+}
+// forEach
+set.forEach((value, valueAgain, set) =&gt; {
+  alert(value);
+});
+</code></pre>
+<h3 id="weakmap-and-weakset"><code>WeakMap</code> and <code>WeakSet</code></h3>
+<p>WeakMap은 object만을 key로 사용하며, object가 unreachable하면, WeakMap에 key도 Garbage collection에 의해 메모리에서 자동해제됨</p>
+<blockquote>
+<p>WeakMap은 부차적인 데이터를 저장할 곳이 필요할 때 유용 e.g. 사용자 방문횟수, caching</p>
+</blockquote>
+<ul>
+<li><code>weakMap.get(key)</code></li>
+<li><code>weakMap.set(key, value)</code></li>
+<li><code>weakMap.delete(key)</code></li>
+<li><code>weakMap.has(key)</code></li>
+</ul>
+<p>WeakSet도 WeakMap과 유사하나 동작을 수행한다.</p>
+<ul>
+<li><code>new WeakSet(iterable)</code>: set 생성; iterable (보통 array) 일 경우 값 복사</li>
+<li><code>weakSet.add(value)</code>: 값을 추가</li>
+<li><code>weakSet.delete(value)</code>: 값 삭제, it returns true or false.</li>
+<li><code>weakSet.has(value)</code>: 값 존재 유무 반환</li>
+</ul>
+<pre><code class="language-javascript">let john = { name: &quot;John&quot; };
+let weakMap = new WeakMap();
+weakMap.set(john, &quot;...&quot;);
+john = null; // 참조를 덮어씀
+// john을 나타내는 객체는 이제 메모리에서 지워집니다!
+
+// caching
+let cache = new WeakMap();
+// 연산을 수행하고 그 결과를 위크맵에 저장합니다.
+function process(obj) {
+  if (!cache.has(obj)) {
+    let result = /* 연산 수행 */ obj;
+    cache.set(obj, result);
+  }
+  return cache.get(obj);
+}
+
+// 📁 main.js
+let obj = {/* ... 객체 ... */};
+let result1 = process(obj);
+let result2 = process(obj);
+
+// 객체가 쓸모없어지면 아래와 같이 null로 덮어씁니다.
+obj = null;
+</code></pre>
+<h3 id="date"><code>Date</code></h3>
+<p>UTC 기준(UTC+0) 1970년 1월 1일 0시 0분 0초에서 milliseconds 후의 시간값을 저장하는 object</p>
+<ul>
+<li><code>new Date(milliseconds)</code></li>
+<li><code>new Date(datestring)</code></li>
+<li><code>new Date(year, month, date, hours, minutes, seconds, ms)</code></li>
+<li><code>getFullYear()</code>, <code>getMonth()</code>, <code>getDate()</code>, <code>getHours()</code>, <code>getMinutes()</code>, <code>getSeconds()</code>, <code>getMilliseconds()</code></li>
+<li><code>getDay()</code>: 요일</li>
+<li><code>getUTCFullYear()</code>, <code>getUTCMonth()</code>, <code>getUTCDay()</code>: UTC timezone</li>
+<li><code>getTime()</code>: returns timestamp</li>
+<li><code>getTimezoneOffset()</code>: offset from UTC basetime</li>
+<li><code>setFullYear(year, [month], [date])</code></li>
+<li><code>setMonth(month, [date])</code></li>
+<li><code>setDate(date)</code></li>
+<li><code>setHours(hour, [min], [sec], [ms])</code></li>
+<li><code>setMinutes(min, [sec], [ms])</code></li>
+<li><code>setSeconds(sec, [ms])</code></li>
+<li><code>setMilliseconds(ms)</code></li>
+<li><code>setTime(milliseconds)</code></li>
+</ul>
+<pre><code class="language-javascript">let date = new Date(&quot;2017-01-26&quot;);
+let now = new Date();
+alert( now ); // 현재 날짜 및 시간이 출력됨
+let timestamp = Date.now() // current timestamp
+</code></pre>
+<h4 id="autocorrection">Autocorrection</h4>
+<pre><code class="language-javascript">let date = new Date(2013, 0, 32); // 2013년 1월 32일
+alert(date); // 2013년 2월 1일
+alert(+date); // 숫자형으로 변환 (timestamp)
+</code></pre>
+<h4 id="benchmarking-test">Benchmarking Test</h4>
+<pre><code class="language-javascript">function diffGetTime(date1, date2) {
+  return date2.getTime() - date1.getTime();
+}
+</code></pre>
+<h4 id="dateparse">Date.parse</h4>
+<p><code>YYYY-MM-DDTHH:mm:ss.sssZ+-hh:mm</code> 형식의 문자를 parsing하여 Data object로 반환</p>
+<pre><code class="language-javascript">let ms = Date.parse('2012-01-26T13:51:50.417-07:00');
+</code></pre>
+<h2 id="json-javascript-object-notation-serialization">JSON (JavaScript Object Notation) Serialization</h2>
+<ul>
+<li>javascript의 object의 serialization 기술로 RFC4627로 표준화</li>
+<li><code>JSON.stringify</code>: It serializes an object to a JSON-encoded string.</li>
+<li><code>JSON.parse</code>: It de-serializes an object from a JSON-encoded string.</li>
+<li>표현 자료형: <code>object</code>, <code>array</code>, <code>string</code>, <code>number</code>, <code>boolean</code>, <code>null</code></li>
+<li>이외 자료형은 모두 ignored</li>
+<li>순환 참조 object가 있을 경우 error</li>
+</ul>
+<pre><code class="language-javascript">let student = {
+  name: 'John',
+  age: 30,
+  isAdmin: false,
+  courses: ['html', 'css', 'js'],
+  wife: null
+};
+let json = JSON.stringify(student);
+alert(typeof json); // string
+alert(json); // {&quot;name&quot;:&quot;John&quot;,&quot;age&quot;:30,&quot;isAdmin&quot;:false,&quot;courses&quot;:[&quot;html&quot;,&quot;css&quot;,&quot;js&quot;],&quot;wife&quot;:null}
+alart(JSON.stringify(json));
+
+// 순환 참조시 error
+let room = {
+  number: 23
+};
+let meetup = {
+  title: &quot;Conference&quot;,
+  participants: [&quot;john&quot;, &quot;ann&quot;]
+};
+meetup.place = room;       // meetup은 room을 참조합니다.
+room.occupiedBy = meetup; // room은 meetup을 참조합니다.
+JSON.stringify(meetup); // Error: Converting circular structure to JSON
+
+// 원하는 값만 추출
+// let json = JSON.stringify(value[, replacer, space])
+let room = {
+  number: 23
+};
+let meetup = {
+  title: &quot;Conference&quot;,
+  participants: [{name: &quot;John&quot;}, {name: &quot;Alice&quot;}],
+  place: room // meetup references room
+};
+room.occupiedBy = meetup; // room references meetup
+alert( JSON.stringify(meetup, ['title', 'participants', 'place', 'name', 'number']) ); // {&quot;title&quot;:&quot;Conference&quot;,&quot;participants&quot;:[{&quot;name&quot;:&quot;John&quot;},{&quot;name&quot;:&quot;Alice&quot;}],&quot;place&quot;:{&quot;number&quot;:23}}
+
+// replacer 사용
+alert( JSON.stringify(meetup, function replacer(key, value) {
+  return (key == 'occupiedBy') ? undefined : value;
+})); // {&quot;title&quot;:&quot;Conference&quot;,&quot;participants&quot;:[{&quot;name&quot;:&quot;John&quot;},{&quot;name&quot;:&quot;Alice&quot;}],&quot;place&quot;:{&quot;number&quot;:23}}
+
+// reviver 사용
+let str = '{&quot;title&quot;:&quot;Conference&quot;,&quot;date&quot;:&quot;2017-11-30T12:00:00.000Z&quot;}';
+let meetup = JSON.parse(str);
+alert( meetup.date.getDate() ); // 에러!
+meetup = JSON.parse(str, function(key, value) {
+  if (key == 'date') return new Date(value);
+  return value;
+});
+alert( meetup.date.getDate() ); // 30
+</code></pre>
+<h3 id="tojson-for-customized-serialization"><code>toJSON()</code> for customized serialization</h3>
+<pre><code class="language-javascript">let room = {
+  number: 23,
+  toJSON() {
+    return this.number;
+  }
+};
+let meetup = {
+  title: &quot;Conference&quot;,
+  room
+};
+alert( JSON.stringify(room) ); // 23
+alert( JSON.stringify(meetup) ); // {&quot;title&quot;:&quot;Conference&quot;,&quot;room&quot;:23}
+</code></pre>
+<h2 id="typeof"><code>typeof</code></h2>
+<ul>
+<li><code>typeof X</code> 연산자는 인수의 자료형을 문자열로 반환</li>
+<li>자료형에 따라 처리 방식을 다르게 할 경우 사용</li>
+<li>변수의 자료형 확인에 사용</li>
+<li>연산자형 사용: <code>typeof x</code></li>
+<li>함수형 사용: <code>typeof(x)</code></li>
+</ul>
+<pre><code class="language-javascript">typeof undefined // &quot;undefined&quot;
+typeof 0 // &quot;number&quot;
+typeof 10n // &quot;bigint&quot;
+typeof true // &quot;boolean&quot;
+typeof &quot;foo&quot; // &quot;string&quot;
+typeof Symbol(&quot;id&quot;) // &quot;symbol&quot;
+typeof Math // &quot;object&quot;  (1)
+typeof null // &quot;object&quot;  (2)
+typeof alert // &quot;function&quot;  (3)
+</code></pre>
+<h2 id="browser-functions">Browser functions</h2>
+<ul>
+<li><code>alart</code>: 메시지가 있는 작은 창, 모달 창(modal window)을 띄움</li>
+<li><code>prompt</code>: 메시지와 입력 필드(input field), 확인(OK) 및 취소(Cancel) 버튼이 있는 모달 창을 띄움</li>
+<li><code>confirm</code>: 질문과 확인 및 취소 버튼이 있는 모달 창을 띄움</li>
+</ul>
+<pre><code class="language-javascript">let age = prompt('나이를 입력해주세요.', 100);
+alert(`당신의 나이는 ${age}살 입니다.`);
+
+let isBoss = confirm(&quot;당신이 주인인가요?&quot;);
+alert( isBoss );
+</code></pre>
+<h2 id="type-conversion">형변환 (type conversion)</h2>
+<pre><code class="language-javascript">// 문자열 변환
+let value = true; // boolean형
+value = String(value); // 변수 value엔 문자열 &quot;true&quot;가 저장
+alert(typeof value); // string
+
+// 숫자로 변환
+let str = &quot;123&quot;;
+let num = Number(str); // 문자열 &quot;123&quot;이 숫자 123으로 명시적 변환
+alert(typeof num); // number
+alert( &quot;6&quot; / &quot;2&quot; ); // 3, 문자열이 숫자형으로 자동변환된 후 연산이 수행
+
+let age = Number(&quot;임의의 문자열 123&quot;);
+alert(age); // NaN, 형 변환 실패
+alert( Number(&quot;   123   &quot;) ); // 123
+alert( Number(&quot;123z&quot;) );      // NaN (&quot;z&quot;를 숫자로 변환하는 데 실패함)
+alert( Number(true) );        // 1
+alert( Number(false) );       // 0
+
+// boolean으로 변환
+alert( Boolean(1) ); // 숫자 1(true)
+alert( Boolean(0) ); // 숫자 0(false)
+alert( Boolean(&quot;hello&quot;) ); // 문자열(true)
+alert( Boolean(&quot;&quot;) ); // 빈 문자열(false)
+alert( Boolean(NaN) ); // false
+alert( Boolean(undefined) ); // false
+alert( Boolean(null) ); // false
+</code></pre>
+<h2 id="_14">연산자</h2>
+<ul>
+<li><code>+</code>: 덧셈 연산자</li>
+<li><code>-</code>: 뺄셈 연산자</li>
+<li><code>*</code>: 곱셈 연산자</li>
+<li><code>/</code>: 나눗셈 연산자</li>
+<li><code>%</code>: 나머지 연산자</li>
+<li><code>**</code>: 거듭제곱 연산자</li>
+<li><code>&amp;</code>: AND 비트 연산자</li>
+<li><code>|</code> OR 비트 연산자</li>
+<li><code>^</code> XOR 비트 연산자</li>
+<li><code>~</code> NOT 비트 연산자</li>
+<li><code>&lt;&lt;</code>: LEFT SHIFT</li>
+<li><code>&gt;&gt;</code>: RIGHT SHIFT</li>
+<li><code>&gt;&gt;&gt;</code>: ZERO-FILL RIGHT SHIFT</li>
+<li><code>||</code>: OR 논리연산자</li>
+<li><code>&amp;&amp;</code>: AND 논리연산자</li>
+<li><code>!</code>: NOT 논리연산자</li>
+</ul>
+<pre><code class="language-javascript">// 숫자
+alert( 5 % 2 ); // 5를 2로 나눈 후의 나머지인 1을 출력
+alert( 8 % 3 ); // 8을 3으로 나눈 후의 나머지인 2를 출력
+alert( 2 ** 4 ); // 16 (2 * 2 * 2 * 2)
+alert( 4 ** (1/2) ); // 2 (1/2 거듭제곱은 제곱근)
+alert( 8 ** (1/3) ); // 2 (1/3 거듭제곱은 세제곱근)
+
+// 문자열
+let s = &quot;my&quot; + &quot;string&quot;;
+alert(s); // mystring
+alert( 2 + '1' ); // &quot;21&quot;
+alert(2 + 2 + '1' ); // '221'이 아니라 '41'이 출력됩니다.
+alert( 6 - '2' ); // 4, '2'를 숫자로 바꾼 후 연산이 진행됩니다.
+alert( '6' / '2' ); // 3, 두 피연산자가 숫자로 바뀐 후 연산이 진행됩니다.
+// 숫자형이 아닌 피연산자는 숫자형으로 변화합니다.
+alert( +true ); // 1
+alert( +&quot;&quot; );   // 0
+
+let apples = &quot;2&quot;;
+let oranges = &quot;3&quot;;
+alert( apples + oranges ); // 23, 문자열 + 연산
+alert( +apples + +oranges ); // 5 숫자변환 -&gt; 숫자 + 연산
+</code></pre>
+<h3 id="operator-precedence-table">연산자 우선순위 Operator precedence table</h3>
+<p>https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Operator_Precedence</p>
+<h3 id="_15">할당 연산자</h3>
+<pre><code class="language-javascript">let a = 1;
+let b = 2;
+let c = 3 - (a = b + 1); // a = 3, c = 0
+
+alert( a ); // 3
+alert( c ); // 0
+
+a = b = c = 2 + 2;
+
+alert( a ); // 4
+alert( b ); // 4
+alert( c ); // 4
+
+let n = 2;
+n += 5; // n = n + 5
+n *= 2; // n = n * 2
+alert( n ); // 14
+n *= 3 + 5; // n *= 8
+
+let counter = 2;
+counter++; // counter = counter + 1
+counter--; // counter = counter - 1
+
+counter = 1;
+let a = ++counter;
+alert(a); // 2
+
+counter = 1;
+a = counter++;
+alert(a); // 1
+
+</code></pre>
+<h3 id="_16">쉼표 연산자</h3>
+<pre><code class="language-javascript">// 한 줄에서 세 개의 연산이 수행됨
+for (a = 1, b = 3, c = a * b; a &lt; 10; a++) {
+ ...
+}
+</code></pre>
+<h2 id="_17">비교 연산자</h2>
+<ul>
+<li>a <code>&gt;</code> b</li>
+<li>a <code>&lt;</code> b</li>
+<li>a <code>&gt;=</code> b</li>
+<li>a <code>&lt;=</code> b</li>
+<li>a <code>==</code> b</li>
+<li>a <code>!=</code> b</li>
+</ul>
+<h3 id="error">error 비교</h3>
+<pre><code class="language-javascript">const err = new Error('💣️ Something went wrong');
+console.log(err instanceof Error); // 👉️ true
+</code></pre>
+<h3 id="_18">문자열 비교</h3>
+<p>자릿수 별로 사전순으로 비교; ascii등의 문자 순위</p>
+<pre><code class="language-javascript">alert( 'Z' &gt; 'A' ); // true
+alert( 'Glow' &gt; 'Glee' ); // true
+alert( 'Bee' &gt; 'Be' ); // true
+</code></pre>
+<h3 id="_19">다른형간의 비교</h3>
+<p>쓰지 않는게 좋을 듯 ..., 명시적으로 변형해 사용하시라.</p>
+<h3 id="strict-equality-operator">일치 연산자(strict equality operator) ===</h3>
+<p>자료형의 동등 여부까지 검사; 피연산자 a와 b의 형이 다를 경우 a === b는 즉시 false를 반환함</p>
+<h3 id="null-undefined">null이나 undefined와 비교하기</h3>
+<pre><code class="language-javascript">alert( null === undefined ); // false
+alert( null == undefined ); // true
+
+alert( undefined &gt; 0 ); // false (1)
+alert( undefined &lt; 0 ); // false (2)
+alert( undefined == 0 ); // false (3)
+
+alert( null &gt; 0 );  // (1) false
+alert( null == 0 ); // (2) false
+alert( null &gt;= 0 ); // (3) true
+
+</code></pre>
+<h3 id="-short-circuit-evaluation">단락 평가 - short circuit evaluation</h3>
+<p><code>bash</code> 동작과 동일</p>
+<pre><code class="language-javascript">true || alert(&quot;not printed&quot;);
+false || alert(&quot;printed&quot;);
+</code></pre>
+<h3 id="nullish-nullish-coalescing-operator">nullish 병합 연산자 (nullish coalescing operator) <code>??</code></h3>
+<p><code>a ?? b</code>의 평가 결과는 다음과 같습니다.</p>
+<p>a가 <code>null</code>도 아니고 <code>undefined</code>도 아니면 <code>a</code>
+그 외의 경우는 <code>b</code></p>
+<pre><code class="language-javascript">x = a ?? b // nullish 아래와 동일하게 풀어쓸 수 있음.
+x = (a !== null &amp;&amp; a !== undefined) ? a : b;
+
+// 사용예
+let firstName = null;
+let lastName = null;
+let nickName = &quot;바이올렛&quot;;
+alert(firstName ?? lastName ?? nickName ?? &quot;익명의 사용자&quot;); // 바이올렛
+
+// '??'와 '||'의 차이
+let height = 0;
+alert(height || 100); // 100
+alert(height ?? 100); // 0
+</code></pre>
+<h2 id="_20">조건문</h2>
+<ul>
+<li><code>if</code>, <code>else if</code> and <code>else</code></li>
+<li><code>?</code></li>
+</ul>
+<pre><code class="language-javascript">let year = prompt('ECMAScript-2015 명세는 몇 년도에 출판되었을까요?', '');
+if (year == 2015) {
+  alert( &quot;정답입니다!&quot; );
+  alert( &quot;아주 똑똑하시네요!&quot; );
+} else if (year &gt; 2015) {
+  alert( '숫자를 좀 더 내려보세요.' );
+} else {
+  alert( '오답입니다!' );
+}
+
+// let result = condition ? value1 : value2;
+let accessAllowed = (age &gt; 18) ? true : false;
+let message = (age &lt; 3) ? '아기야 안녕?' :
+  (age &lt; 18) ? '안녕!' :
+  (age &lt; 100) ? '환영합니다!' :
+  '나이가 아주 많으시거나, 나이가 아닌 값을 입력 하셨군요!';
+
+</code></pre>
+<h2 id="_21">반복문</h2>
+<pre><code class="language-javascript">// while
+let i = 0;
+while (i &lt; 3) { // 0, 1, 2가 출력됩니다.
+  alert( i );
+  i++;
+}
+
+// do while
+let i = 0;
+do {
+  alert( i );
+  i++;
+} while (i &lt; 3);
+
+// for
+for (let i = 0; i &lt; 3; i++) { // 0, 1, 2가 출력됩니다.
+  alert(i);
+}
+
+// break
+let sum = 0;
+while (true) {
+  let value = +prompt(&quot;숫자를 입력하세요.&quot;, '');
+  if (!value) break; // (*)
+  sum += value;
+}
+alert( '합계: ' + sum );
+
+// object property 순회
+for (key in object) {
+  // 각 프로퍼티 키(key)를 이용하여 본문(body)을 실행합니다.
+}
+
+// for..of // array 순회
+for (let fruit of fruits) {
+}
+</code></pre>
+<h2 id="switchcase">switch/case문</h2>
+<p>switch/case문의 인수엔 어떤 표현식이든 올 수 있음</p>
+<pre><code class="language-javascript">let a = 2 + 2;
+let b = 0;
+switch (a) {
+  case b + 1:
+    break;
+  case 3:
+    alert( '비교하려는 값보다 작습니다.' );
+    break;
+  case 4:
+    alert( '비교하려는 값과 일치합니다.' );
+    break;
+  case 5:
+  case 6:
+    alert( '비교하려는 값보다 큽니다.' );
+    break;
+  default:
+    alert( &quot;어떤 값인지 파악이 되지 않습니다.&quot; );
+}
+</code></pre>
+<h2 id="function">Function</h2>
+<ul>
+<li>local variable: 함수 내 선언</li>
+<li>매개변수에 값을 전달하지 않으면 그 값은 <code>undefined</code></li>
+<li>자바스크립트는 함수를 특별한 종류의 variable로 취급</li>
+<li>nested function 가능</li>
+</ul>
+<pre><code class="language-javascript">// Function declaration
+let userName = 'John'; // global variable
+function showMessage() {
+  let message = 'Hello, ' + userName; // local variable
+  alert(message);
+}
+
+showMessage(); // Hello, John
+
+// Function arguments
+function showMessage(from, text) { // 인수: from, text
+  alert(from + ': ' + text);
+}
+showMessage(from, &quot;Hello&quot;); // *Ann*: Hello
+showMessage(&quot;Ann&quot;); // Ann: undefined
+
+// Function arguments with default value
+function showMessage(from, text= &quot;no text given&quot;) { // 인수: from, text
+  alert(from + ': ' + text);
+}
+showMessage(&quot;Ann&quot;); // Ann: undefined
+
+// Function return; return이 없을 경우 undefined
+function sum(a, b) {
+  return a + b;
+}
+
+// Function return 주의 사항
+function sum(a, b) {
+  return 
+    a + b; // return후 ; 자동 삽입되므로 return시 개행 하지 않기
+}
+</code></pre>
+<h3 id="function-expression">Function Expression (함수 표현식)</h3>
+<pre><code class="language-javascript">let sayHi = function() {
+  alert( &quot;Hello&quot; );
+}; // 함수 표현식에서 세미콜론 필수
+
+alert( sayHi ); // 함수 코드 출력
+alert( sayHi() ); // 함수 실행!!
+
+</code></pre>
+<h3 id="arrow-function">Arrow function (화살표 함수)</h3>
+<ul>
+<li>함수 축약 (python lambda)</li>
+<li>this를 가지지 않음 (선언된 상위 object의 this 가져다 씀)</li>
+<li>arguments 없음</li>
+<li>new와 함께 호출 불가능</li>
+<li>super도 없음</li>
+<li>자체 '컨텍스트’가 없는 짧은 코드용</li>
+</ul>
+<pre><code class="language-javascript">let func = (arg1, arg2, ...argN) =&gt; expression
+
+// e.g.
+let sum = (a, b) =&gt; a + b;
+let double = n =&gt; n * 2; // let double = function(n) { return n * 2 }
+let sayHi = () =&gt; alert(&quot;안녕하세요!&quot;);
+
+let age = prompt(&quot;나이를 알려주세요.&quot;, 18);
+let welcome = (age &lt; 18) ?
+  () =&gt; alert('안녕') :
+  () =&gt; alert(&quot;안녕하세요!&quot;);
+welcome();
+
+// example 1
+let group = {
+  title: &quot;1모둠&quot;,
+  students: [&quot;보라&quot;, &quot;호진&quot;, &quot;지민&quot;],
+
+  showList() {
+    this.students.forEach(
+      student =&gt; alert(this.title + ': ' + student)
+    );
+  }
+};
+
+group.showList();
+
+// example 2
+function defer(f, ms) {
+  return function() {
+    setTimeout(() =&gt; f.apply(this, arguments), ms)
+  };
+}
+
+function sayHi(who) {
+  alert('안녕, ' + who);
+}
+
+let sayHiDeferred = defer(sayHi, 2000);
+sayHiDeferred(&quot;철수&quot;); // 2초 후 &quot;안녕, 철수&quot;가 출력됩니다.
+</code></pre>
+<h3 id="debugger">debugger</h3>
+<p>코드에 <code>debugger</code> 삽입시 breakpoint와 동일한 동작</p>
+<pre><code class="language-javascript">function hello(name) {
+  let phrase = `Hello, ${name}!`;
+  debugger;  // &lt;-- 여기서 실행이 멈춥니다.
+  say(phrase);
+}
+</code></pre>
+<h3 id="consolelog">console.log</h3>
+<pre><code class="language-javascript">// 콘솔창을 열어 결과를 확인해 보세요.
+for (let i = 0; i &lt; 5; i++) {
+  console.log(&quot;숫자&quot;, i);
+}
+</code></pre>
+<h3 id="function-property">Function property</h3>
+<ul>
+<li><code>name</code></li>
+<li><code>length</code>: function parameter 갯수</li>
+<li>function property 추가 가능함</li>
+</ul>
+<pre><code class="language-javascript">function sayHi() {
+  alert(&quot;Hi&quot;);
+}
+alert(sayHi.name); // sayHi
+
+function f(sayHi = function() {}) {
+  alert(sayHi.name); // sayHi (이름이 있네요!)
+}
+f();
+
+// property 추가
+function sayHi() {
+  alert(&quot;Hi&quot;);
+  sayHi.counter++;
+}
+sayHi.counter = 0; // 초깃값
+sayHi(); // Hi
+sayHi(); // Hi
+alert( `호출 횟수: ${sayHi.counter}회` ); // 호출 횟수: 2회
+</code></pre>
+<h3 id="variable-arguments">variable arguments</h3>
+<p><code>...</code> 를 사용하여 가변 인자를 지원하는 함수를 만듬</p>
+<pre><code class="language-javascript">function ask(question, ...handlers) {
+  let isYes = confirm(question);
+  for(let handler of handlers) {
+    if (handler.length == 0) {
+      if (isYes) handler();
+    } else {
+      handler(isYes);
+    }
+  }
+}
+</code></pre>
+<h3 id="input-argument-spreading">Input argument spreading</h3>
+<p><code>...</code>으로 array argument를 풀어 입력할 수 있음</p>
+<pre><code class="language-javascript">let arr1 = [1, -2, 3, 4];
+let arr2 = [8, 3, -8, 1];
+alert( Math.max(1, ...arr1, 2, ...arr2, 25) ); // 25
+</code></pre>
+<p>이러한 spreading 기법은 array 선언에서도 사용가능</p>
+<pre><code class="language-javascript">let arr = [3, 5, 1];
+let arr2 = [8, 9, 15];
+let merged = [0, ...arr, 2, ...arr2];
+alert(merged); // 0,3,5,1,2,8,9,15 (0, arr, 2, arr2 순서로 합쳐집니다.)
+</code></pre>
+<h3 id="closure-and-lexical-scoping">Closure and Lexical scoping 클로저와 어휘 범위 지정</h3>
+<ul>
+<li>https://developer.mozilla.org/ko/docs/Web/JavaScript/Closures</li>
+</ul>
+<p>javascript 코드 블럭 내에서 변수와 함수의 유효범위는 다음과 같은 특성을 가짐</p>
+<ul>
+<li>javascript에서 함수는 코드 블록을 가지며, 동작을 수행하는 특수한 변수</li>
+<li>함수, 코드블록, 객체, 스크립트들은 각자 Lexical Environment라는 내부 객체를 가짐</li>
+<li>javascript는 선언된 지역 변수를 이 Lexical Env에 property로 저장</li>
+</ul>
+<pre><code class="language-javascript">function init() {
+  var name = &quot;Mozilla&quot;; // name은 init에 의해 생성된 지역 변수이다.
+  function displayName() { // displayName() 은 내부 함수이며, 클로저다.
+    alert(name); // 부모 함수에서 선언된 변수를 사용한다.
+  }
+  displayName();
+}
+init();
+</code></pre>
+<ul>
+<li>각 Lexical Env는 외부 (상위) Lexical Env에 대한 reference를 가짐 (e.g. 위 <code>displayName()</code>의 외부 Lexical Env는 <code>init()</code>)</li>
+<li>위에서 displayName()과 같이 리턴되는 함수를 <code>closure</code>라 하며, </li>
+<li><code>closure</code>는 모함수 init()의 Lexical Env를 참조할 수 있음.</li>
+<li><code>closure</code>를 사용해 javascript에서는 private method를 구현함</li>
+</ul>
+<p>아래 코드는 프라이빗 함수와 변수에 접근하는 퍼블릭 함수를 정의하기 위해 클로저를 사용하는 방법을 보여준다. 이렇게 클로저를 사용하는 것을 <strong>모듈 패턴</strong>이라 한다.</p>
+<pre><code class="language-javascript">var counter = (function() {
+  var privateCounter = 0;
+  function changeBy(val) {
+    privateCounter += val;
+  }
+  return {
+    increment: function() {
+      changeBy(1);
+    },
+    decrement: function() {
+      changeBy(-1);
+    },
+    value: function() {
+      return privateCounter;
+    }
+  };
+})();
+
+console.log(counter.value()); // logs 0
+counter.increment();
+counter.increment();
+console.log(counter.value()); // logs 2
+counter.decrement();
+console.log(counter.value()); // logs 1
+</code></pre>
+<h3 id="new-function">new Function</h3>
+<ul>
+<li><code>new</code>를 사용한 함수 생성</li>
+<li>다른 언어에서는 string으로 표현된 자신의 코드 실행하는 expr</li>
+<li>사용예) 외부에서 수신한 string function의 실행</li>
+</ul>
+<pre><code class="language-javascript">let sum = new Function('a', 'b', 'return a + b');
+alert( sum(1, 2) ); // 3
+
+let sayHi = new Function('alert(&quot;Hello&quot;)');
+sayHi(); // Hello
+</code></pre>
+<h2 id="time-scheduling-settimeout-setinterval">Time scheduling - <code>setTimeout</code>, <code>setInterval</code></h2>
+<pre><code class="language-javascript">// 설정
+let timerId = setTimeout(func|code, [delay], [arg1], [arg2], ...)
+let timerId = setInterval(func|code, [interval], [arg1], [arg2], ...)
+
+// 취소
+clearTimeout(timerId);
+</code></pre>
+<p><code>setTimeout</code>의 delay가 0일 경우, 최대한 빨리 ..</p>
+<h2 id="testing-mocha">Testing - Mocha</h2>
+<p>BDD (Behavior Driven Development)는 테스트(test), 문서(documentation), 예시(example)를 한데 모아놓은 개념</p>
+<pre><code class="language-javascript">function pow(x, n) {
+    if (n &lt; 0) return NaN;
+    if (Math.round(n) != n) return NaN;
+
+    let p = 1
+    for (let i = 0; i &lt; n; i++) {
+        p = x * p ;
+    }
+    return p;
+}
+
+// ...
+
+describe(&quot;pow&quot;, function() {
+  it(&quot;주어진 숫자의 n 제곱&quot;, function() {
+    assert.equal(pow(2, 3), 8);
+  });
+});
+
+// nested testing
+describe(&quot;pow.2&quot;, function () {
+  describe(&quot;case 1&quot;, function () {
+    before(() =&gt; console.log(&quot;testing starts&quot;));
+    after(() =&gt; console.log(&quot;testing ends&quot;));
+
+    beforeEach(() =&gt; console.log(&quot;each starts&quot;));
+    afterEach(() =&gt; console.log(&quot;each ends&quot;));
+
+    it(&quot;10^10&quot;, function () {
+        assert.equal(pow(10, 10), 10000000000);
+    });
+    it(&quot;10^5&quot;, function () {
+        assert.equal(pow(10, 6), 1000000);
+    });
+  })
+})
+</code></pre>
+<h3 id="chai-assertion-logic">chai (assertion logic)</h3>
+<ul>
+<li>assert.equal(value1, value2) – value1과 value2의 동등성을 확인합니다(value1 == value2).</li>
+<li>assert.strictEqual(value1, value2) – value1과 value2의 일치성을 확인합니다(value1 === value2).</li>
+<li>assert.notEqual, assert.notStrictEqual – 비 동등성, 비 일치성을 확인합니다.</li>
+<li>assert.isTrue(value) – value가 true인지 확인합니다(value === true).</li>
+<li>assert.isFalse(value) – value가 false인지 확인합니다(value === false).</li>
+</ul>
+<h2 id="destructuring-assignment">구조 분해 할당 (destructuring assignment)</h2>
+<ul>
+<li>원 자료의 요소를 분해, 다른 구조로 변경하기 쉬움</li>
+<li><code>let {prop : varName = default, ...rest} = object</code></li>
+<li><code>let [item1 = default, item2, ...rest] = array</code></li>
+<li><code>...</code>로 나머지 요소 가져오기</li>
+</ul>
+<h3 id="_22">배열 분해 할당</h3>
+<pre><code class="language-javascript">// 배열 분해 할당 1)
+let arr = [&quot;Bora&quot;, &quot;Lee&quot;]
+let [firstName, surname] = arr;
+alert(firstName); // Bora
+alert(surname);  // Lee
+
+// 배열 분해 할당 2)
+let [firstName, surname] = &quot;Bora Lee&quot;.split(' ');
+
+// 요소 생략
+let [firstName, , title] = [&quot;Julius&quot;, &quot;Caesar&quot;, &quot;Consul&quot;, &quot;of the Roman Republic&quot;];
+alert( title ); // Consul
+
+// iterable한 자료구조는 모두 가능
+let [a, b, c] = &quot;abc&quot;; // [&quot;a&quot;, &quot;b&quot;, &quot;c&quot;]
+let [one, two, three] = new Set([1, 2, 3]);
+
+let user = {};
+[user.name, user.surname] = &quot;Bora Lee&quot;.split(' ');
+alert(user.name); // Bora
+
+let user = {
+  name: &quot;John&quot;,
+  age: 30
+};
+// 객체의 키와 값 순회하기
+for (let [key, value] of Object.entries(user)) {
+  alert(`${key}:${value}`); // name:John, age:30이 차례대로 출력
+}
+
+// map에서의 destructuring assignment
+let user = new Map();
+user.set(&quot;name&quot;, &quot;John&quot;);
+user.set(&quot;age&quot;, &quot;30&quot;);
+for (let [key, value] of user) {
+  alert(`${key}:${value}`); // name:John, then age:30
+}
+
+// destructuring assignment 사용한 교환
+let guest = &quot;Jane&quot;;
+let admin = &quot;Pete&quot;;
+// 변수 guest엔 Pete, 변수 admin엔 Jane이 저장되도록 값을 교환함
+[guest, admin] = [admin, guest];
+alert(`${guest} ${admin}`); // Pete Jane(값 교환이 성공적으로 이뤄졌습니다!)
+
+// '...'로 나머지 요소 가져오기, rest는 배열
+let [name1, name2, ...rest] = [&quot;Julius&quot;, &quot;Caesar&quot;, &quot;Consul&quot;, &quot;of the Roman Republic&quot;];
+alert(name1); // Julius
+alert(name2); // Caesar
+alert(rest[0]); // Consul
+alert(rest[1]); // of the Roman Republic
+alert(rest.length); // 2
+
+// 값이 없을 경우 undefined
+let [firstName, surname] = [];
+alert(firstName); // undefined
+alert(surname); // undefined
+
+// default 값 설정
+let [name = &quot;Guest&quot;, surname = &quot;Anonymous&quot;] = [&quot;Julius&quot;];
+alert(name);    // Julius (배열에서 받아온 값)
+alert(surname); // Anonymous (기본값)
+
+// name의 prompt만 실행됨
+let [surname = prompt('성을 입력하세요.'), name = prompt('이름을 입력하세요.')] = [&quot;김&quot;];
+alert(surname); // 김 (배열에서 받아온 값)
+alert(name);    // prompt에서 받아온 값
+</code></pre>
+<h3 id="_23">객체 분해 할당</h3>
+<pre><code class="language-javascript">// 객체 분해 할당
+let options = {
+  title: &quot;Menu&quot;,
+  width: 100,
+  height: 200
+};
+
+let {title, width, height} = options;
+
+alert(title);  // Menu
+alert(width);  // 100
+alert(height); // 200
+
+// let {...} 안의 순서가 바뀌어도 동일하게 동작함
+let {height, width, title} = { title: &quot;Menu&quot;, height: 200, width: 100 }
+
+let options = {
+  title: &quot;Menu&quot;,
+  width: 100,
+  height: 200
+};
+// { 객체 프로퍼티: 목표 변수 }
+let {width: w, height: h, title} = options;
+// width -&gt; w
+// height -&gt; h
+// title -&gt; title
+alert(title);  // Menu
+alert(w);      // 100
+alert(h);      // 200
+
+// default 설정
+let options = {
+  title: &quot;Menu&quot;
+};
+let {width = 100, height = 200, title} = options;
+alert(title);  // Menu
+alert(width);  // 100
+alert(height); // 200
+
+// { 객체 프로퍼티: 목표 변수 } + default
+let options = {
+  title: &quot;Menu&quot;
+};
+let {width: w = 100, height: h = 200, title} = options;
+alert(title);  // Menu
+alert(w);      // 100
+alert(h);      // 200
+
+// title만 변수로 뽑아내기
+let { title } = options;
+
+// title = 이름이 title인 프로퍼티
+// rest = 나머지 프로퍼티들
+let {title, ...rest} = options;
+// title엔 &quot;Menu&quot;, rest엔 {height: 200, width: 100}이 할당됩니다.
+alert(rest.height);  // 200
+alert(rest.width);   // 100
+
+let title, width, height;
+{title, width, height} = {title: &quot;Menu&quot;, width: 200, height: 100}; // SyntaxError: Unexpected token '=' 이라는 에러가 아랫줄에서 발생합니다.
+({title, width, height} = {title: &quot;Menu&quot;, width: 200, height: 100}); // 에러가 발생하지 않습니다.
+</code></pre>
+<h3 id="nested-destructuring">중첩 구조 분해(nested destructuring)</h3>
+<pre><code class="language-javascript">let options = {
+  size: {
+    width: 100,
+    height: 200
+  },
+  items: [&quot;Cake&quot;, &quot;Donut&quot;],
+  extra: true
+};
+
+// 코드를 여러 줄에 걸쳐 작성해 의도하는 바를 명확히 드러냄
+let {
+  size: { // size는 여기,
+    width,
+    height
+  },
+  items: [item1, item2], // items는 여기에 할당함
+  title = &quot;Menu&quot; // 분해하려는 객체에 title 프로퍼티가 없으므로 기본값을 사용함
+} = options;
+
+alert(title);  // Menu
+alert(width);  // 100
+alert(height); // 200
+alert(item1);  // Cake
+alert(item2);  // Donut
+</code></pre>
+<h3 id="function-argument-with-destructuring-assignment">function argument with destructuring assignment</h3>
+<pre><code class="language-javascript">let options = {
+  title: &quot;My menu&quot;,
+  items: [&quot;Item1&quot;, &quot;Item2&quot;]
+};
+function showMenu({
+  title = &quot;Untitled&quot;,
+  width: w = 100,  // width는 w에,
+  height: h = 200, // height는 h에,
+  items: [item1, item2] // items의 첫 번째 요소는 item1에, 두 번째 요소는 item2에 할당함
+}) {
+  alert( `${title} ${w} ${h}` ); // My Menu 100 200
+  alert( item1 ); // Item1
+  alert( item2 ); // Item2
+}
+showMenu(options);
+
+showMenu({}); // 모든 인수에 기본값이 할당됩니다.
+showMenu(); // 에러가 발생할 수 있습니다.
+function showMenu({ title = &quot;Menu&quot;, width = 100, height = 200 } = {}) {
+  alert( `${title} ${width} ${height}` );
+}
+showMenu(); // Menu 100 200 // 에러 안남
+</code></pre>
+<h2 id="promise"><code>Promise</code></h2>
+<p>The Promise object represents the eventual completion (or failure) of an asynchronous operation and its resulting value.</p>
+<blockquote>
+<ul>
+<li>Producing code와 Consuming code 사이의 비동기적인 처리를 위한 장치</li>
+<li>프라미스가 대기 상태일 때, .then/catch/finally 핸들러는 프라미스 완료를 대기</li>
+<li>프라미스가 이미 처리상태라면 핸들러가 즉각 실행</li>
+</ul>
+</blockquote>
+<ul>
+<li>내부적으로 <code>state</code>, <code>result</code> 정보 유지</li>
+<li>executor 함수에서 <code>resolve(Object)</code> 호출시 <code>state</code> =&gt; <code>fulfiled</code></li>
+<li>executor 함수에서 <code>reject(Error)</code> 호출시 <code>state</code> =&gt; <code>rejected</code></li>
+<li>한번 <code>resolve</code> 또는 <code>reject</code> 호출되면, 재실행 X</li>
+</ul>
+<pre><code class="language-javascript">let promise = new Promise(function(resolve, reject) {
+  // 프라미스가 만들어지면 executor 함수는 자동으로 실행
+  // 1초 뒤에 일이 성공적으로 끝났다는 신호가 전달되면서 result는 'done'
+  setTimeout(() =&gt; resolve(&quot;done&quot;), 1000);
+  // or
+  setTimeout(() =&gt; reject(new Error(&quot;에러 발생!&quot;)), 1000);
+});
+</code></pre>
+<h3 id="then"><code>.then</code></h3>
+<p>Promise가 완료되길 대기하고 resolve, reject를 수행</p>
+<pre><code class="language-javascript">let promise = new Promise(function(resolve, reject) {
+  setTimeout(() =&gt; reject(new Error(&quot;에러 발생!&quot;)), 1000);
+});
+
+// reject 함수는 .then의 두 번째 함수를 실행합니다.
+promise.then(
+  result =&gt; alert(result), // 실행되지 않음
+  error =&gt; alert(error) // 1초 후 &quot;Error: 에러 발생!&quot;를 출력
+);
+</code></pre>
+<h3 id="catch"><code>.catch</code></h3>
+<p><code>.catch(f)</code>과 <code>.then(null,f)</code> 동일한 동작을 수행하며, 에러를 처리</p>
+<pre><code class="language-javascript">let promise = new Promise((resolve, reject) =&gt; {
+  setTimeout(() =&gt; reject(new Error(&quot;에러 발생!&quot;)), 1000);
+});
+
+// .catch(f)는 promise.then(null, f)과 동일하게 작동합니다
+promise.catch(alert); // 1초 뒤 &quot;Error: 에러 발생!&quot; 출력
+</code></pre>
+<h3 id="finally"><code>.finally</code></h3>
+<p>에러 유무와 관계없이 실행해야 할 작업을 수행</p>
+<pre><code class="language-javascript">new Promise((resolve, reject) =&gt; {
+  setTimeout(() =&gt; resolve(&quot;결과&quot;), 2000)
+})
+  .finally(() =&gt; alert(&quot;프라미스가 준비되었습니다.&quot;))
+  .then(result =&gt; alert(result)); // &lt;-- .then에서 result를 다룰 수 있음
+</code></pre>
+<h3 id="promise-chaining">Promise chaining</h3>
+<p>Promise chaining이란 promise 대기함수들의 연쇄 실행을 의미한다.
+아래와 같이 핸들러를 등록했을 경우에만 Promise 대기함수들을 연속적 실행됨</p>
+<pre><code class="language-javascript">new Promise(function(resolve, reject) {
+  setTimeout(() =&gt; resolve(1), 1000); // (*)
+}).then(function(result) { // (**)
+  alert(result); // 1
+  return result * 2;
+}).then(function(result) { // (***)
+  alert(result); // 2
+  return result * 2;
+}).then(function(result) {
+  alert(result); // 4
+  return result * 2;
+});
+</code></pre>
+<p>Promise chaining에서 신규 promise를 반환하여 chaining할 수 있음.</p>
+<pre><code class="language-javascript">new Promise(function(resolve, reject) {
+  setTimeout(() =&gt; resolve(1), 1000);
+}).then(function(result) {
+  alert(result); // 1
+  return new Promise((resolve, reject) =&gt; { // (*)
+    setTimeout(() =&gt; resolve(result * 2), 1000);
+  });
+}).then(function(result) { // (**)
+  alert(result); // 2
+  return new Promise((resolve, reject) =&gt; {
+    setTimeout(() =&gt; resolve(result * 2), 1000);
+  });
+}).then(function(result) {
+  alert(result); // 4
+});
+</code></pre>
+<h3 id="thenable"><code>thenable</code></h3>
+<p><code>.then</code>이라는 메서드를 가진 객체는 모두 thenable객체라고 부르며, promise와 같은 방식으로 처리함.</p>
+<pre><code class="language-javascript">class Thenable {
+  constructor(num) {
+    this.num = num;
+  }
+  then(resolve, reject) {
+    alert(resolve); // function() { 네이티브 코드 }
+    // 1초 후 this.num*2와 함께 이행됨
+    setTimeout(() =&gt; resolve(this.num * 2), 1000); // (**)
+  }
+}
+
+new Promise(resolve =&gt; resolve(1))
+  .then(result =&gt; {
+    return new Thenable(result); // (*)
+  })
+  .then(alert); // 1000밀리 초 후 2를 보여줌
+</code></pre>
+<h3 id="fetch"><code>fetch</code></h3>
+<p>비동기적으로 추가 정보를 받아오는 동작을 수행함; javascript 내에서 promise를 사용하여 동작함</p>
+<ul>
+<li>AJAX(Asynchronous JavaScript And XML)</li>
+<li>https://ko.javascript.info/fetch</li>
+</ul>
+<pre><code class="language-javascript">let promise = fetch(url, [options]);
+</code></pre>
+<ul>
+<li>url – 접근하고자 하는 URL</li>
+<li>options – 선택 매개변수, method나 header 등을 지정할 수 있음</li>
+</ul>
+<pre><code class="language-javascript">let response = await fetch(url);
+
+if (response.ok) { // HTTP 상태 코드가 200~299일 경우
+  // 응답 몬문을 받습니다(관련 메서드는 아래에서 설명).
+  let json = await response.json();
+} else {
+  alert(&quot;HTTP-Error: &quot; + response.status);
+}
+</code></pre>
+<h3 id="throw-an-error-in-promise">Throw an error in promise</h3>
+<pre><code class="language-javascript">// case 1) Throw an error
+new Promise((resolve, reject) =&gt; {
+  throw new Error(&quot;에러 발생!&quot;);
+}).catch(alert); // Error: 에러 발생!
+
+// case 2) Throw an error
+new Promise((resolve, reject) =&gt; {
+  reject(new Error(&quot;에러 발생!&quot;));
+}).catch(alert); // Error: 에러 발생!
+
+// case 3) Throw an error
+new Promise((resolve, reject) =&gt; {
+  resolve(&quot;ok&quot;);
+}).then((result) =&gt; {
+  throw new Error(&quot;에러 발생!&quot;); // 프라미스가 거부됨
+}).catch(alert); // Error: 에러 발생!
+
+// case 4)
+// 실행 순서: catch -&gt; then
+new Promise((resolve, reject) =&gt; {
+  throw new Error(&quot;에러 발생!&quot;);
+}).catch(function(error) {
+  alert(&quot;에러가 잘 처리되었습니다. 정상적으로 실행이 이어집니다.&quot;);
+}).then(() =&gt; alert(&quot;다음 핸들러가 실행됩니다.&quot;));
+</code></pre>
+<h3 id="mutilple-promises">Mutilple promises</h3>
+<p>다수의 promise에 대한 단일 handler 처리</p>
+<pre><code class="language-javascript">Promise.all([
+  new Promise(resolve =&gt; setTimeout(() =&gt; resolve(1), 3000)), // 1
+  new Promise(resolve =&gt; setTimeout(() =&gt; resolve(2), 2000)), // 2
+  new Promise(resolve =&gt; setTimeout(() =&gt; resolve(3), 1000))  // 3
+]).then(alert); // 프라미스 전체가 처리되면 1, 2, 3이 반환됩니다. 각 프라미스는 배열을 구성하는 요소가 됩니다.
+
+let urls = [
+  'https://api.github.com/users/iliakan',
+  'https://api.github.com/users/remy',
+  'https://api.github.com/users/jeresig'
+];
+
+// fetch를 사용해 url을 프라미스로 매핑합니다.
+let requests = urls.map(url =&gt; fetch(url));
+// Promise.all은 모든 작업이 이행될 때까지 기다립니다.
+Promise.all(requests)
+  .then(responses =&gt; responses.forEach(
+    response =&gt; alert(`${response.url}: ${response.status}`)
+  ));
+</code></pre>
+<ul>
+<li><code>Promise.all</code>: 어느 하나의 promise가 거절되면, reject handler 수행</li>
+<li><code>Promise.allSettled</code>: 모든 promise 처리 대기, 각 promise 상태 반환</li>
+<li>응답이 성공할 경우 – <code>{status:"fulfilled", value:result}</code></li>
+<li>에러가 발생한 경우 – <code>{status:"rejected", reason:error}</code></li>
+<li><code>Promise.race</code>: 가장 먼저 처리된 promise 결과 반환</li>
+<li><code>Promise.resolve/reject</code>: 많이 안쓰임</li>
+</ul>
+<h3 id="promisify">promisify</h3>
+<pre><code class="language-javascript">function promisify(f) {
+  return function (...args) { // 래퍼 함수를 반환함
+    return new Promise((resolve, reject) =&gt; {
+      function callback(err, result) { // f에 사용할 커스텀 콜백
+        if (err) {
+          reject(err);
+        } else {
+          resolve(result);
+        }
+      }
+
+      args.push(callback); // 위에서 만든 커스텀 콜백을 함수 f의 인수 끝에 추가합니다.
+
+      f.call(this, ...args); // 기존 함수를 호출합니다.
+    });
+  };
+};
+
+let loadScriptPromise = promisify(loadScript);
+loadScriptPromise(...).then(...);
+</code></pre>
+<h3 id="microtask-queue">Microtask queue</h3>
+<p>javascript의 비동기 작업을 처리하기 위한 internal work queue로 완료된 promise의 handler를 처리함</p>
+<ul>
+<li>FIFO, first-in-first-out</li>
+<li>실행될 것이 없을 대 task queue가 작동됨</li>
+</ul>
+<h2 id="async-and-await"><code>Async</code> and <code>Await</code></h2>
+<p><code>async</code>가 함수 앞에 붙으면, 함수는 resolved promise를 반환</p>
+<pre><code class="language-javascript">async function f() {
+  // return Promise.resolve(1);와 동일한 결과
+  return 1;
+}
+f().then(alert); // 1
+</code></pre>
+<ul>
+<li><code>await</code>은 <code>async</code> 함수 내에서 promise가 이행될 때까지 대기한다.</li>
+<li><code>await</code>은 일반함수에서 사용불가</li>
+<li>promise chaining 대체 사용</li>
+<li><code>await</code>는 <code>thenable</code> 객체도 수신</li>
+<li>class에 <code>await</code> 선언 가능</li>
+</ul>
+<pre><code class="language-javascript">async function f() {
+  let promise = new Promise((resolve, reject) =&gt; {
+    setTimeout(() =&gt; resolve(&quot;완료!&quot;), 1000)
+  });
+  let result = await promise; // 프라미스가 이행될 때까지 기다림 (*)
+  alert(result); // &quot;완료!&quot;
+}
+f();
+</code></pre>
+<pre><code class="language-javascript">(async () =&gt; {
+  let response = await fetch('/article/promise-chaining/user.json');
+  let user = await response.json();
+  ...
+})();
+</code></pre>
+<pre><code class="language-javascript">// .then 대신 await 사용
+async function showAvatar() {
+  // JSON 읽기
+  let response = await fetch('/article/promise-chaining/user.json');
+  let user = await response.json();
+
+  // github 사용자 정보 읽기
+  let githubResponse = await fetch(`https://api.github.com/users/${user.name}`);
+  let githubUser = await githubResponse.json();
+
+  // 아바타 보여주기
+  let img = document.createElement('img');
+  img.src = githubUser.avatar_url;
+  img.className = &quot;promise-avatar-example&quot;;
+  document.body.append(img);
+
+  // 3초 대기
+  await new Promise((resolve, reject) =&gt; setTimeout(resolve, 3000));
+  img.remove();
+  return githubUser;
+}
+showAvatar();
+</code></pre>
+<h3 id="async">async 클래스 메서드</h3>
+<pre><code class="language-javascript">class Waiter {
+  async wait() {
+    return await Promise.resolve(1);
+  }
+}
+new Waiter()
+  .wait()
+  .then(alert); // 1
+</code></pre>
+<h3 id="async-await-error-handling"><code>async</code> &amp; <code>await</code> error handling</h3>
+<pre><code class="language-javascript">// case 1
+async function f() {
+  await Promise.reject(new Error(&quot;에러 발생!&quot;));
+}
+// case 2
+async function f() {
+  throw new Error(&quot;에러 발생!&quot;);
+}
+
+// case 3 - try..catch
+async function f() {
+  try {
+    let response = await fetch('http://유효하지-않은-url');
+    let user = await response.json();
+  } catch(err) {
+    // fetch와 response.json에서 발행한 에러 모두를 여기서 잡습니다.
+    alert(err);
+  }
+}
+f();
+
+// case 4
+async function f() {
+  let response = await fetch('http://유효하지-않은-url');
+}
+f().catch(alert); // TypeError: failed to fetch // (*)
+
+// case 5 - await Promise.all
+// 프라미스 처리 결과가 담긴 배열을 기다립니다.
+let results = await Promise.all([
+  fetch(url1),
+  fetch(url2),
+  ...
+]);
+
+</code></pre>
+<h2 id="file-readwrite">File Read/Write</h2>
+<p>https://velog.io/@93jm/Node.js-File-System%EC%9D%98-%EC%82%AC%EC%9A%A9%EA%B3%BC-async-await-%EC%B2%98%EB%A6%AC</p>
+<h2 id="decorator-wrapping-function">Decorator (wrapping function)</h2>
+<pre><code class="language-javascript">function slow(x) {
+  // CPU 집약적인 작업이 여기에 올 수 있습니다.
+  alert(`slow(${x})을/를 호출함`);
+  return x;
+}
+
+function cachingDecorator(func) {
+  let cache = new Map();
+  return function(x) {
+    if (cache.has(x)) {    // cache에 해당 키가 있으면
+      return cache.get(x); // 대응하는 값을 cache에서 읽어옵니다.
+    }
+
+    // let result = func(x);  // 그렇지 않은 경우엔 func를 호출하고,
+
+    let result = func.call(this, x); // 이젠 'this'가 제대로 전달됩니다.
+
+    cache.set(x, result);  // 그 결과를 캐싱(저장)합니다.
+    return result;
+  };
+}
+
+slow = cachingDecorator(slow);
+alert( slow(1) ); // slow(1)이 저장되었습니다.
+alert( &quot;다시 호출: &quot; + slow(1) ); // 동일한 결과
+</code></pre>
+<p>위에서 구현한 캐싱 데코레이터는 <code>this</code>가 <code>undefined</code>이기 때문에 객체 메서드에 사용하기엔 적합하지 않다.</p>
+<h3 id="call">객체의 <code>call</code>함수 사용하기</h3>
+<pre><code class="language-javascript">function sayHi() {
+  alert(this.name);
+}
+let user = { name: &quot;John&quot; };
+let admin = { name: &quot;Admin&quot; };
+// call을 사용해 원하는 객체가 'this'가 되도록 합니다.
+sayHi.call( user ); // this = John
+sayHi.call( admin ); // this = Admin
+</code></pre>
+<p>decorator 다시 작성</p>
+<pre><code class="language-javascript">let worker = {
+  someMethod() {
+    return 1;
+  },
+
+  slow(x) {
+    alert(`slow(${x})을/를 호출함`);
+    return x * this.someMethod(); // (*)
+  }
+};
+
+function cachingDecorator(func) {
+  let cache = new Map();
+  return function(x) {
+    if (cache.has(x)) {
+      return cache.get(x);
+    }
+    let result = func.call(this, x); // 이젠 'this'가 제대로 전달됩니다.
+    cache.set(x, result);
+    return result;
+  };
+}
+
+worker.slow = cachingDecorator(worker.slow); // 캐싱 데코레이터 적용
+alert( worker.slow(2) ); // 제대로 동작합니다.
+</code></pre>
+<h2 id="_24">함수의 호출 함수</h2>
+<ul>
+<li><code>func.call(context, ...args)</code> // 전개 문법을 사용해 인수가 담긴 배열을 전달하는 것과</li>
+<li><code>func.apply(context, args)</code>   // call을 사용하는 것은 동일합니다.</li>
+<li><code>func.bind(context)</code> // context (객체)를 func 함수와 연결함. func의 this가 context가 됨</li>
+</ul>
+<h2 id="object-property">object property 속성 설정</h2>
+<p>object의 property는 다음과 같은 속성을 가지며, 수정가능함</p>
+<ul>
+<li>value</li>
+<li>writable</li>
+<li>enumerable</li>
+<li>configurable</li>
+</ul>
+<pre><code class="language-javascript">let user = {};
+Object.defineProperty(user, &quot;name&quot;, {
+  value: &quot;John&quot;
+});
+
+let descriptor = Object.getOwnPropertyDescriptor(user, 'name');
+alert( JSON.stringify(descriptor, null, 2 ) );
+/*
+{
+  &quot;value&quot;: &quot;John&quot;,
+  &quot;writable&quot;: false,
+  &quot;enumerable&quot;: false,
+  &quot;configurable&quot;: false
+}
+ */
+
+// property write 속성 끄기
+Object.defineProperty(user, &quot;name&quot;, {
+  writable: false
+});
+
+user.name = &quot;Pete&quot;; // Error: Cannot assign to read only property 'name'
+</code></pre>
+<h2 id="getter-setter-properties">getter, setter properties</h2>
+<pre><code class="language-javascript">let obj = {
+  get propName() {
+    // getter, obj.propName을 실행할 때 실행되는 코드
+  },
+
+  set propName(value) {
+    // setter, obj.propName = value를 실행할 때 실행되는 코드
+  }
+  // get, set 둘다 정의되어야 정상 동작
+};
+
+// 예제
+let user = {
+  name: &quot;John&quot;,
+  surname: &quot;Smith&quot;
+};
+
+Object.defineProperty(user, 'fullName', {
+  get() {
+    return `${this.name} ${this.surname}`;
+  },
+  set(value) {
+    [this.name, this.surname] = value.split(&quot; &quot;);
+  }
+});
+
+alert(user.fullName); // John Smith
+for(let key in user) alert(key); // name, surname
+</code></pre>
+<h2 id="nodejs">nodejs</h2>
+<h3 id="import-package">import package</h3>
+<ul>
+<li>require: CommonJS 키워드</li>
+<li>import: ES6(ES2015) 키워드</li>
+</ul>
+<h3 id="nodejs-getting-start">nodejs getting start</h3>
+<ul>
+<li>https://www.nextree.co.kr/p8574/</li>
+</ul>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../grpc/" class="btn btn-neutral float-left" title="gRPC handbook"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../python3/" class="btn btn-neutral float-right" title="Python3 handbook">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../grpc/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../python3/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme_extra.js" defer></script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>

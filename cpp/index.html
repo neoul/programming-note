@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>C++ study - Programming Note</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "C++ study";
+        var mkdocs_page_input_path = "cpp.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <script src="../js/jquery-3.6.0.min.js" defer></script>
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+      <script>hljs.initHighlightingOnLoad();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> Programming Note
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">Programming Note</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../algorithm/">Algorithm note</a>
+                </li>
+              </ul>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="./">C++ study</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#fundamental">Fundamental</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#keywords">keywords</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#variables-and-types">variables and types</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#type-size">Type size</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#declaration-of-variables">Declaration of variables</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#type-deduction-auto-and-decltype">Type deduction: auto and decltype</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#string">String</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#strings-and-null-terminated-character-sequences">Strings and null-terminated character sequences</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#constants">Constants</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#casting">Casting</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#sizeof">sizeof</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#table-of-operation-precedence">Table of operation precedence</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#basic-inputoutput">Basic input/output</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#read-a-line-with-string-stream">Read a line with string stream</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#range-based-loop">Range-based loop</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#the-return-value-of-main">The return value of main()</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#argument-pass-by-value-and-by-reference">Argument pass by value and by reference</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#efficiency-considerations-and-const-references">Efficiency considerations and const references</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#inline-function">inline function</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#function-default-value">function default value</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#c-generalization-overloads-and-templates">C++ Generalization (Overloads and templates)</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#nampespace-name-visibility">nampespace (Name visibility)</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#compound-data-types">Compound data types</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#pointer">Pointer</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#pointers-and-const">Pointers and const</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#null-pointer">NULL pointer</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#pointers-to-functions">Pointers to functions</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#dynamic-memory">Dynamic memory</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#data-structures">Data Structures</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#type-aliases">Type aliases</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#union-type">Union type</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#enumerated-types-enum">Enumerated types (enum)</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#class">class</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#member-initialization-in-constructors">Member initialization in constructors</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#uniform-initialization">Uniform initialization</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#overloading-operators">Overloading operators</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#overloadable-operators">Overloadable operators</a>
+    </li>
+        </ul>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#async-and-future">async and future</a>
+    </li>
+    </ul>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../go/">Go handbook</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../grpc/">gRPC handbook</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../javascript/">Javascript</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../python3/">Python3 handbook</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../rust/">Rust</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">Programming Note</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" alt="Docs"></a> &raquo;</li><li>C++ study</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="c-study">C++ study</h1>
+<h2 id="fundamental">Fundamental</h2>
+<ul>
+<li>case sensitive</li>
+</ul>
+<h2 id="keywords">keywords</h2>
+<p>alignas, alignof, and, and_eq, asm, auto, bitand, bitor, bool, break, case, catch, char, char16_t, char32_t, class, compl, const, constexpr, const_cast, continue, decltype, default, delete, do, double, dynamic_cast, else, enum, explicit, export, extern, false, float, for, friend, goto, if, inline, int, long, mutable, namespace, new, noexcept, not, not_eq, nullptr, operator, or, or_eq, private, protected, public, register, reinterpret_cast, return, short, signed, sizeof, static, static_assert, static_cast, struct, switch, template, this, thread_local, throw, true, try, typedef, typeid, typename, union, unsigned, using, virtual, void, volatile, wchar_t, while, xor, xor_eq</p>
+<h2 id="variables-and-types">variables and types</h2>
+<ul>
+<li><strong>character types</strong>: <code>char</code>, <code>char16_t</code>, <code>char32_t</code>, <code>wchar_t</code></li>
+<li><strong>integer types (signed)</strong>: <code>signed char</code>, <code>signed short</code> int, signed <code>int</code>, signed <code>long</code> int, signed <code>long long</code> int</li>
+<li><strong>integer types (unsigned)</strong>: <code>unsigned char</code>, <code>unsigned short</code> int, <code>unsigned</code> int, <code>unsigned long</code> int, <code>unsigned long long</code> int</li>
+<li><strong>floating-point types</strong>: <code>float</code>, <code>double</code>, <code>long double</code></li>
+<li><strong>bolean types</strong>: <code>bool</code></li>
+<li><strong>void type</strong>: <code>void</code> (no storage)</li>
+<li><strong>null pointer</strong>: <code>decltype(nullptr)</code></li>
+</ul>
+<h3 id="type-size">Type size</h3>
+<p>definition for fixed-size type: <code>&lt;cstdint&gt;</code> or <code>&lt;limits&gt;</code></p>
+<h2 id="declaration-of-variables">Declaration of variables</h2>
+<pre><code class="language-c++">int a, b;
+float c;
+// Variable initialization with declaration
+int x = 0;
+int x (0); // type identifier (initial_value);
+int x {0}; // type identifier {initial_value};
+</code></pre>
+<h2 id="type-deduction-auto-and-decltype">Type deduction: auto and decltype</h2>
+<pre><code class="language-c++">int foo = 0;
+auto bar = foo;  // the same as: int bar = foo;
+decltype(foo) bar;  // the same as: int bar;
+</code></pre>
+<h2 id="string">String</h2>
+<h3 id="strings-and-null-terminated-character-sequences">Strings and null-terminated character sequences</h3>
+<p>In any case, null-terminated character sequences and strings are easily transformed from one another:</p>
+<p>Null-terminated character sequences can be transformed into strings implicitly, and strings can be transformed into null-terminated character sequences by using either of string's member functions <code>c_str</code> or <code>data</code>:</p>
+<pre><code class="language-c++">char myntcs[] = &quot;some text&quot;;
+string mystring = myntcs;  // convert c-string to string
+cout &lt;&lt; mystring;          // printed as a library string
+cout &lt;&lt; mystring.c_str();  // printed as a c-string
+</code></pre>
+<h2 id="constants">Constants</h2>
+<p>Constants are expressions with a fixed value.</p>
+<pre><code class="language-c++">75         // decimal
+0113       // octal
+0x4b       // hexadecimal
+75         // int
+75u        // unsigned int
+75l        // long
+75ul       // unsigned long
+75lu       // unsigned long
+3.14159    // 3.14159
+6.02e23    // 6.02 x 10^23
+1.6e-19    // 1.6 x 10^-19
+3.0        // 3.0
+3.14159L   // long double
+6.02e23f   // float  
+// character and string literals
+'z'
+'p'
+&quot;Hello world&quot;
+&quot;How do you do?&quot;
+// escape code
+&quot;\n&quot;    // newline
+&quot;\r&quot;    // carriage return
+&quot;\t&quot;    // tab
+&quot;\v&quot;    // vertical tab
+&quot;\b&quot;    // backspace
+&quot;\f&quot;    // form feed (page feed)
+&quot;\a&quot;    // alert (beep)
+&quot;\'&quot;    // single quote (')
+&quot;\&quot;&quot;    // double quote (&quot;)
+&quot;\?&quot;    // question mark (?)
+&quot;\\&quot;    // backslash (\)
+&quot;\x20&quot; // hexadecimal digits character
+&quot;\x4A&quot;
+&quot;this forms&quot; &quot;a single&quot;     &quot; string &quot;
+&quot;of characters&quot; // equivalent to &quot;this formsa single string of characters&quot;
+// long string literals using backslash (\)
+x = &quot;string expressed in \
+two lines&quot; // x = &quot;string expressed in two lines&quot;
+
+// different character type literals using prefix (not suffixes above)
+// u    char16_t
+// U    char32_t
+// L    wchar_t
+// u8 // UTF-8
+R&quot;(string with \backslash)&quot; // raw string, literal format: R(VALUE)
+R&quot;&amp;%$(string with \backslash)&amp;%$&quot; // = &quot;string with \\backslash&quot;
+
+// other literals
+bool foo = true;
+bool bar = false;
+int* p = nullptr;
+
+// naming to a constant value
+const double pi = 3.1415926;
+const char tab = '\t';
+
+// Preprocessor definitions (#define) - another mechanism for name constant
+#define PI 3.14159
+#define NEWLINE '\n'
+
+</code></pre>
+<h2 id="casting">Casting</h2>
+<pre><code class="language-c++">int i;
+float f = 3.14;
+i = (int) f;
+
+i = int (f);
+</code></pre>
+<h2 id="sizeof">sizeof</h2>
+<pre><code class="language-c++">x = sizeof (char);
+</code></pre>
+<h2 id="table-of-operation-precedence">Table of operation precedence</h2>
+<p><img alt="Precedence of operators" src="https://i.stack.imgur.com/u3q2E.png" /></p>
+<h2 id="basic-inputoutput">Basic input/output</h2>
+<ul>
+<li><code>cin</code>:    standard input stream</li>
+<li><code>cout</code>:   standard output stream</li>
+<li><code>cerr</code>:   standard error (output) stream</li>
+<li><code>clog</code>:   standard logging (output) stream</li>
+<li><code>stringstream</code>: string stream (make a string as a stream)</li>
+</ul>
+<h3 id="read-a-line-with-string-stream">Read a line with string stream</h3>
+<pre><code class="language-c++">// stringstreams
+#include &lt;iostream&gt;
+#include &lt;string&gt;
+#include &lt;sstream&gt;
+using namespace std;
+
+int main ()
+{
+  string mystr;
+  float price=0;
+  int quantity=0;
+
+  cout &lt;&lt; &quot;Enter price: &quot;;
+  getline (cin,mystr);
+  stringstream(mystr) &gt;&gt; price;
+  cout &lt;&lt; &quot;Enter quantity: &quot;;
+  getline (cin,mystr);
+  stringstream(mystr) &gt;&gt; quantity;
+  cout &lt;&lt; &quot;Total price: &quot; &lt;&lt; price*quantity &lt;&lt; endl;
+  return 0;
+}
+</code></pre>
+<h2 id="range-based-loop">Range-based loop</h2>
+<p>The for-loop has another syntax, which is used exclusively with ranges:</p>
+<p><code>for ( declaration : range ) statement;</code></p>
+<pre><code class="language-c++">// range-based for loop
+#include &lt;iostream&gt;
+#include &lt;string&gt;
+using namespace std;
+
+int main ()
+{
+  string str {&quot;Hello!&quot;};
+  for (char c : str)
+  {
+    cout &lt;&lt; &quot;[&quot; &lt;&lt; c &lt;&lt; &quot;]&quot;;
+  }
+  cout &lt;&lt; '\n';
+}
+// output: [H][e][l][l][o][!]
+</code></pre>
+<p>Range based loops usually also make use of type deduction for the type of the elements with <code>auto</code>. Typically, the range-based loop above can also be written as:</p>
+<pre><code class="language-c++">for (auto c : str)
+  cout &lt;&lt; &quot;[&quot; &lt;&lt; c &lt;&lt; &quot;]&quot;;
+</code></pre>
+<p>Here, the type of c is automatically deduced as the type of the elements in str.</p>
+<h2 id="the-return-value-of-main">The return value of main()</h2>
+<ul>
+<li><code>0</code> or    <code>EXIT_SUCCESS</code>: The program was successful (same as above). This value is defined in header <code>&lt;cstdlib&gt;</code>.</li>
+<li><code>EXIT_FAILURE</code>:   The program failed. This value is defined in header <code>&lt;cstdlib&gt;</code>.</li>
+</ul>
+<h2 id="argument-pass-by-value-and-by-reference">Argument pass by value and by reference</h2>
+<pre><code class="language-c++">// passing parameters by reference
+#include &lt;iostream&gt;
+using namespace std;
+
+void duplicate (int&amp; a, int&amp; b, int&amp; c)
+{
+  a*=2;
+  b*=2;
+  c*=2;
+}
+
+int main ()
+{
+  int x=1, y=3, z=7;
+  duplicate (x, y, z);
+  cout &lt;&lt; &quot;x=&quot; &lt;&lt; x &lt;&lt; &quot;, y=&quot; &lt;&lt; y &lt;&lt; &quot;, z=&quot; &lt;&lt; z;
+  return 0;
+}
+</code></pre>
+<h2 id="efficiency-considerations-and-const-references">Efficiency considerations and const references</h2>
+<pre><code class="language-c++">string concatenate (const string&amp; a, const string&amp; b)
+{
+  return a+b;
+}
+</code></pre>
+<p>By qualifying them as const, the function is forbidden to modify the values of neither a nor b, but can actually access their values as references (aliases of the arguments), without having to make actual copies of the strings.</p>
+<p>Therefore, const references provide functionality similar to passing arguments by value, but with an increased efficiency for parameters of large types. That is why they are extremely popular in C++ for arguments of compound types. Note though, that for most fundamental types, there is no noticeable difference in efficiency, and in some cases, const references may even be less efficient!</p>
+<h2 id="inline-function">inline function</h2>
+<p>Preceding a function declaration with the inline specifier informs the compiler that inline expansion is preferred over the usual function call mechanism for a specific function.</p>
+<p>For example, the concatenate function above may be declared inline as:</p>
+<pre><code class="language-c++">inline string concatenate (const string&amp; a, const string&amp; b)
+{
+  return a+b;
+}
+</code></pre>
+<h2 id="function-default-value">function default value</h2>
+<pre><code class="language-c++">int divide (int a, int b=2)
+{
+  int r;
+  r=a/b;
+  return (r);
+}
+int main ()
+{
+  cout &lt;&lt; divide (12) &lt;&lt; '\n';
+  cout &lt;&lt; divide (20,4) &lt;&lt; '\n';
+  return 0;
+}
+</code></pre>
+<h2 id="c-generalization-overloads-and-templates">C++ Generalization (Overloads and templates)</h2>
+<p><code>overload</code></p>
+<p>The same function definition with different parameter types.</p>
+<pre><code class="language-c++">// overloading functions
+#include &lt;iostream&gt;
+using namespace std;
+
+int operate (int a, int b)
+{
+  return (a*b);
+}
+
+double operate (double a, double b)
+{
+  return (a/b);
+}
+
+int main ()
+{
+  int x=5,y=2;
+  double n=5.0,m=2.0;
+  cout &lt;&lt; operate (x,y) &lt;&lt; '\n';
+  cout &lt;&lt; operate (n,m) &lt;&lt; '\n';
+  return 0;
+}
+</code></pre>
+<p><code>template &lt;template-parameters&gt; function-declaration</code></p>
+<p>The template parameters are a series of parameters separated by commas. These parameters can be generic template types by specifying either the class or typename keyword followed by an identifier. This identifier can then be used in the function declaration as if it was a regular type. For example, a generic sum function could be defined as:</p>
+<pre><code class="language-c++">// function template
+#include &lt;iostream&gt;
+using namespace std;
+
+template &lt;class T&gt;
+T sum (T a, T b)
+{
+  T result;
+  result = a + b;
+  return result;
+}
+
+int main () {
+  int i=5, j=6, k;
+  double f=2.0, g=0.5, h;
+  k=sum&lt;int&gt;(i,j);
+  h=sum&lt;double&gt;(f,g);
+
+    // possible to skip angle brackets
+    // k = sum (i,j);
+    // h = sum (f,g);
+
+  cout &lt;&lt; k &lt;&lt; '\n';
+  cout &lt;&lt; h &lt;&lt; '\n';
+  return 0;
+}
+</code></pre>
+<p>Non-type template arguments (just support the constant expressions)</p>
+<pre><code class="language-c++">// template arguments
+#include &lt;iostream&gt;
+using namespace std;
+
+template &lt;class T, int N&gt;
+T fixed_multiply (T val)
+{
+  return val * N;
+}
+
+int main() {
+  std::cout &lt;&lt; fixed_multiply&lt;int,2&gt;(10) &lt;&lt; '\n';
+  std::cout &lt;&lt; fixed_multiply&lt;int,3&gt;(10) &lt;&lt; '\n';
+}
+</code></pre>
+<h2 id="nampespace-name-visibility">nampespace (Name visibility)</h2>
+<pre><code class="language-c++">// namespaces
+#include &lt;iostream&gt;
+using namespace std;
+
+namespace foo
+{
+  int value() { return 5; }
+}
+
+namespace bar
+{
+  const double pi = 3.1416;
+  double value() { return 2*pi; }
+}
+
+int main () {
+  cout &lt;&lt; foo::value() &lt;&lt; '\n';
+  cout &lt;&lt; bar::value() &lt;&lt; '\n';
+  cout &lt;&lt; bar::pi &lt;&lt; '\n';
+  return 0;
+}
+
+// Namespaces can be split:
+// Two segments of a code can be declared in the same namespace:
+
+namespace foo { int a; }
+namespace bar { int b; }
+namespace foo { int c; }
+
+</code></pre>
+<h2 id="compound-data-types">Compound data types</h2>
+<h3 id="pointer">Pointer</h3>
+<p>http://www.cplusplus.com/doc/tutorial/pointers/</p>
+<ul>
+<li>Address-of operator (<code>&amp;</code>)</li>
+<li>Dereference operator (<code>*</code>)</li>
+</ul>
+<h3 id="pointers-and-const">Pointers and const</h3>
+<p>Pointers can be used to access a variable by its address, and this access may include modifying the value pointed. But it is also possible to declare pointers that can access the pointed value to read it, but not to modify it. For this, it is enough with qualifying the type pointed to by the pointer as <code>const</code>. For example:</p>
+<pre><code class="language-c++">int x;
+int y = 10;
+const int * p = &amp;y;
+x = *p;          // ok: reading p
+*p = x;          // error: modifying p, which is const-qualified
+</code></pre>
+<pre><code class="language-c++">int x;
+      int *       p1 = &amp;x;  // non-const pointer to non-const int
+const int *       p2 = &amp;x;  // non-const pointer to const int
+      int * const p3 = &amp;x;  // const pointer to non-const int
+const int * const p4 = &amp;x;  // const pointer to const int
+
+// To add a little bit more confusion to the syntax of const with pointers,
+// the const qualifier can either precede or follow the pointed type,
+// with the exact same meaning:
+const int * p2a = &amp;x;  //      non-const pointer to const int
+int const * p2b = &amp;x;  // also non-const pointer to const int
+</code></pre>
+<h3 id="null-pointer">NULL pointer</h3>
+<pre><code class="language-c++">int * p = 0;
+int * q = nullptr;
+int * r = NULL;
+</code></pre>
+<h3 id="pointers-to-functions">Pointers to functions</h3>
+<pre><code class="language-c++">int (* func_name)(type,type,...);
+</code></pre>
+<h2 id="dynamic-memory">Dynamic memory</h2>
+<pre><code class="language-c++">int * foo;
+foo = new int [5];
+// Access: foo[1] or *(foo+1)
+
+// allocation
+foo = new int [5];  // if allocation fails, an exception is thrown
+foo = new (nothrow) int [5]; // return null without bad_alloc exception or terminating the program
+if (foo == nullptr) {
+  // error assigning memory. Take measures.
+}
+
+// deletion
+delete pointer;
+delete[] pointer;
+
+</code></pre>
+<h2 id="data-structures">Data Structures</h2>
+<p>Skip...</p>
+<h2 id="type-aliases">Type aliases</h2>
+<pre><code class="language-c++">typedef char C;
+typedef unsigned int WORD;
+typedef char * pChar;
+typedef char field [50];
+
+C mychar, anotherchar, *ptc1;
+WORD myword;
+pChar ptc2;
+field name;
+
+// More recently, a second syntax to define type aliases was introduced in the C++ language:
+// using new_type_name = existing_type ;
+
+// For example, the same type aliases as above could be defined as:
+using C = char;
+using WORD = unsigned int;
+using pChar = char *;
+using field = char [50];
+
+</code></pre>
+<h2 id="union-type">Union type</h2>
+<p>Skip!</p>
+<h2 id="enumerated-types-enum">Enumerated types (enum)</h2>
+<pre><code class="language-c++">// ## Enumerated types mapping to convertible int.
+enum colors_t {black=1, blue, green, cyan, red, purple, yellow, white};
+
+colors_t mycolor;
+mycolor = blue;
+if (mycolor == green) mycolor = red;
+
+// ## Enumerated types with enum class
+enum class Colors {black, blue, green, cyan, red, purple, yellow, white};
+
+Colors mycolor;
+mycolor = Colors::blue;
+if (mycolor == Colors::green) mycolor = Colors::red;
+
+</code></pre>
+<h2 id="class">class</h2>
+<ul>
+<li>access_specifier: <code>private</code>, <code>public</code> or <code>protected</code></li>
+<li><code>private</code> members of a class are accessible only from within other members of the same class (or from their "<code>friends</code>").</li>
+<li><code>protected</code> members are accessible from other members of the same class (or from their "<code>friends</code>"), but also from members of their derived classes.</li>
+<li>Finally, <code>public</code> members are accessible from anywhere where the object is visible.</li>
+</ul>
+<pre><code class="language-c++">// classes example
+#include &lt;iostream&gt;
+using namespace std;
+
+class Rectangle {
+    int width, height;
+  public:
+    void set_values (int,int);
+    int area() {return width*height;}
+};
+
+void Rectangle::set_values (int x, int y) {
+  width = x;
+  height = y;
+}
+
+int main () {
+  Rectangle rect;
+  rect.set_values (3,4);
+  cout &lt;&lt; &quot;area: &quot; &lt;&lt; rect.area();
+  return 0;
+}
+</code></pre>
+<h3 id="member-initialization-in-constructors">Member initialization in constructors</h3>
+<pre><code class="language-c++">class Rectangle {
+    int width,height;
+  public:
+    Rectangle ();
+    Rectangle(int,int);
+    int area() {return width*height;}
+};
+
+Rectangle::Rectangle () {
+  width = 5;
+  height = 5;
+}
+
+Rectangle::Rectangle (int x, int y) { width=x; height=y; }
+Rectangle::Rectangle (int x, int y) : width(x) { height=y; }
+Rectangle::Rectangle (int x, int y) : width(x), height(y) { }
+</code></pre>
+<h3 id="uniform-initialization">Uniform initialization</h3>
+<ul>
+<li><code>class_name object_name = initialization_value;</code></li>
+<li><code>class_name object_name { value, value, value, ... }</code></li>
+<li><code>class_name object_name(value, value, value, ... )</code></li>
+</ul>
+<pre><code class="language-c++">// classes and uniform initialization
+#include &lt;iostream&gt;
+using namespace std;
+
+class Circle {
+    double radius;
+  public:
+    Circle(double r) { radius = r; }
+    double circum() {return 2*radius*3.14159265;}
+};
+
+int main () {
+  Circle foo (10.0);   // functional form
+  Circle bar = 20.0;   // assignment init.
+  Circle baz {30.0};   // uniform init.
+  Circle qux = {40.0}; // POD-like
+
+  cout &lt;&lt; &quot;foo's circumference: &quot; &lt;&lt; foo.circum() &lt;&lt; '\n';
+  return 0;
+}
+</code></pre>
+<h3 id="overloading-operators">Overloading operators</h3>
+<h4 id="overloadable-operators">Overloadable operators</h4>
+<pre><code class="language-c++">+    -    *    /    =    &lt;    &gt;    +=   -=   *=   /=   &lt;&lt;   &gt;&gt;
+&lt;&lt;=  &gt;&gt;=  ==   !=   &lt;=   &gt;=   ++   --   %    &amp;    ^    !    |
+~    &amp;=   ^=   |=   &amp;&amp;   ||   %=   []   ()   ,    -&gt;*  -&gt;   new
+delete    new[]     delete[]
+</code></pre>
+<h2 id="async-and-future">async and future</h2>
+<ul>
+<li>Calls fn (with args as arguments) at some point, returning without waiting for the execution of fn to complete.</li>
+<li>http://www.cplusplus.com/reference/future/async/?kw=async</li>
+</ul>
+<pre><code class="language-c++">#include &lt;cstdio&gt;
+#include &lt;future&gt; // std::async, std::future
+
+using namespace std;
+
+int fun() {
+    for (int i = 1; i &lt;= 10; i++) {
+        printf(&quot;fun[%d]\n&quot;, i);
+    }
+
+    return 200;
+}
+
+int main() {
+    //auto fut = async(fun);
+    auto fut = async(launch::async, fun);
+
+    // deferred until .get() or .wait()
+    //auto fut = async(launch::deferred, fun);
+
+    for (int i = 1; i &lt;= 30; i++) {
+        printf(&quot;main[%d]\t&quot;, i);
+    }
+    printf(&quot;\n&quot;);
+
+    int result = fut.get();
+
+    printf(&quot;result : %d\n&quot;, result);
+
+    return 0;
+}
+</code></pre>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../algorithm/" class="btn btn-neutral float-left" title="Algorithm note"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../go/" class="btn btn-neutral float-right" title="Go handbook">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../algorithm/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../go/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme_extra.js" defer></script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>

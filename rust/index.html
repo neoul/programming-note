@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Rust - Programming Note</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Rust";
+        var mkdocs_page_input_path = "rust.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <script src="../js/jquery-3.6.0.min.js" defer></script>
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+      <script>hljs.initHighlightingOnLoad();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> Programming Note
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">Programming Note</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../algorithm/">Algorithm note</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../cpp/">C++ study</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../go/">Go handbook</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../grpc/">gRPC handbook</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../javascript/">Javascript</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../python3/">Python3 handbook</a>
+                </li>
+              </ul>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="./">Rust</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#why-rust">Why Rust?</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#performance">Performance</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#reliability">Reliability</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#productivity">Productivity</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#roadamp-to-improve-rust-programming-experience">Roadamp to improve Rust programming experience</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#rust_1">Rust 특성</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#rust-module-system">Rust module system</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#rust-standard-libary-and-useful-crates">Rust standard libary and useful crates</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#how-to-use-crates">How to use crates?</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#terms">Terms</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#latest-version">Latest version</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#rust-installation">Rust installation</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#cargo">Cargo</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#cargotoml-toml-file-for-cargo-config">Cargo.toml (TOML file for cargo config)</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#useful-development-tool">Useful development tool</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#rust-build-tools">Rust build tools</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#rustup-cargo-command-completion">Rustup &amp; cargo command completion</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#rust-cookbook">Rust Cookbook</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#helloworld">Helloworld</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#add-packages-crates">Add packages = crates (물품 운반용 상자)</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#enabling-rust-backtrace">Enabling rust backtrace</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#vscode-with-rust">vscode with rust</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#rust-macro">Rust macro</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#rust-syntax">Rust Syntax</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#variable-declaration">Variable declaration</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#built-in-data-types">Built-in data types</a>
+    </li>
+        </ul>
+    </li>
+    </ul>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">Programming Note</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" alt="Docs"></a> &raquo;</li><li>Rust</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="rust">Rust</h1>
+<p>A language empowering everyone to build reliable and efficient software.</p>
+<h2 id="why-rust">Why Rust?</h2>
+<ul>
+<li>Performance</li>
+<li>Reliability</li>
+<li>Productivity</li>
+</ul>
+<h3 id="performance">Performance</h3>
+<p>Rust is blazingly fast and memory-efficient: with no runtime or garbage collector, it can power performance-critical services, run on embedded devices, and easily integrate with other languages.</p>
+<h3 id="reliability">Reliability</h3>
+<p>Rust’s rich type system and ownership model guarantee memory-safety and thread-safety — enabling you to eliminate many classes of bugs at compile-time.</p>
+<h3 id="productivity">Productivity</h3>
+<p>Rust has great documentation, a friendly compiler with useful error messages, and top-notch tooling — an integrated package manager and build tool, smart multi-editor support with auto-completion and type inspections, an auto-formatter, and more.</p>
+<h2 id="roadamp-to-improve-rust-programming-experience">Roadamp to improve Rust programming experience</h2>
+<ul>
+<li>Building tools; 직관적이고 간단한 building, packaging tool 지원</li>
+<li>Web­Assembly (Writing Web Apps); Binary instruction set in web browsers</li>
+<li>Working with servers (server-side code) </li>
+<li>Embedded system에 적합하도록 향상</li>
+</ul>
+<h2 id="rust_1">Rust 특성</h2>
+<p>Open-source high-level and low-level system programming language</p>
+<ul>
+<li><code>Type safe</code>: The compiler assures that no operation will be applied to a variable of a wrong type.</li>
+<li><code>Memory safe</code>: Rust pointers (known as references) always refer to valid memory.</li>
+<li><code>Data race free</code>: Rust's borrow checker guarantees thread-safety by ensuring that multiple parts of a program can't mutate the same value at the same time.</li>
+<li><code>Zero-cost abstractions</code>: Rust allows the use of high-level concepts, like iteration, interfaces, and functional programming, with minimal to no performance costs. The abstractions perform as well, as if you wrote the underlying code by hand.</li>
+<li><code>Minimal runtime</code>: Rust has a very minimal and optional runtime. The language also has <strong>no garbage collector</strong> to manage memory efficiently. In this way Rust is most similar to languages like C and C++.</li>
+<li><code>Targets bare metal</code>: Rust can target embedded and "bare metal" programming, making it suitable to write an operating system kernel or device drivers.</li>
+</ul>
+<h2 id="rust-module-system">Rust module system</h2>
+<ul>
+<li><code>Crates</code>: It's the smallest piece of code the Rust compiler can run.</li>
+<li><code>Modules</code>: Groups of crates; Related code items or items that are used together</li>
+<li><code>Path</code>: Paths to access and use the code or items in Rust</li>
+<li>third-party crate registry: https://crates.io</li>
+</ul>
+<h3 id="rust-standard-libary-and-useful-crates">Rust standard libary and useful crates</h3>
+<ul>
+<li><code>std</code> - The Rust standard library. In the Rust exercises, you'll notice the following modules:</li>
+<li><code>std::collections</code> - Definitions for collection types, such as HashMap.</li>
+<li><code>std::env</code> - Functions for working with your environment.</li>
+<li><code>std::fmt</code> - Functionality to control output format.</li>
+<li><code>std::fs</code> - Functions for working with the file system.</li>
+<li><code>std::io</code> - Definitions and functionality for working with input/output.</li>
+<li><code>std::path</code> - Definitions and functions that support working with file system path data.</li>
+<li><code>structopt</code> - A third-party crate for easily parsing command-line arguments.</li>
+<li><code>chrono</code> - A third-party crate to handle date and time data.</li>
+<li><code>regex</code> - A third-party crate to work with regular expressions.</li>
+<li><code>serde</code> - A third-party crate of serialization and deserialization operations for Rust data structures.</li>
+</ul>
+<h3 id="how-to-use-crates">How to use crates?</h3>
+<pre><code class="language-rust">use std::fmt
+</code></pre>
+<h2 id="terms">Terms</h2>
+<ul>
+<li>Wasm (WebAssembly)</li>
+</ul>
+<p><code>WebAssembly</code> (abbreviated <code>Wasm</code>) is a binary instruction format for a stack-based virtual machine. <code>Wasm</code> is designed as a portable compilation target for programming languages, enabling deployment on the web for client and server applications.</p>
+<p><code>WebAssembly</code> is a new type of code that can be run in modern web browsers — it is a low-level assembly-like language with a compact binary format that runs with near-native performance and provides languages such as C/C++, C# and Rust with a compilation target so that they can run on the web. It is also designed to run alongside JavaScript, allowing both to work together.</p>
+<blockquote>
+<p>Emscripten SDK - compile WebAssembly code and generate javascript stub and wasm binary.<br />
+Doc: 📁 https://developer.mozilla.org/en-US/docs/WebAssembly</p>
+</blockquote>
+<h2 id="latest-version">Latest version</h2>
+<p><code>Version 1.60.0</code></p>
+<h2 id="rust-installation">Rust installation</h2>
+<pre><code class="language-bash"># Install rust
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+
+# Update rust
+rustup update
+
+# Uninstall rust
+rustup self uninstall
+</code></pre>
+<ul>
+<li><code>vscode</code>: <a href="https://marketplace.visualstudio.com/items?itemName=matklad.rust-analyzer">📁 ext install matklad.rust-analyzer</a></li>
+<li><code>vim</code>: 📁 https://github.com/rust-lang/rust.vim</li>
+</ul>
+<blockquote>
+<p>All tools including <code>rustc</code>, <code>cargo</code>, and <code>rustup</code> are installed to the <code>~/.cargo/bin</code> directory.</p>
+</blockquote>
+<h3 id="cargo">Cargo</h3>
+<p><code>cargo</code> is the rust build tool and package manager.</p>
+<ul>
+<li><code>cargo --version</code>: check the rust version</li>
+<li><code>cargo new --vcs=git</code>: create new project with <code>git init</code></li>
+<li><code>cargo new</code></li>
+<li><code>cargo build</code>: build your project with</li>
+<li><code>cargo run</code>: run your project with</li>
+<li><code>cargo test</code>: test your project with</li>
+<li><code>cargo check</code>: checks your code to make sure it compiles but doesn’t produce an executable</li>
+<li><code>cargo doc</code>: build documentation for your project with</li>
+<li><code>cargo publish</code>: publish a library to <code>crates.io</code> with</li>
+<li>Add dependent crates to a project by adding the crate name to the Cargo.toml file.</li>
+<li><code>cargo fmt</code>: reformats your code according to the community code style. <code>rustup component add rustfmt</code>으로 설치</li>
+<li><code>cargo fix</code>: Automatically fix lint warnings reported by rustc</li>
+</ul>
+<blockquote>
+<p><strong>manual</strong>: 📁 https://doc.rust-lang.org/cargo/index.html</p>
+</blockquote>
+<h4 id="cargotoml-toml-file-for-cargo-config">Cargo.toml (TOML file for cargo config)</h4>
+<p><code>Cargo.toml</code>: TOML로 정의된 cargo configuration file</p>
+<p>TOML's syntax primarily consists of key = "value" pairs, [section names], and # comments. TOML's syntax somewhat resembles that of .INI files, but it includes a formal specification, whereas the INI file format suffers from many competing variants.</p>
+<p>Its specification includes a list of supported data types: String, Integer, Float, Boolean, Datetime, Array, and Table.</p>
+<pre><code class="language-toml"># This is a TOML document.
+
+title = &quot;TOML Example&quot;
+
+[owner]
+name = &quot;Tom Preston-Werner&quot;
+dob = 1979-05-27T07:32:00-08:00 # First class dates
+
+[database]
+server = &quot;192.168.1.1&quot;
+ports = [ 8000, 8001, 8002 ]
+connection_max = 5000
+enabled = true
+
+[servers]
+
+  # Indentation (tabs and/or spaces) is allowed but not required
+  [servers.alpha]
+  ip = &quot;10.0.0.1&quot;
+  dc = &quot;eqdc10&quot;
+
+  [servers.beta]
+  ip = &quot;10.0.0.2&quot;
+  dc = &quot;eqdc10&quot;
+
+[clients]
+data = [ [&quot;gamma&quot;, &quot;delta&quot;], [1, 2] ]
+
+# Line breaks are OK when inside arrays
+hosts = [
+  &quot;alpha&quot;,
+  &quot;omega&quot;
+]
+</code></pre>
+<h3 id="useful-development-tool">Useful development tool</h3>
+<pre><code class="language-bash">rustup component add rustfmt
+rustup component add clippy
+</code></pre>
+<ul>
+<li><code>cargo fmt</code>: <code>rustfmt</code>; Automatic Formatting development tool</li>
+<li><code>cargo fix</code>: Automatically fix lint warnings reported by rustc</li>
+<li><code>cargo clippy</code>: <code>clippy</code>; A collection of lints to analyze your code to catch common mistakes and improve your code.</li>
+</ul>
+<h3 id="rust-build-tools">Rust build tools</h3>
+<ul>
+<li><code>rustc</code>: Rust compiler</li>
+<li><code>rustup</code>: Rust toolchain installer; Rust tool manager</li>
+<li><code>rustc --version</code>: check rust version</li>
+<li><code>rustc RUST_FILE.rs</code>: build the rust binary</li>
+</ul>
+<blockquote>
+<p>다음 tool 확인 필요<br />
+<code>rustc</code>, <code>rustdoc</code>, <code>rustfmt</code>, <code>rust-gdb</code>, <code>rust-lldb</code>, <code>rustup</code></p>
+</blockquote>
+<h3 id="rustup-cargo-command-completion">Rustup &amp; cargo command completion</h3>
+<p>Rust build tool에 대한 tab completion</p>
+<pre><code class="language-bash">mkdir -p ~/.local/share/bash-completion/completions
+rustup completions bash rustup &gt;&gt; ~/.local/share/bash-completion/completions/rustup
+rustup completions bash cargo &gt;&gt; ~/.local/share/bash-completion/completions/cargo
+source ~/.local/share/bash-completion/completions/rustup
+source ~/.local/share/bash-completion/completions/cargo
+</code></pre>
+<h3 id="rust-cookbook">Rust Cookbook</h3>
+<p>Rust crate의 종류를 분류함; 기능 구현전에 필요한 library를 가장 먼저 아래서 찾기!</p>
+<blockquote>
+<p>📁 https://rust-lang-nursery.github.io/rust-cookbook/</p>
+</blockquote>
+<h2 id="helloworld">Helloworld</h2>
+<pre><code class="language-bash"># create new project
+cargo new hello-rust
+cd hello-rust
+tree
+#.
+#├── Cargo.toml # for the metadata and dependencies of the project
+#└── src # rust code
+#    └── main.rs
+
+# fn main() is the starting point of all rust appliciations.
+cat src/main.rs 
+# fn main() {
+#     println!(&quot;Hello, world!&quot;);
+# }
+
+# Building and running
+cargo run
+#    Compiling hello-rust v0.1.0 (/home/neoul/projects/programming-note/rust/hello-rust)
+#     Finished dev [unoptimized + debuginfo] target(s) in 0.54s
+#      Running `target/debug/hello-rust`
+# Hello, world!
+
+tree
+#.
+#├── Cargo.lock # [FIXME] what is it?
+#├── Cargo.toml
+#├── src
+#│   └── main.rs
+#└── target
+#    ├── CACHEDIR.TAG # 
+#    └── debug
+#        ├── build
+#        ├── deps
+#        │   ├── hello_rust-542ed0184760343f
+#        │   └── hello_rust-542ed0184760343f.d
+#        ├── examples
+#        ├── hello-rust
+#        ├── hello-rust.d
+#        └── incremental
+</code></pre>
+<h2 id="add-packages-crates">Add packages = crates (물품 운반용 상자)</h2>
+<p>외부 라이브러 사용</p>
+<pre><code class="language-bash"># Edit Cargo.toml
+[dependencies]
+ferris-says = &quot;0.2&quot;
+</code></pre>
+<pre><code class="language-rust">// in rust code
+use ferris_says::say;
+</code></pre>
+<p><code>cargo build</code>: Cargo will install our dependency for us.</p>
+<h2 id="enabling-rust-backtrace">Enabling rust backtrace</h2>
+<p>Rust display the backtrace if running with <code>RUST_BACKTRACE=1</code>.</p>
+<pre><code class="language-bash">$ ./main 
+thread 'main' panicked at 'not yet implemented: To Do!', main.rs:2:5
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+$ RUST_BACKTRACE=1 ./main 
+thread 'main' panicked at 'not yet implemented: To Do!', main.rs:2:5
+stack backtrace:
+   0: rust_begin_unwind
+             at /rustc/9d1b2106e23b1abd32fce1f17267604a5102f57a/library/std/src/panicking.rs:498:5
+   1: core::panicking::panic_fmt
+             at /rustc/9d1b2106e23b1abd32fce1f17267604a5102f57a/library/core/src/panicking.rs:116:14
+   2: main::main
+   3: core::ops::function::FnOnce::call_once
+note: Some details are omitted, run with `RUST_BACKTRACE=full` for a verbose backtrace.
+</code></pre>
+<h2 id="vscode-with-rust">vscode with rust</h2>
+<p>https://stackoverflow.com/questions/46885292/how-to-launch-a-rust-application-from-visual-studio-code</p>
+<h2 id="rust-macro">Rust macro</h2>
+<p>Rust macro는 개수가 가변적인 입력 인수를 취하는 함수</p>
+<ul>
+<li><code>println!</code>: 가변 인수를 받아 <code>stdout</code>에 출력</li>
+<li>e.g. <code>println!("Hello, {}!", "world");</code></li>
+<li><code>println!</code> calls a Rust macro. If it called a function instead, it would be entered as println (without the <code>!</code>). </li>
+<li>"Hello, world!": string representation of the string</li>
+<li>we end the line with a semicolon (;)</li>
+<li>{} 인수의 값 대체</li>
+<li><code>todo!</code>: 완성되지 않은 함수의 prototype 점검 및 선언, 호출시 exception 발생</li>
+</ul>
+<pre><code class="language-rust">// Call println! with three arguments: a string, a value, a value
+fn main() {
+  println!(&quot;The first letter of the English alphabet is {} and the last letter is {}.&quot;, 'A', 'Z');
+}
+// todo! - Display &quot;Hello, world!&quot; with an exception.
+fn main() {
+  todo!(&quot;Display the message by using the println!() macro&quot;);
+}
+</code></pre>
+<h2 id="rust-syntax">Rust Syntax</h2>
+<h3 id="variable-declaration">Variable declaration</h3>
+<p>A value is not assigned, it is binded to a variable. python과 같은 bind 개념을 차용함</p>
+<pre><code class="language-rust">// 함수 선언
+fn FUNC_NAME()
+
+// 변수 선언
+let a_number;
+
+// 변수에 값 바인딩; variable binding to a value
+// variable binding == value assginment (값할당)
+let a_number = 10;
+
+// 값이 바인딩된 변수는 값 re-바인딩 불가능!!
+a_number = 11;
+
+// mut (mutable, 변할 수 있는)로 선언할 경우
+let mut b_number = 10;
+// variable binding 변경 가능
+b_number = 11;
+
+// variable shadowing (변수 섀도잉)
+// let으로 동일명의 변수를 계속 선언할 수 있음
+// 이것으로 변수의 값을 변경하는 것과 같은 효과를 가질 수 있음
+let c_number = 1;
+let c_number = 2;
+let c_number = 11;
+println!(&quot;{} {}!&quot;,&quot;hello&quot;, c_number);
+
+</code></pre>
+<h3 id="built-in-data-types">Built-in data types</h3>
+<ul>
+<li>Rust is a statically typed language.</li>
+<li><code>let VAR: TYPE</code>으로 variable의 type 지정</li>
+<li>compiler가 모든 변수의 정확한 data type을 알아야 한다.</li>
+<li><code>println!</code> macro 사용시 data type suffix를 추가해 compiler가 type을 인지하도록 입력해야 함.</li>
+<li>Built-in Types</li>
+<li>Integer numbers (default: <code>i32</code>)<ul>
+<li>8-bit: <code>i8</code>, <code>u8</code></li>
+<li>16-bit: <code>i16</code>, <code>u16</code></li>
+<li>32-bit: <code>i32</code>, <code>u32</code></li>
+<li>64-bit: <code>i64</code>, <code>u64</code></li>
+<li>128-bit: <code>i128</code>, <code>u128</code></li>
+<li>Architecture-dependent    <code>isize</code>,    <code>usize</code></li>
+</ul>
+</li>
+<li>Floating point numbers (default: <code>f64</code>)<ul>
+<li><code>f32</code>, <code>f64</code></li>
+</ul>
+</li>
+<li>Booleans (<code>bool</code>)</li>
+<li>Characters </li>
+</ul>
+<pre><code class="language-rust">let number: u32 = 14;
+let number_64 = 4.0;      // compiler infers the value to use the default type f64
+let number_32: f32 = 5.0; // type f32 specified via annotation
+
+// All of the primitive number types in Rust support mathematical operations like addition, subtraction, multiplication, and division.
+// When we call the println macro, we add the data type suffix to each literal number to inform Rust about the data type. 
+
+// Addition, Subtraction, and Multiplication
+println!(&quot;1 + 2 = {} and 8 - 5 = {} and 15 * 3 = {}&quot;, 1u32 + 2, 8i32 - 5, 15 * 3);
+
+// Integer and Floating point division
+println!(&quot;9 / 2 = {} but 9.0 / 2.0 = {}&quot;, 9u32 / 2, 9.0 / 2.0);
+</code></pre>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../python3/" class="btn btn-neutral float-left" title="Python3 handbook"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../python3/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+  </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme_extra.js" defer></script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Algorithm note - Programming Note</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Algorithm note";
+        var mkdocs_page_input_path = "algorithm.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <script src="../js/jquery-3.6.0.min.js" defer></script>
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+      <script>hljs.initHighlightingOnLoad();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> Programming Note
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">Programming Note</a>
+                </li>
+              </ul>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="./">Algorithm note</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#basic-data-structure">Basic Data Structure</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#shortest-path-algorithm">Shortest Path Algorithm (최단 경로 알고리즘)</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#dynamic-programming">Dynamic programming (동적계획법)</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_1">경우의 수 &amp; 조합 &amp; 순열</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_2">최단경로</a>
+    </li>
+    </ul>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../cpp/">C++ study</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../go/">Go handbook</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../grpc/">gRPC handbook</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../javascript/">Javascript</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../python3/">Python3 handbook</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../rust/">Rust</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">Programming Note</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" alt="Docs"></a> &raquo;</li><li>Algorithm note</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="algorithm-note">Algorithm note</h1>
+<h2 id="basic-data-structure">Basic Data Structure</h2>
+<ul>
+<li>Stack</li>
+<li>Queue</li>
+<li>Tree</li>
+<li>Prefix Tree (Trie)</li>
+<li>PQ (Priority Queue), Max Heap, Min Heap</li>
+<li>DFS (Depth First Search)</li>
+<li>BFS (Breadth First Search)</li>
+<li>DFS with stack</li>
+<li>BFS with queue</li>
+</ul>
+<h3 id="shortest-path-algorithm">Shortest Path Algorithm (최단 경로 알고리즘)</h3>
+<ul>
+<li>Dijkstra Algorithm:</li>
+<li>그래프의 단일 노드에서 모든 노드로의 경로 탐색; O((V+E)lgV)</li>
+<li>priority queue (heap)로 성능향상 가능</li>
+<li>Bellman-Ford-Moore Algorithm:</li>
+<li>가중 유향 그래프(Weighted-Directed Graph)에서 노드 사이의 최단 경로 탐색; O(VE)</li>
+<li>음수 가중치 사용가능, negative-weight cycles 유무 판단 (무한 발산하므로 ...)</li>
+<li>그래프의 단일 노드에서 모든 노드로의 경로 탐색</li>
+<li>https://victorydntmd.tistory.com/104</li>
+<li>Floyd Warshall Algorithm:</li>
+<li>그래프의 모든 노드에서 모든 노드로의 경로 탐색 (O(V * V * V))</li>
+<li>임의의 노드 s에서 e까지 가는 데 걸리는 최단거리를 구하기 위해, s와 e 사이의 노드인 m에 대해 s에서 m까지 가는 데 걸리는 최단거리와 m에서 e까지 가는 데 걸리는 최단거리를 이용, 가능한 모든 m을 계산</li>
+</ul>
+<h2 id="dynamic-programming">Dynamic programming (동적계획법)</h2>
+<p>문제 유형이 다음과 같을 때 사용한다.
+- 부분 반복 문제(Overlapping Subproblem)
+- 최적 부분 구조(Optimal Substructure)</p>
+<p><img alt="e.g. Fibonacci numbers" src="https://media.vlpt.us/images/gillog/post/eb96e602-b7bf-47eb-9c49-2eda8465e158/1231313133.png" /></p>
+<blockquote>
+<p>Memoization: 계산된 값을 memo (caching)</p>
+</blockquote>
+<ul>
+<li><strong>Top-down 방식</strong>: 재귀함수 + memoization으로 caching된 부분 결과를 읽어와 해결</li>
+<li><strong>Bottom-up 방식</strong>: 작은 문제부터 해결하여 큰 문제로 반복진행</li>
+</ul>
+<pre><code class="language-c">// Top-down
+int memo[101];
+memo[1] = 1;
+memo[2] = 1;
+
+int fib(int n)
+{
+  if (memo[n] != 0) 
+    return memo[n];
+  memo[n] = fib(n-1) + fib(n-2);
+  return memo[n];
+}
+</code></pre>
+<pre><code class="language-c">// Bottom-up
+int memo[101];
+memo[1] = 1;
+memo[2] = 1;
+
+int fib(int n)
+{
+  for(int i = 3; i &lt;=n; i++){
+    memo[i] = memo[i-1] + memo[i-2];
+  }
+  return memo[n];
+}
+</code></pre>
+<h2 id="_1">경우의 수 &amp; 조합 &amp; 순열</h2>
+<p>https://coding-factory.tistory.com/606</p>
+<h2 id="_2">최단경로</h2>
+<p>http://pds.joongang.co.kr/news/component/htmlphoto_mmdata/201107/25/htm_20110725003419l000l800-002.JPG</p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href=".." class="btn btn-neutral float-left" title="Programming Note"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../cpp/" class="btn btn-neutral float-right" title="C++ study">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href=".." style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../cpp/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme_extra.js" defer></script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>
