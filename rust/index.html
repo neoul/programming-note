@@ -81,7 +81,7 @@
     </li>
         </ul>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#roadamp-to-improve-rust-programming-experience">Roadamp to improve Rust programming experience</a>
+    <li class="toctree-l2"><a class="reference internal" href="#roadamp-to-improve">Roadamp to improve</a>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#rust_1">Rust 특성</a>
     </li>
@@ -115,23 +115,43 @@
     </li>
         </ul>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#helloworld">Helloworld</a>
+    <li class="toctree-l2"><a class="reference internal" href="#helloworld-with-cargo">Helloworld with cargo</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#add-packages-crates">Add packages = crates (물품 운반용 상자)</a>
+    <li class="toctree-l2"><a class="reference internal" href="#how-to-add-external-crates">How to add external crates</a>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#enabling-rust-backtrace">Enabling rust backtrace</a>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#vscode-with-rust">vscode with rust</a>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#rust-macro">Rust macro</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#println">println!</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#todo">todo!</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#panic">panic!</a>
+    </li>
+        </ul>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#rust-syntax">Rust Syntax</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#variable-declaration">Variable declaration</a>
+    <li class="toctree-l3"><a class="reference internal" href="#constant-and-variable-declaration">Constant and Variable declaration</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#built-in-data-types">Built-in data types</a>
+    <li class="toctree-l3"><a class="reference internal" href="#built-in-scalar-data-types">Built-in scalar data types</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#char-type">Char type</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#compound-types">Compound Types</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#tuple-type">Tuple Type</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#array-type">Array Type</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#str-string-type">&amp;str과 String Type</a>
     </li>
         </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#to-be-considered">To be considered</a>
     </li>
     </ul>
                 </li>
@@ -161,6 +181,10 @@
               
                 <h1 id="rust">Rust</h1>
 <p>A language empowering everyone to build reliable and efficient software.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>이 문서는 <a href="https://docs.microsoft.com/ko-kr/learn/paths/rust-first-steps">rust-first-steps</a>, <a href="https://www.rust-lang.org">rust-lang.org</a>, <a href="https://doc.rust-lang.org/book/title-page.html">rust-doc</a> 을 보고 내용을 정리한 문서입니다.</p>
+</div>
 <h2 id="why-rust">Why Rust?</h2>
 <ul>
 <li>Performance</li>
@@ -173,7 +197,7 @@
 <p>Rust’s rich type system and ownership model guarantee memory-safety and thread-safety — enabling you to eliminate many classes of bugs at compile-time.</p>
 <h3 id="productivity">Productivity</h3>
 <p>Rust has great documentation, a friendly compiler with useful error messages, and top-notch tooling — an integrated package manager and build tool, smart multi-editor support with auto-completion and type inspections, an auto-formatter, and more.</p>
-<h2 id="roadamp-to-improve-rust-programming-experience">Roadamp to improve Rust programming experience</h2>
+<h2 id="roadamp-to-improve">Roadamp to improve</h2>
 <ul>
 <li>Building tools; 직관적이고 간단한 building, packaging tool 지원</li>
 <li>Web­Assembly (Writing Web Apps); Binary instruction set in web browsers</li>
@@ -195,7 +219,7 @@
 <li><code>Crates</code>: It's the smallest piece of code the Rust compiler can run.</li>
 <li><code>Modules</code>: Groups of crates; Related code items or items that are used together</li>
 <li><code>Path</code>: Paths to access and use the code or items in Rust</li>
-<li>third-party crate registry: https://crates.io</li>
+<li>Third-party crate registry: <a href="https://crates.io">crates.io</a></li>
 </ul>
 <h3 id="rust-standard-libary-and-useful-crates">Rust standard libary and useful crates</h3>
 <ul>
@@ -221,8 +245,10 @@
 <p><code>WebAssembly</code> (abbreviated <code>Wasm</code>) is a binary instruction format for a stack-based virtual machine. <code>Wasm</code> is designed as a portable compilation target for programming languages, enabling deployment on the web for client and server applications.</p>
 <p><code>WebAssembly</code> is a new type of code that can be run in modern web browsers — it is a low-level assembly-like language with a compact binary format that runs with near-native performance and provides languages such as C/C++, C# and Rust with a compilation target so that they can run on the web. It is also designed to run alongside JavaScript, allowing both to work together.</p>
 <blockquote>
-<p>Emscripten SDK - compile WebAssembly code and generate javascript stub and wasm binary.<br />
-Doc: 📁 https://developer.mozilla.org/en-US/docs/WebAssembly</p>
+<ul>
+<li><strong>Emscripten SDK</strong> - compile wasm code and generate javascript stub and wasm binary.  </li>
+<li><strong>Doc</strong>: <a href="https://developer.mozilla.org/en-US/docs/WebAssembly">🔗 WebAssembly</a></li>
+</ul>
 </blockquote>
 <h2 id="latest-version">Latest version</h2>
 <p><code>Version 1.60.0</code></p>
@@ -237,8 +263,8 @@ rustup update
 rustup self uninstall
 </code></pre>
 <ul>
-<li><code>vscode</code>: <a href="https://marketplace.visualstudio.com/items?itemName=matklad.rust-analyzer">📁 ext install matklad.rust-analyzer</a></li>
-<li><code>vim</code>: 📁 https://github.com/rust-lang/rust.vim</li>
+<li><code>vscode</code>: <a href="https://marketplace.visualstudio.com/items?itemName=matklad.rust-analyzer">🔗 ext install matklad.rust-analyzer</a></li>
+<li><code>vim</code>: <a href="https://github.com/rust-lang/rust.vim">🔗 rust.vim</a></li>
 </ul>
 <blockquote>
 <p>All tools including <code>rustc</code>, <code>cargo</code>, and <code>rustup</code> are installed to the <code>~/.cargo/bin</code> directory.</p>
@@ -256,11 +282,11 @@ rustup self uninstall
 <li><code>cargo doc</code>: build documentation for your project with</li>
 <li><code>cargo publish</code>: publish a library to <code>crates.io</code> with</li>
 <li>Add dependent crates to a project by adding the crate name to the Cargo.toml file.</li>
-<li><code>cargo fmt</code>: reformats your code according to the community code style. <code>rustup component add rustfmt</code>으로 설치</li>
+<li><code>cargo fmt</code>: reformats your code according to the community code style.</li>
 <li><code>cargo fix</code>: Automatically fix lint warnings reported by rustc</li>
 </ul>
 <blockquote>
-<p><strong>manual</strong>: 📁 https://doc.rust-lang.org/cargo/index.html</p>
+<p><strong>manual</strong>: <a href="https://doc.rust-lang.org/cargo/index.html">🔗 cargo doc</a></p>
 </blockquote>
 <h4 id="cargotoml-toml-file-for-cargo-config">Cargo.toml (TOML file for cargo config)</h4>
 <p><code>Cargo.toml</code>: TOML로 정의된 cargo configuration file</p>
@@ -329,11 +355,11 @@ source ~/.local/share/bash-completion/completions/rustup
 source ~/.local/share/bash-completion/completions/cargo
 </code></pre>
 <h3 id="rust-cookbook">Rust Cookbook</h3>
-<p>Rust crate의 종류를 분류함; 기능 구현전에 필요한 library를 가장 먼저 아래서 찾기!</p>
+<p>Rust crate의 종류를 분류한 cookbook에서 필요한 library를 가장 먼저 찾자!</p>
 <blockquote>
-<p>📁 https://rust-lang-nursery.github.io/rust-cookbook/</p>
+<p>🔗 <a href="https://rust-lang-nursery.github.io/rust-cookbook">Rust Cookbook</a></p>
 </blockquote>
-<h2 id="helloworld">Helloworld</h2>
+<h2 id="helloworld-with-cargo">Helloworld with cargo</h2>
 <pre><code class="language-bash"># create new project
 cargo new hello-rust
 cd hello-rust
@@ -374,8 +400,8 @@ tree
 #        ├── hello-rust.d
 #        └── incremental
 </code></pre>
-<h2 id="add-packages-crates">Add packages = crates (물품 운반용 상자)</h2>
-<p>외부 라이브러 사용</p>
+<h2 id="how-to-add-external-crates">How to add external crates</h2>
+<p>외부 라이브러 사용법</p>
 <pre><code class="language-bash"># Edit Cargo.toml
 [dependencies]
 ferris-says = &quot;0.2&quot;
@@ -387,46 +413,52 @@ use ferris_says::say;
 <h2 id="enabling-rust-backtrace">Enabling rust backtrace</h2>
 <p>Rust display the backtrace if running with <code>RUST_BACKTRACE=1</code>.</p>
 <pre><code class="language-bash">$ ./main 
-thread 'main' panicked at 'not yet implemented: To Do!', main.rs:2:5
-note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+..
 $ RUST_BACKTRACE=1 ./main 
 thread 'main' panicked at 'not yet implemented: To Do!', main.rs:2:5
 stack backtrace:
    0: rust_begin_unwind
-             at /rustc/9d1b2106e23b1abd32fce1f17267604a5102f57a/library/std/src/panicking.rs:498:5
-   1: core::panicking::panic_fmt
-             at /rustc/9d1b2106e23b1abd32fce1f17267604a5102f57a/library/core/src/panicking.rs:116:14
+...
    2: main::main
    3: core::ops::function::FnOnce::call_once
 note: Some details are omitted, run with `RUST_BACKTRACE=full` for a verbose backtrace.
 </code></pre>
 <h2 id="vscode-with-rust">vscode with rust</h2>
-<p>https://stackoverflow.com/questions/46885292/how-to-launch-a-rust-application-from-visual-studio-code</p>
+<blockquote>
+<p><a href="https://stackoverflow.com/questions/46885292/how-to-launch-a-rust-application-from-visual-studio-code">🔗 how-to-launch-a-rust-application-from-visual-studio-code</a></p>
+</blockquote>
 <h2 id="rust-macro">Rust macro</h2>
 <p>Rust macro는 개수가 가변적인 입력 인수를 취하는 함수</p>
 <ul>
-<li><code>println!</code>: 가변 인수를 받아 <code>stdout</code>에 출력</li>
-<li>e.g. <code>println!("Hello, {}!", "world");</code></li>
-<li><code>println!</code> calls a Rust macro. If it called a function instead, it would be entered as println (without the <code>!</code>). </li>
-<li>"Hello, world!": string representation of the string</li>
-<li>we end the line with a semicolon (;)</li>
-<li>{} 인수의 값 대체</li>
-<li><code>todo!</code>: 완성되지 않은 함수의 prototype 점검 및 선언, 호출시 exception 발생</li>
+<li><code>println!</code></li>
+<li><code>todo!</code></li>
+<li><code>panic!</code></li>
 </ul>
-<pre><code class="language-rust">// Call println! with three arguments: a string, a value, a value
-fn main() {
-  println!(&quot;The first letter of the English alphabet is {} and the last letter is {}.&quot;, 'A', 'Z');
-}
-// todo! - Display &quot;Hello, world!&quot; with an exception.
+<h3 id="println"><code>println!</code></h3>
+<p>가변 인수를 받아 <code>stdout</code>에 출력</p>
+<pre><code class="language-rust">// - If it called a function instead, it would be entered as println (without the `!`).
+// - &quot;Hello, world!&quot;: string representation of the string
+// - {} 인수의 값 대체
+println!(&quot;Hello, {}!&quot;, &quot;world&quot;);
+</code></pre>
+<h3 id="todo"><code>todo!</code></h3>
+<p>완성되지 않은 함수의 prototype 점검 및 선언, 호출시 exception 발생</p>
+<pre><code class="language-rust">// todo! - Display &quot;Hello, world!&quot; with an exception.
 fn main() {
   todo!(&quot;Display the message by using the println!() macro&quot;);
 }
 </code></pre>
+<h3 id="panic"><code>panic!</code></h3>
+<p>The call to <code>panic!</code> causes the error message contained in the last two lines.</p>
+<pre><code class="language-rust">fn main() {
+    panic!(&quot;crash and burn&quot;);
+}
+</code></pre>
 <h2 id="rust-syntax">Rust Syntax</h2>
-<h3 id="variable-declaration">Variable declaration</h3>
+<h3 id="constant-and-variable-declaration">Constant and Variable declaration</h3>
 <p>A value is not assigned, it is binded to a variable. python과 같은 bind 개념을 차용함</p>
 <pre><code class="language-rust">// 함수 선언
-fn FUNC_NAME()
+fn func()
 
 // 변수 선언
 let a_number;
@@ -446,48 +478,124 @@ b_number = 11;
 // variable shadowing (변수 섀도잉)
 // let으로 동일명의 변수를 계속 선언할 수 있음
 // 이것으로 변수의 값을 변경하는 것과 같은 효과를 가질 수 있음
-let c_number = 1;
-let c_number = 2;
-let c_number = 11;
-println!(&quot;{} {}!&quot;,&quot;hello&quot;, c_number);
+let x = 5;
+let x = x + 1;
+let x = x * 2;
+println!(&quot;The value of x is: {}&quot;, x); // The value of x is: 12
 
+// shardowing으로 변수의 type이 변경되는 것처럼 동작시킬 수 있다.
+let spaces = &quot;   &quot;;
+let spaces = spaces.len(); // space는 interger가 됨
+
+// 만약, mut를 사용하게되면, type 변경은 불허
+let mut spaces = &quot;   &quot;;
+spaces = spaces.len(); // cause an error
+
+// constant (상수)
+// - constants use uppercase with underscores.
+// - constants must be computed at compile time.
+const THREE_HOURS_IN_SECONDS: u32 = 60 * 60 * 3;
 </code></pre>
-<h3 id="built-in-data-types">Built-in data types</h3>
+<h3 id="built-in-scalar-data-types">Built-in scalar data types</h3>
+<p>Rust에서 지원하는 scalar data type은 다음과 같다.</p>
+<pre><code class="language-rust">i8, i16, i32, i64 // signed integer number (default: i32)
+u8, u16, u32, u64 // unsigned integer number
+isize, usize // architecture-dependent number
+f32, f64 // floating point number (default f64)
+bool // true, false boolean value
+char // A 21-bit integer represent a character 
+     // that's padded to be 32 bits wide for unicode
+&amp;str // a string slice consists of characters.
+     // This is immutable string data! (Read-only)
+String // It is mutable string data allocated to the heap area.
+</code></pre>
 <ul>
-<li>Rust is a statically typed language.</li>
-<li><code>let VAR: TYPE</code>으로 variable의 type 지정</li>
-<li>compiler가 모든 변수의 정확한 data type을 알아야 한다.</li>
-<li><code>println!</code> macro 사용시 data type suffix를 추가해 compiler가 type을 인지하도록 입력해야 함.</li>
-<li>Built-in Types</li>
-<li>Integer numbers (default: <code>i32</code>)<ul>
-<li>8-bit: <code>i8</code>, <code>u8</code></li>
-<li>16-bit: <code>i16</code>, <code>u16</code></li>
-<li>32-bit: <code>i32</code>, <code>u32</code></li>
-<li>64-bit: <code>i64</code>, <code>u64</code></li>
-<li>128-bit: <code>i128</code>, <code>u128</code></li>
-<li>Architecture-dependent    <code>isize</code>,    <code>usize</code></li>
+<li>Rust is a statically typed language. 따라서 compiler가 모든 변수의 정확한 data type을 알아야 함</li>
+<li><code>let VAR: TYPE</code>으로 variable의 type을 명시</li>
+<li><code>println!</code> 사용시 data type suffix를 추가해 compiler가 type을 인지하도록 입력해야 함.</li>
 </ul>
-</li>
-<li>Floating point numbers (default: <code>f64</code>)<ul>
-<li><code>f32</code>, <code>f64</code></li>
-</ul>
-</li>
-<li>Booleans (<code>bool</code>)</li>
-<li>Characters </li>
-</ul>
-<pre><code class="language-rust">let number: u32 = 14;
-let number_64 = 4.0;      // compiler infers the value to use the default type f64
-let number_32: f32 = 5.0; // type f32 specified via annotation
+<pre><code class="language-rust">// Integer literal
+let _i = 1000; // i32 assigned by default
+let _i: i32 = 1000i32; // suffix for type direction
+let _i: i32 = 98_222; // = 98222 Decimal for visual separation
+let _i: i32 = 0xff; // Hex
+let _i: i32 = 0o77; // Octal
+let _i: i32 = 0b1111_0000; // Binary
+let _i: u8 = b'A'; // Byte (u8 only)
 
-// All of the primitive number types in Rust support mathematical operations like addition, subtraction, multiplication, and division.
-// When we call the println macro, we add the data type suffix to each literal number to inform Rust about the data type. 
+// Float literal
+let _number_64 = 4.0;      // compiler infers the value to use the default type f64
+let _number_32: f32 = 5.0; // type f32 specified via annotation
+
+// All of the primitive number types in Rust support mathematical operations
+// like addition, subtraction, multiplication, and division.
+// When we call the println macro, we add the data type suffix 
+// to each literal number to inform Rust about the data type. 
 
 // Addition, Subtraction, and Multiplication
 println!(&quot;1 + 2 = {} and 8 - 5 = {} and 15 * 3 = {}&quot;, 1u32 + 2, 8i32 - 5, 15 * 3);
 
 // Integer and Floating point division
 println!(&quot;9 / 2 = {} but 9.0 / 2.0 = {}&quot;, 9u32 / 2, 9.0 / 2.0);
+
+// integer types
+let sum = 5 + 10; // addition
+let difference = 95.5 - 4.3; // subtraction
+let product = 4 * 30; // multiplication
+let quotient = 56.7 / 32.2; // division
+let remainder = 43 % 5; // remainder
+
+// floating point types
+let x = 2.0; // f64
+let y: f32 = 3.0; // f32
+
+// boolean type
+let t = true;
+let f: bool = false; // with explicit type annotation
+
+// character
+let c = 'z';
+let z = 'ℤ';
+let heart_eyed_cat = '😻';
 </code></pre>
+<h3 id="char-type">Char type</h3>
+<ul>
+<li>Rust’s <code>char</code> type is four bytes in size and represents a Unicode Scalar Value.</li>
+<li>Unicode Scalar Values range from <code>U+0000</code> to <code>U+D7FF</code> and <code>U+E000</code> to <code>U+10FFFF</code> inclusive.</li>
+<li><code>char</code> type is a 21-bit integer represent a character that's padded to be 32 bits wide for unicode.</li>
+<li>Char literals use single quotes.<code>'C'</code></li>
+<li><a href="https://doc.rust-lang.org/book/ch08-02-strings.html#storing-utf-8-encoded-text-with-strings">Storing UTF-8 Encoded Text with Strings</a></li>
+</ul>
+<h3 id="compound-types">Compound Types</h3>
+<p>Compound types can group multiple values into one type. Rust has two primitive compound types: tuples and arrays.</p>
+<h3 id="tuple-type">Tuple Type</h3>
+<p>Tuples have a fixed length: once declared, they cannot grow or shrink in size.</p>
+<pre><code class="language-rust">let tup: (i32, f64, u8) = (500, 6.4, 1);
+
+// [Tuple destructuring]
+// To get the individual values out of a tuple ...
+let tup = (500, 6.4, 1);
+let (x, y, z) = tup;
+println!(&quot;The value of y is: {}&quot;, y); // The value of y is: 6.4
+
+// [Access a tuple element directly]
+let x: (i32, f64, u8) = (500, 6.4, 1);
+let five_hundred = x.0;
+let six_point_four = x.1;
+let one = x.2;
+</code></pre>
+<blockquote>
+<p>❓ The tuple without any values, (), is a special type that has only one value, also written (). The type is called the unit type and the value is called the unit value. Expressions implicitly return the unit value if they don’t return any other value.</p>
+</blockquote>
+<h3 id="array-type">Array Type</h3>
+<h3 id="str-string-type">&amp;str과 String Type</h3>
+<ul>
+<li>&amp;str as a pointer to immutable string data. String literals are all of type &amp;str.</li>
+</ul>
+<h2 id="to-be-considered">To be considered</h2>
+<ul>
+<li>Integer Overflow: https://doc.rust-lang.org/book/ch03-02-data-types.html#integer-overflow</li>
+</ul>
               
             </div>
           </div><footer>
