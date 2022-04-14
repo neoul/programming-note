@@ -41,6 +41,10 @@ Open-source high-level and low-level system programming language
 - `Minimal runtime`: Rust has a very minimal and optional runtime. The language also has **no garbage collector** to manage memory efficiently. In this way Rust is most similar to languages like C and C++.
 - `Targets bare metal`: Rust can target embedded and "bare metal" programming, making it suitable to write an operating system kernel or device drivers.
 
+## 내가 생각하는 rust 특성
+
+- Variable과 function type을 immutable 상태로 고정 ==> gabage collection이 필요없도록 만듦
+
 ## Rust module system
 
 - `Crates`: It's the smallest piece of code the Rust compiler can run.
@@ -475,11 +479,124 @@ let one = x.2;
 
 ### Array Type
 
+- Unlike a tuple, every element of an array must have the same type.
+- Unlike arrays in some other languages, arrays in Rust have a fixed length.
+- Arrays are useful when you want your data allocated on the stack rather than the heap.
+- Flexible size array가 필요하다면 `Vec<T>`를 사용
+
+```rust
+let a = [1, 2, 3, 4, 5];
+let months = ["January", "February", "March", "April", "May", "June", "July",
+              "August", "September", "October", "November", "December"];
+let a: [i32; 5] = [1, 2, 3, 4, 5]; // [Type; Length]
+let a = [3; 5]; // [3, 3, 3, 3, 3]으로 초기화
+
+// [Access an array element]
+let first = a[0];
+let second = a[1];
+
+// mutable해야 Arrary element 변경 가능함
+let mut a = [1, 2, 3, 4, 5];
+a[1] = 100;
+```
 
 ### &str과 String Type
 
 - &str as a pointer to immutable string data. String literals are all of type &str.
 
+### Functions
+
+- `fn` keyward를 사용
+- All letters of function names and variables are lowercase and underscores (`_`) separate words.
+- A set of parentheses and curly brackets are followed to the function name.
+- In function signatures, you must declare the type of each parameter that you want to input.
+
+```rust
+fn main() {
+  another_function(5);
+  print_labeled_measurement(5, 'h');
+}
+
+fn another_function(x: i32) {
+  println!("The value of x is: {}", x);
+}
+
+fn print_labeled_measurement(value: i32, unit_label: char) {
+  println!("The measurement is: {}{}", value, unit_label);
+}
+
+fn four() -> i32 {
+  4; // error because it becomes a statement
+}
+
+fn five() -> i32 {
+  5 // no semicolon; return the value as an expression
+}
+
+fn six() -> i32 { // 명시적 반환
+  return 6; // ok
+}
+
+fn seven() -> i32 {
+  return 7 // ok
+}
+
+fn main() {
+  let x = five();
+  println!("The value of x is: {}", x);
+}
+```
+
+## Statements and expressions
+
+Rust는 Statement와 expression의 구분이 다음과 같이 명확함.
+
+- Statements are instructions that perform some action and do not return a value.
+- Expressions evaluate to a resulting value and return the result value.
+- Expressions do not include ending semicolons.
+- If you add a semicolon to the end of an expression, you turn it into a statement, and it will then not return a value.
+- javascript와 유사하게 세미콜론(`;`) 없이 function 마지막 문장이 끝나면, 그 마지막 결과를 반환함 (as an expression)
+
+> Expressions in rust: function call, value, {} (블록)
+
+```rust
+fn main() {
+  // error 발생 let y는 return value 없음
+  // expression이 아니므로 x에 binding 불가
+  let x = (let y = 6);
+
+  // 4로 판정된 {} 안의 값이 y에 할당
+  // x + 1에는 세미콜론(;) 이 없으며 expression으로 판정, 값을 반환
+  let y = {
+    let x = 3;
+    x + 1
+  };
+  println!("The value of y is: {}", y);
+}
+```
+
+
+
+
 ## To be considered
 
 - Integer Overflow: https://doc.rust-lang.org/book/ch03-02-data-types.html#integer-overflow
+
+## Useful code
+
+### Read stdin
+
+```rust
+use std::io;
+// ...
+// Read a string from stdin
+let mut index = String::new();
+io::stdin()
+    .read_line(&mut index)
+    .expect("Failed to read line");
+let index: usize = index
+    .trim()
+    .parse()
+    .expect("Index entered was not a number");
+
+```
