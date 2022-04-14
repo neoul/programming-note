@@ -85,6 +85,8 @@
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#rust_1">Rust 특성</a>
     </li>
+    <li class="toctree-l2"><a class="reference internal" href="#rust_2">내가 생각하는 rust 특성</a>
+    </li>
     <li class="toctree-l2"><a class="reference internal" href="#rust-module-system">Rust module system</a>
         <ul>
     <li class="toctree-l3"><a class="reference internal" href="#rust-standard-libary-and-useful-crates">Rust standard libary and useful crates</a>
@@ -149,9 +151,19 @@
     </li>
     <li class="toctree-l3"><a class="reference internal" href="#str-string-type">&amp;str과 String Type</a>
     </li>
+    <li class="toctree-l3"><a class="reference internal" href="#functions">Functions</a>
+    </li>
         </ul>
     </li>
+    <li class="toctree-l2"><a class="reference internal" href="#statements-and-expressions">Statements and expressions</a>
+    </li>
     <li class="toctree-l2"><a class="reference internal" href="#to-be-considered">To be considered</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#useful-code">Useful code</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#read-stdin">Read stdin</a>
+    </li>
+        </ul>
     </li>
     </ul>
                 </li>
@@ -213,6 +225,10 @@
 <li><code>Zero-cost abstractions</code>: Rust allows the use of high-level concepts, like iteration, interfaces, and functional programming, with minimal to no performance costs. The abstractions perform as well, as if you wrote the underlying code by hand.</li>
 <li><code>Minimal runtime</code>: Rust has a very minimal and optional runtime. The language also has <strong>no garbage collector</strong> to manage memory efficiently. In this way Rust is most similar to languages like C and C++.</li>
 <li><code>Targets bare metal</code>: Rust can target embedded and "bare metal" programming, making it suitable to write an operating system kernel or device drivers.</li>
+</ul>
+<h2 id="rust_2">내가 생각하는 rust 특성</h2>
+<ul>
+<li>Variable과 function type을 immutable 상태로 고정 ==&gt; gabage collection이 필요없도록 만듦</li>
 </ul>
 <h2 id="rust-module-system">Rust module system</h2>
 <ul>
@@ -588,14 +604,116 @@ let one = x.2;
 <p>❓ The tuple without any values, (), is a special type that has only one value, also written (). The type is called the unit type and the value is called the unit value. Expressions implicitly return the unit value if they don’t return any other value.</p>
 </blockquote>
 <h3 id="array-type">Array Type</h3>
+<ul>
+<li>Unlike a tuple, every element of an array must have the same type.</li>
+<li>Unlike arrays in some other languages, arrays in Rust have a fixed length.</li>
+<li>Arrays are useful when you want your data allocated on the stack rather than the heap.</li>
+<li>Flexible size array가 필요하다면 <code>Vec&lt;T&gt;</code>를 사용</li>
+</ul>
+<pre><code class="language-rust">let a = [1, 2, 3, 4, 5];
+let months = [&quot;January&quot;, &quot;February&quot;, &quot;March&quot;, &quot;April&quot;, &quot;May&quot;, &quot;June&quot;, &quot;July&quot;,
+              &quot;August&quot;, &quot;September&quot;, &quot;October&quot;, &quot;November&quot;, &quot;December&quot;];
+let a: [i32; 5] = [1, 2, 3, 4, 5]; // [Type; Length]
+let a = [3; 5]; // [3, 3, 3, 3, 3]으로 초기화
+
+// [Access an array element]
+let first = a[0];
+let second = a[1];
+
+// mutable해야 Arrary element 변경 가능함
+let mut a = [1, 2, 3, 4, 5];
+a[1] = 100;
+</code></pre>
 <h3 id="str-string-type">&amp;str과 String Type</h3>
 <ul>
 <li>&amp;str as a pointer to immutable string data. String literals are all of type &amp;str.</li>
 </ul>
+<h3 id="functions">Functions</h3>
+<ul>
+<li><code>fn</code> keyward를 사용</li>
+<li>All letters of function names and variables are lowercase and underscores (<code>_</code>) separate words.</li>
+<li>A set of parentheses and curly brackets are followed to the function name.</li>
+<li>In function signatures, you must declare the type of each parameter that you want to input.</li>
+</ul>
+<pre><code class="language-rust">fn main() {
+  another_function(5);
+  print_labeled_measurement(5, 'h');
+}
+
+fn another_function(x: i32) {
+  println!(&quot;The value of x is: {}&quot;, x);
+}
+
+fn print_labeled_measurement(value: i32, unit_label: char) {
+  println!(&quot;The measurement is: {}{}&quot;, value, unit_label);
+}
+
+fn four() -&gt; i32 {
+  4; // error because it becomes a statement
+}
+
+fn five() -&gt; i32 {
+  5 // no semicolon; return the value as an expression
+}
+
+fn six() -&gt; i32 { // 명시적 반환
+  return 6; // ok
+}
+
+fn seven() -&gt; i32 {
+  return 7 // ok
+}
+
+fn main() {
+  let x = five();
+  println!(&quot;The value of x is: {}&quot;, x);
+}
+</code></pre>
+<h2 id="statements-and-expressions">Statements and expressions</h2>
+<p>Rust는 Statement와 expression의 구분이 다음과 같이 명확함.</p>
+<ul>
+<li>Statements are instructions that perform some action and do not return a value.</li>
+<li>Expressions evaluate to a resulting value and return the result value.</li>
+<li>Expressions do not include ending semicolons.</li>
+<li>If you add a semicolon to the end of an expression, you turn it into a statement, and it will then not return a value.</li>
+<li>javascript와 유사하게 세미콜론(<code>;</code>) 없이 function 마지막 문장이 끝나면, 그 마지막 결과를 반환함 (as an expression)</li>
+</ul>
+<blockquote>
+<p>Expressions in rust: function call, value, {} (블록)</p>
+</blockquote>
+<pre><code class="language-rust">fn main() {
+  // error 발생 let y는 return value 없음
+  // expression이 아니므로 x에 binding 불가
+  let x = (let y = 6);
+
+  // 4로 판정된 {} 안의 값이 y에 할당
+  // x + 1에는 세미콜론(;) 이 없으며 expression으로 판정, 값을 반환
+  let y = {
+    let x = 3;
+    x + 1
+  };
+  println!(&quot;The value of y is: {}&quot;, y);
+}
+</code></pre>
 <h2 id="to-be-considered">To be considered</h2>
 <ul>
 <li>Integer Overflow: https://doc.rust-lang.org/book/ch03-02-data-types.html#integer-overflow</li>
 </ul>
+<h2 id="useful-code">Useful code</h2>
+<h3 id="read-stdin">Read stdin</h3>
+<pre><code class="language-rust">use std::io;
+// ...
+// Read a string from stdin
+let mut index = String::new();
+io::stdin()
+    .read_line(&amp;mut index)
+    .expect(&quot;Failed to read line&quot;);
+let index: usize = index
+    .trim()
+    .parse()
+    .expect(&quot;Index entered was not a number&quot;);
+
+</code></pre>
               
             </div>
           </div><footer>
