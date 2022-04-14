@@ -2,6 +2,9 @@
 
 A language empowering everyone to build reliable and efficient software.
 
+!!! note
+    이 문서는 [rust-first-steps](https://docs.microsoft.com/ko-kr/learn/paths/rust-first-steps), [rust-lang.org](https://www.rust-lang.org), [rust-doc](https://doc.rust-lang.org/book/title-page.html) 을 보고 내용을 정리한 문서입니다.
+
 ## Why Rust?
 
 - Performance
@@ -20,7 +23,7 @@ Rust’s rich type system and ownership model guarantee memory-safety and thread
 
 Rust has great documentation, a friendly compiler with useful error messages, and top-notch tooling — an integrated package manager and build tool, smart multi-editor support with auto-completion and type inspections, an auto-formatter, and more.
 
-## Roadamp to improve Rust programming experience
+## Roadamp to improve
 
 - Building tools; 직관적이고 간단한 building, packaging tool 지원
 - Web­Assembly (Writing Web Apps); Binary instruction set in web browsers
@@ -43,7 +46,7 @@ Open-source high-level and low-level system programming language
 - `Crates`: It's the smallest piece of code the Rust compiler can run.
 - `Modules`: Groups of crates; Related code items or items that are used together
 - `Path`: Paths to access and use the code or items in Rust
--  third-party crate registry: https://crates.io
+- Third-party crate registry: [crates.io](https://crates.io)
 
 ### Rust standard libary and useful crates
 
@@ -73,8 +76,8 @@ use std::fmt
 
 `WebAssembly` is a new type of code that can be run in modern web browsers — it is a low-level assembly-like language with a compact binary format that runs with near-native performance and provides languages such as C/C++, C# and Rust with a compilation target so that they can run on the web. It is also designed to run alongside JavaScript, allowing both to work together.
 
-> Emscripten SDK - compile WebAssembly code and generate javascript stub and wasm binary.  
-> Doc: 📁 https://developer.mozilla.org/en-US/docs/WebAssembly
+> - **Emscripten SDK** - compile wasm code and generate javascript stub and wasm binary.  
+> - **Doc**: [🔗 WebAssembly](https://developer.mozilla.org/en-US/docs/WebAssembly)
 
 ## Latest version
 
@@ -93,8 +96,8 @@ rustup update
 rustup self uninstall
 ```
 
-- `vscode`: [📁 ext install matklad.rust-analyzer](https://marketplace.visualstudio.com/items?itemName=matklad.rust-analyzer)
-- `vim`: 📁 https://github.com/rust-lang/rust.vim
+- `vscode`: [🔗 ext install matklad.rust-analyzer](https://marketplace.visualstudio.com/items?itemName=matklad.rust-analyzer)
+- `vim`: [🔗 rust.vim](https://github.com/rust-lang/rust.vim)
 
 > All tools including `rustc`, `cargo`, and `rustup` are installed to the `~/.cargo/bin` directory.
 
@@ -112,10 +115,10 @@ rustup self uninstall
 - `cargo doc`: build documentation for your project with
 - `cargo publish`: publish a library to `crates.io` with
 - Add dependent crates to a project by adding the crate name to the Cargo.toml file.
-- `cargo fmt`: reformats your code according to the community code style. `rustup component add rustfmt`으로 설치
+- `cargo fmt`: reformats your code according to the community code style.
 - `cargo fix`: Automatically fix lint warnings reported by rustc
 
-> **manual**: 📁 https://doc.rust-lang.org/cargo/index.html
+> **manual**: [🔗 cargo doc](https://doc.rust-lang.org/cargo/index.html)
 
 #### Cargo.toml (TOML file for cargo config)
 
@@ -196,11 +199,11 @@ source ~/.local/share/bash-completion/completions/cargo
 
 ### Rust Cookbook
 
-Rust crate의 종류를 분류함; 기능 구현전에 필요한 library를 가장 먼저 아래서 찾기!
+Rust crate의 종류를 분류한 cookbook에서 필요한 library를 가장 먼저 찾자!
 
-> 📁 https://rust-lang-nursery.github.io/rust-cookbook/
+> 🔗 [Rust Cookbook](https://rust-lang-nursery.github.io/rust-cookbook)
 
-## Helloworld
+## Helloworld with cargo
 
 ```bash
 # create new project
@@ -244,9 +247,9 @@ tree
 #        └── incremental
 ```
 
-## Add packages = crates (물품 운반용 상자)
+## How to add external crates
 
-외부 라이브러 사용
+외부 라이브러 사용법
 
 ```bash
 # Edit Cargo.toml
@@ -267,15 +270,12 @@ Rust display the backtrace if running with `RUST_BACKTRACE=1`.
 
 ```bash
 $ ./main 
-thread 'main' panicked at 'not yet implemented: To Do!', main.rs:2:5
-note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+..
 $ RUST_BACKTRACE=1 ./main 
 thread 'main' panicked at 'not yet implemented: To Do!', main.rs:2:5
 stack backtrace:
    0: rust_begin_unwind
-             at /rustc/9d1b2106e23b1abd32fce1f17267604a5102f57a/library/std/src/panicking.rs:498:5
-   1: core::panicking::panic_fmt
-             at /rustc/9d1b2106e23b1abd32fce1f17267604a5102f57a/library/core/src/panicking.rs:116:14
+...
    2: main::main
    3: core::ops::function::FnOnce::call_once
 note: Some details are omitted, run with `RUST_BACKTRACE=full` for a verbose backtrace.
@@ -283,40 +283,57 @@ note: Some details are omitted, run with `RUST_BACKTRACE=full` for a verbose bac
 
 ## vscode with rust
 
-https://stackoverflow.com/questions/46885292/how-to-launch-a-rust-application-from-visual-studio-code
+> [🔗 how-to-launch-a-rust-application-from-visual-studio-code](https://stackoverflow.com/questions/46885292/how-to-launch-a-rust-application-from-visual-studio-code)
 
 ## Rust macro
 
 Rust macro는 개수가 가변적인 입력 인수를 취하는 함수
 
-- `println!`: 가변 인수를 받아 `stdout`에 출력
-  - e.g. `println!("Hello, {}!", "world");`
-  - `println!` calls a Rust macro. If it called a function instead, it would be entered as println (without the `!`). 
-  - "Hello, world!": string representation of the string
-  - we end the line with a semicolon (;)
-  - {} 인수의 값 대체
-- `todo!`: 완성되지 않은 함수의 prototype 점검 및 선언, 호출시 exception 발생
+- `println!`
+- `todo!`
+- `panic!`
+
+### `println!`
+
+가변 인수를 받아 `stdout`에 출력
 
 ```rust
-// Call println! with three arguments: a string, a value, a value
-fn main() {
-  println!("The first letter of the English alphabet is {} and the last letter is {}.", 'A', 'Z');
-}
+// - If it called a function instead, it would be entered as println (without the `!`).
+// - "Hello, world!": string representation of the string
+// - {} 인수의 값 대체
+println!("Hello, {}!", "world");
+```
+
+### `todo!`
+
+완성되지 않은 함수의 prototype 점검 및 선언, 호출시 exception 발생
+
+```rust
 // todo! - Display "Hello, world!" with an exception.
 fn main() {
   todo!("Display the message by using the println!() macro");
 }
 ```
 
+### `panic!`
+
+The call to `panic!` causes the error message contained in the last two lines.
+
+```rust
+fn main() {
+    panic!("crash and burn");
+}
+```
+
 ## Rust Syntax
 
-### Variable declaration
+### Constant and Variable declaration
 
 A value is not assigned, it is binded to a variable. python과 같은 bind 개념을 차용함
 
 ```rust
 // 함수 선언
-fn FUNC_NAME()
+fn func()
 
 // 변수 선언
 let a_number;
@@ -336,45 +353,133 @@ b_number = 11;
 // variable shadowing (변수 섀도잉)
 // let으로 동일명의 변수를 계속 선언할 수 있음
 // 이것으로 변수의 값을 변경하는 것과 같은 효과를 가질 수 있음
-let c_number = 1;
-let c_number = 2;
-let c_number = 11;
-println!("{} {}!","hello", c_number);
+let x = 5;
+let x = x + 1;
+let x = x * 2;
+println!("The value of x is: {}", x); // The value of x is: 12
 
+// shardowing으로 변수의 type이 변경되는 것처럼 동작시킬 수 있다.
+let spaces = "   ";
+let spaces = spaces.len(); // space는 interger가 됨
+
+// 만약, mut를 사용하게되면, type 변경은 불허
+let mut spaces = "   ";
+spaces = spaces.len(); // cause an error
+
+// constant (상수)
+// - constants use uppercase with underscores.
+// - constants must be computed at compile time.
+const THREE_HOURS_IN_SECONDS: u32 = 60 * 60 * 3;
 ```
 
-### Built-in data types
+### Built-in scalar data types
 
-- Rust is a statically typed language.
-- `let VAR: TYPE`으로 variable의 type 지정
-- compiler가 모든 변수의 정확한 data type을 알아야 한다.
-- `println!` macro 사용시 data type suffix를 추가해 compiler가 type을 인지하도록 입력해야 함.
-- Built-in Types
-  - Integer numbers (default: `i32`)
-    - 8-bit: `i8`, `u8`
-    - 16-bit: `i16`, `u16`
-    - 32-bit: `i32`, `u32`
-    - 64-bit: `i64`, `u64`
-    - 128-bit: `i128`, `u128`
-    - Architecture-dependent	`isize`,	`usize`
-  - Floating point numbers (default: `f64`)
-    - `f32`, `f64`
-  - Booleans (`bool`)
-  - Characters 
+Rust에서 지원하는 scalar data type은 다음과 같다.
 
 ```rust
-let number: u32 = 14;
-let number_64 = 4.0;      // compiler infers the value to use the default type f64
-let number_32: f32 = 5.0; // type f32 specified via annotation
+i8, i16, i32, i64 // signed integer number (default: i32)
+u8, u16, u32, u64 // unsigned integer number
+isize, usize // architecture-dependent number
+f32, f64 // floating point number (default f64)
+bool // true, false boolean value
+char // A 21-bit integer represent a character 
+     // that's padded to be 32 bits wide for unicode
+&str // a string slice consists of characters.
+     // This is immutable string data! (Read-only)
+String // It is mutable string data allocated to the heap area.
+```
 
-// All of the primitive number types in Rust support mathematical operations like addition, subtraction, multiplication, and division.
-// When we call the println macro, we add the data type suffix to each literal number to inform Rust about the data type. 
+- Rust is a statically typed language. 따라서 compiler가 모든 변수의 정확한 data type을 알아야 함
+- `let VAR: TYPE`으로 variable의 type을 명시
+- `println!` 사용시 data type suffix를 추가해 compiler가 type을 인지하도록 입력해야 함.
+
+```rust
+// Integer literal
+let _i = 1000; // i32 assigned by default
+let _i: i32 = 1000i32; // suffix for type direction
+let _i: i32 = 98_222; // = 98222 Decimal for visual separation
+let _i: i32 = 0xff; // Hex
+let _i: i32 = 0o77; // Octal
+let _i: i32 = 0b1111_0000; // Binary
+let _i: u8 = b'A'; // Byte (u8 only)
+
+// Float literal
+let _number_64 = 4.0;      // compiler infers the value to use the default type f64
+let _number_32: f32 = 5.0; // type f32 specified via annotation
+
+// All of the primitive number types in Rust support mathematical operations
+// like addition, subtraction, multiplication, and division.
+// When we call the println macro, we add the data type suffix 
+// to each literal number to inform Rust about the data type. 
 
 // Addition, Subtraction, and Multiplication
 println!("1 + 2 = {} and 8 - 5 = {} and 15 * 3 = {}", 1u32 + 2, 8i32 - 5, 15 * 3);
 
 // Integer and Floating point division
 println!("9 / 2 = {} but 9.0 / 2.0 = {}", 9u32 / 2, 9.0 / 2.0);
+
+// integer types
+let sum = 5 + 10; // addition
+let difference = 95.5 - 4.3; // subtraction
+let product = 4 * 30; // multiplication
+let quotient = 56.7 / 32.2; // division
+let remainder = 43 % 5; // remainder
+
+// floating point types
+let x = 2.0; // f64
+let y: f32 = 3.0; // f32
+
+// boolean type
+let t = true;
+let f: bool = false; // with explicit type annotation
+
+// character
+let c = 'z';
+let z = 'ℤ';
+let heart_eyed_cat = '😻';
 ```
 
+### Char type
 
+- Rust’s `char` type is four bytes in size and represents a Unicode Scalar Value.
+- Unicode Scalar Values range from `U+0000` to `U+D7FF` and `U+E000` to `U+10FFFF` inclusive.
+- `char` type is a 21-bit integer represent a character that's padded to be 32 bits wide for unicode.
+- Char literals use single quotes.`'C'`
+- [Storing UTF-8 Encoded Text with Strings](https://doc.rust-lang.org/book/ch08-02-strings.html#storing-utf-8-encoded-text-with-strings)
+
+### Compound Types
+
+Compound types can group multiple values into one type. Rust has two primitive compound types: tuples and arrays.
+
+### Tuple Type
+
+Tuples have a fixed length: once declared, they cannot grow or shrink in size.
+
+```rust
+let tup: (i32, f64, u8) = (500, 6.4, 1);
+
+// [Tuple destructuring]
+// To get the individual values out of a tuple ...
+let tup = (500, 6.4, 1);
+let (x, y, z) = tup;
+println!("The value of y is: {}", y); // The value of y is: 6.4
+
+// [Access a tuple element directly]
+let x: (i32, f64, u8) = (500, 6.4, 1);
+let five_hundred = x.0;
+let six_point_four = x.1;
+let one = x.2;
+```
+
+> ❓ The tuple without any values, (), is a special type that has only one value, also written (). The type is called the unit type and the value is called the unit value. Expressions implicitly return the unit value if they don’t return any other value.
+
+### Array Type
+
+
+### &str과 String Type
+
+- &str as a pointer to immutable string data. String literals are all of type &str.
+
+## To be considered
+
+- Integer Overflow: https://doc.rust-lang.org/book/ch03-02-data-types.html#integer-overflow

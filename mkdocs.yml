@@ -1,2 +1,4 @@
 site_name: Programming Note
 theme: readthedocs
+markdown_extensions:
+  - admonition

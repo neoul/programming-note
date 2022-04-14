@@ -2,8 +2,7 @@
 
 Study for my new programming languages or APIs
 
-- [Python](python3.md)
-- [go](go.md)
-- [rust](rust.md)
-- [javascript](javascript.md)
-- [gRPC](gRPC.md)
+- [Python](docs/python3.md)
+- [go](docs/go.md)
+- [rust](docs/rust.md)
+- [javascript](docs/javascript.md)
