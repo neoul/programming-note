@@ -1,2 +1,5 @@
 rust/hello-rust/target
-rust
+rust/*/target
+rust/*/main
+rust/*/src/main
+*.html
