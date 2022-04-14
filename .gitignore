@@ -3,3 +3,4 @@ rust/*/target
 rust/*/main
 rust/*/src/main
 *.html
+site
