@@ -5,6 +5,79 @@ A language empowering everyone to build reliable and efficient software.
 !!! note
     이 문서는 [rust-first-steps](https://docs.microsoft.com/ko-kr/learn/paths/rust-first-steps), [rust-lang.org](https://www.rust-lang.org), [rust-doc](https://doc.rust-lang.org/book/title-page.html) 을 보고 내용을 정리한 문서입니다.
 
+
+- [Rust](#rust)
+  - [Why Rust?](#why-rust)
+    - [Performance](#performance)
+    - [Reliability](#reliability)
+    - [Productivity](#productivity)
+  - [Roadamp to improve](#roadamp-to-improve)
+  - [Rust 특성](#rust-특성)
+  - [내가 생각하는 rust 특성](#내가-생각하는-rust-특성)
+  - [Rust module system](#rust-module-system)
+    - [Rust standard libary and useful crates](#rust-standard-libary-and-useful-crates)
+    - [How to use crates?](#how-to-use-crates)
+  - [Terms](#terms)
+  - [Latest version](#latest-version)
+  - [Rust installation](#rust-installation)
+    - [Cargo](#cargo)
+      - [Cargo versioning](#cargo-versioning)
+      - [Cargo.toml (TOML file for cargo config)](#cargotoml-toml-file-for-cargo-config)
+      - [Cargo.lock](#cargolock)
+    - [Useful development tool](#useful-development-tool)
+    - [Rust build tools](#rust-build-tools)
+    - [Rustup & cargo command completion](#rustup--cargo-command-completion)
+    - [Rust Cookbook](#rust-cookbook)
+  - [Helloworld with cargo](#helloworld-with-cargo)
+  - [How to add external crates](#how-to-add-external-crates)
+  - [Enabling rust backtrace](#enabling-rust-backtrace)
+  - [Rust macro](#rust-macro)
+    - [`println!`, `print!`](#println-print)
+    - [`todo!`](#todo)
+    - [`panic!`](#panic)
+    - [`dbg!`](#dbg)
+  - [Prelude (imported std libraries)](#prelude-imported-std-libraries)
+  - [Rust ownership (값에 대한 소유권)](#rust-ownership-값에-대한-소유권)
+  - [References and Borrowing](#references-and-borrowing)
+  - [Rust Syntax](#rust-syntax)
+    - [Comments](#comments)
+    - [Document comments](#document-comments)
+    - [Constants and Variables](#constants-and-variables)
+    - [Built-in scalar data types](#built-in-scalar-data-types)
+    - [Char type](#char-type)
+    - [Compound Types](#compound-types)
+    - [Tuple Type](#tuple-type)
+    - [Array Type](#array-type)
+    - [&str과 String Type](#str과-string-type)
+    - [Functions](#functions)
+    - [Associated function indication `::`](#associated-function-indication-)
+    - [Statements and expressions](#statements-and-expressions)
+    - [Control flow](#control-flow)
+      - [`if..else`:](#ifelse)
+      - [`loop`, `while` and `for`](#loop-while-and-for)
+    - [Result type](#result-type)
+    - [Reference](#reference)
+    - [Structs and methods](#structs-and-methods)
+      - [Field Init Shorthand](#field-init-shorthand)
+      - [Struct Update Syntax](#struct-update-syntax)
+    - [Tuple Structs](#tuple-structs)
+  - [Trait](#trait)
+  - [To be considered](#to-be-considered)
+  - [collections](#collections)
+    - [String](#string)
+    - [hash map](#hash-map)
+  - [Useful code or crates](#useful-code-or-crates)
+    - [Read stdin](#read-stdin)
+  - [Modules](#modules)
+  - [Macro](#macro)
+  - [Testing](#testing)
+  - [Rust Attributes](#rust-attributes)
+    - [Scope](#scope)
+    - [Attribute arguments](#attribute-arguments)
+    - [Frequently Used Attributes](#frequently-used-attributes)
+    - [Custom cfg](#custom-cfg)
+    - [`derive` attribute](#derive-attribute)
+
 ## Why Rust?
 
 - Performance
@@ -117,12 +190,24 @@ rustup self uninstall
 - `cargo test`: test your project with
 - `cargo check`: checks your code to make sure it compiles but doesn’t produce an executable
 - `cargo doc`: build documentation for your project with
+  - `cargo doc --open`: 현재 crate의 html 문서 생성
 - `cargo publish`: publish a library to `crates.io` with
 - Add dependent crates to a project by adding the crate name to the Cargo.toml file.
 - `cargo fmt`: reformats your code according to the community code style.
 - `cargo fix`: Automatically fix lint warnings reported by rustc
 
 > **manual**: [🔗 cargo doc](https://doc.rust-lang.org/cargo/index.html)
+
+#### Cargo versioning
+
+Cargo는 버전을 명시하는 표준에 해당하는 [Semantic Versioning(semver)](https://semver.org/)을 이용합니다.
+
+```toml
+# Example
+rand = "0.8.3"
+```
+
+The number 0.8.3 is actually shorthand for ^0.8.3, which means any version that is at least 0.8.3 but below 0.9.0. 
 
 #### Cargo.toml (TOML file for cargo config)
 
@@ -167,6 +252,11 @@ hosts = [
   "omega"
 ]
 ```
+
+#### Cargo.lock
+
+- `go.sum`과 같이 다운로드한 crate (package)에 대한 version과 정보를 명세하여, 이후 동일한 crate version으로 build의 일관성을 유지함.
+- `cargo update`: crate의 minor version만 업데이트함; major version을 변경하려면, Cargo.toml의 major version을 업데이트해야 한다.
 
 ### Useful development tool
 
@@ -285,26 +375,23 @@ stack backtrace:
 note: Some details are omitted, run with `RUST_BACKTRACE=full` for a verbose backtrace.
 ```
 
-## vscode with rust
-
-> [🔗 how-to-launch-a-rust-application-from-visual-studio-code](https://stackoverflow.com/questions/46885292/how-to-launch-a-rust-application-from-visual-studio-code)
-
 ## Rust macro
 
 Rust macro는 개수가 가변적인 입력 인수를 취하는 함수
 
-- `println!`
+- `println!`, `print!`
 - `todo!`
 - `panic!`
+- `dbg!`
 
-### `println!`
+### `println!`, `print!`
 
 가변 인수를 받아 `stdout`에 출력
 
 ```rust
 // - If it called a function instead, it would be entered as println (without the `!`).
 // - "Hello, world!": string representation of the string
-// - {} 인수의 값 대체
+// - {}에 인수의 값 대체 삽입; placeholder라 부름
 println!("Hello, {}!", "world");
 ```
 
@@ -329,11 +416,151 @@ fn main() {
 }
 ```
 
+### `dbg!`
+
+Another way to print out a value using the Debug format is to use the `dbg!` macro, which takes ownership of an expression, prints the file and line number of where that dbg! macro call occurs in your code along with the resulting value of that expression, and returns ownership of the value.
+
+> Note: print message to `stderr`.
+
+```rust
+#[derive(Debug)]
+struct Rectangle {
+    width: u32,
+    height: u32,
+}
+fn main() {
+    let scale = 2;
+    let rect = Rectangle {
+        width: dbg!(30 * scale),
+        height: 50,
+    };
+    let rect = dbg!(rect);
+    println!(
+        "The area of the rectangle {:?} is {} square pixels.",
+        rect,
+        area(&rect)
+    );
+}
+fn area(rect :&Rectangle) -> u32 {
+    return rect.width * rect.height;
+}
+// [src/main.rs:16] 30 * scale = 60
+// [src/main.rs:20] rect = Rectangle {
+//     width: 60,
+//     height: 50,
+// }
+// The area of the rectangle Rectangle { width: 60, height: 50 } is 3000 square pixels.
+```
+
+## Prelude (imported std libraries)
+
+The prelude is the list of things that Rust automatically imports into every Rust program. 
+
+[🔗 Module std::prelude](https://doc.rust-lang.org/std/prelude/index.html)
+
+For example ... 
+
+- `std::result::Result::{self, Ok, Err}`, a type for functions that may succeed or fail. Like Option, its variants are exported as well.
+- `std::string::{String, ToString}`, heap-allocated strings.
+- `std::vec::Vec`, a growable, heap-allocated vector.
+
+## Rust ownership (값에 대한 소유권)
+
+- Rust의 모든 값은 owner라는 변수를 가지며, 하나의 값은 하나의 owner 변수에만 종속될 수 있음
+- 만약, copy trait이 정의되어 있으면, deep copy를 수행하나 아닌 경우 ownership move가 일어남(?)
+- ownership move: 다수의 변수가 하나의 값을 가리킬 수 없으며, ownership move (소유권 이전)가 수행됨
+- owner가 종속 범위 (curly bracket)을 벗어나면, drop (free)됨 (C++ RAII 패턴)
+
+```rust
+let s1 = String::from("hello");
+let s2 = s1;
+
+// String은 copy trait이 정의되지 않아 ownership move가 발생하며, 이후 s1을 사용할 경우 오류 발생
+// error[E0382]: use of moved value: `rect` 발생
+```
+
+- 함수에 값을 인자로 넘길 경우 ownership도 변경됨
+- deep copy: copy trait이 구현된 structure나 built-in scalar는 deep copy를 수행함
+- shallow copy: rust에서는 일어나지 않음
+- heap에 할당되는 가변 (mutable)의 structure는 보통 reference로 ownership 관리를 회피
+
+
+Here are some of the types that implement Copy:
+
+- All the integer types, such as `u32`.
+- The Boolean type, `bool`, with values true and false.
+- All the floating point types, such as `f64`.
+- The character type, `char`.
+- `Tuples`, if they only contain types that also implement Copy. For example, `(i32, i32)` implements Copy, but `(i32, String)` does not.
+
+> - https://velog.io/@timothy160620/Learning-Rust
+> - https://showx123.tistory.com/81
+
+## References and Borrowing
+
+![Figure 4-5: A diagram of &String s pointing at String s1](https://doc.rust-lang.org/book/img/trpl04-05.svg)
+
+```rust
+fn main() {
+    let mut s = String::from("hello");
+    change(&mut s);
+}
+
+fn change(some_string: &mut String) {
+    some_string.push_str(", world");
+}
+```
+
+> Note: The opposite of referencing by using & is dereferencing, which is accomplished with the dereference operator, `*`. We’ll see some uses of the dereference operator in Chapter 8 and discuss details of dereferencing in Chapter 15.
+
+
+
 ## Rust Syntax
 
-### Constant and Variable declaration
+### Comments
 
-A value is not assigned, it is binded to a variable. python과 같은 bind 개념을 차용함
+In Rust, the idiomatic comment style starts a comment with two slashes, and the comment continues until the end of the line.
+
+```rust
+// Hello, world.
+```
+
+### Document comments
+
+Rust also has a particular kind of comment for documentation, known conveniently as a documentation comment, that will generate HTML documentation. Documentation comments use three slashes, `///`, instead of two and support Markdown notation for formatting the text.
+
+```rust
+/// Adds one to the number given.
+///
+/// # Examples
+///
+/// ```
+/// let arg = 5;
+/// let answer = my_crate::add_one(arg);
+///
+/// assert_eq!(6, answer);
+/// ```
+pub fn add_one(x: i32) -> i32 {
+    x + 1
+}
+```
+
+Another style of doc comment, `//!`, is used to describe the crate introduction.
+
+```rust
+//! # My Crate
+//!
+//! `my_crate` is a collection of utilities to make performing certain
+//! calculations more convenient.
+```
+
+> [[FIXME] document comments 다시 읽기](https://doc.rust-lang.org/book/ch14-02-publishing-to-crates-io.html)
+
+### Constants and Variables
+
+- A value is not assigned, it is binded to a variable. python과 같은 bind 개념을 차용함
+- Constants must be computed at compile time.
+- The equal sign (`=`) tells Rust we want to bind something to the variable now. 
 
 ```rust
 // 함수 선언
@@ -396,6 +623,7 @@ String // It is mutable string data allocated to the heap area.
 - Rust is a statically typed language. 따라서 compiler가 모든 변수의 정확한 data type을 알아야 함
 - `let VAR: TYPE`으로 variable의 type을 명시
 - `println!` 사용시 data type suffix를 추가해 compiler가 type을 인지하도록 입력해야 함.
+- `String` is a string type provided by the standard library that is a growable, UTF-8 encoded bit of text. This is not a built-in type.
 
 ```rust
 // Integer literal
@@ -547,7 +775,15 @@ fn main() {
 }
 ```
 
-## Statements and expressions
+### Associated function indication `::`
+
+```rust
+let mut guess = String::new();
+```
+
+The `::` syntax in the `::new` line indicates that new is an associated function of the String type. An associated function is a function that’s implemented on a type, in this case String.
+
+### Statements and expressions
 
 Rust는 Statement와 expression의 구분이 다음과 같이 명확함.
 
@@ -575,14 +811,261 @@ fn main() {
 }
 ```
 
+### Control flow
+
+#### `if..else`:
+
+- condition은 반드시 boolean을 반환해야 함
+- parenthesis `()` 는 사용안함
+- `arms`: 갈래?; condition에 따라 실행되는 코드블록을 말함
+- `let` 할당 연산 (`=`)에 `if..else` 사용 가능
+
+```rust
+let number = 6;
+if number % 4 == 0 {
+  println!("number is divisible by 4");
+} else if number % 3 == 0 {
+  println!("number is divisible by 3");
+} else if number % 2 == 0 {
+  println!("number is divisible by 2");
+} else {
+  println!("number is not divisible by 4, 3, or 2");
+}
+
+if number { // error - expected bool, found integral variable
+  println!("number was three");
+}
+
+// 
+let number = if condition > 4 {
+  if condition > 8 {
+    11
+  } else {
+    5
+  }
+} else {
+  3
+};
+
+println!("The value of number is: {}", number); // 5
+```
+
+#### `loop`, `while` and `for`
+
+```rust
+loop {
+  println!("again!");
+  // ...
+  break;
+}
+
+let mut number = 3;
+while number != 0 {
+  println!("{}!", number);
+  number = number - 1;
+  println!("LIFTOFF!!!");
+}
 
 
+let a = [10, 20, 30, 40, 50];
+for element in a.iter() {
+  // for문 내에서 element 삭제해도 panic X
+  println!("the value is: {}", element);
+}
+
+// range
+for number in (1..4).rev() {
+  println!("{}!", number);
+}
+println!("LIFTOFF!!!");
+```
+
+### Result type
+
+Rust는 result type은 열거형(enumerations)의 에러처리 정보
+
+variants: enumeration data
+
+```rust
+// io::Result
+pub type Result<T> = Result<T, Error>;
+
+// std::result::Result
+Enum std::result::Result
+pub enum Result<T, E> {
+    Ok(T),
+    Err(E),
+}
+```
+
+### Reference
+
+
+### Structs and methods
+
+Rust는 다음과 같이 struct와 method를 정의한다.
+
+```rust
+#[derive(Debug)]
+struct Rectangle {
+    width: u32,
+    height: u32,
+}
+
+impl Rectangle {
+    // method definition in implement block
+    fn area(&self) -> u32 {
+        self.width * self.height
+    }
+
+    // Associated Functions
+    fn square(size: u32) -> Rectangle {
+        Rectangle{
+            width: size,
+            height: size,
+        }
+    }
+}
+
+fn main() {
+    let scale = 2;
+    let rect = Rectangle {
+        width: dbg!(30 * scale),
+        height: 50,
+    };
+
+    // dbg! return the ownership of the input object
+    let rect = dbg!(rect);
+
+    println!(
+        "The area of the rectangle {:?} is {} square pixels.",
+        rect,
+        rect.area()
+    );
+
+    let square = Rectangle::square(100);
+    let rect1 = Rectangle { height: 50, width: 30 };
+    let rect2 = Rectangle { height: 40, width: 10 };
+    let rect3 = Rectangle { height: 45, width: 60 };
+
+    println!("Can rect1 hold rect2? {}", rect1.can_hold(&rect2));
+    println!("Can rect1 hold rect3? {}", rect1.can_hold(&rect3));
+    println!("Can square hold rect1? {}", square.can_hold(&rect1));
+}
+```
+
+- The `&self` is actually short for `self: &Self`.
+- mutable 선언시, `&mut self`, field 수정 가능
+- Note that the entire instance must be mutable; Rust doesn’t allow us to mark only certain fields as mutable.
+- Associated Function은 self가 없는 관련 함수 (class 함수와 유사), 생성자 함수에 주로 사용
+- Associated Function은 struct에 대한 namespace syntax(`::`)로 접근/사용 가능
+- 다수의 impl block 사용 가능
+
+#### Field Init Shorthand
+
+생성함수에서 field name과 function argument을 동일하게 입력하여 짧게 쓰는 방법
+
+```rust
+fn build_user(email: String, username: String) -> User {
+  User {
+    email, // field init shorthand
+    username,
+    active: true,
+    sign_in_count: 1,
+  }
+}
+```
+
+#### Struct Update Syntax
+
+앞서 사용한 인스턴스의 값을 사용해 구조체 업데이트하는 방법
+
+```rust
+fn main() {
+  // --snip--
+  let user1 = User {
+      // init ...
+  };
+
+  let user2 = User {
+      email: String::from("another@example.com"),
+      ..user1 // user1의 값으로 structure update
+  };
+}
+```
+
+> Note that the struct update syntax uses = like an assignment; this is because it moves the data, just as we saw in the [“Ways Variables and Data Interact: Move”](https://doc.rust-lang.org/book/ch04-01-what-is-ownership.html#ways-variables-and-data-interact-move) section. In this example, we can no longer use user1 after creating user2 because the String in the username field of user1 was moved into user2. The types of active and sign_in_count are types that implement the Copy trait, so the behavior we discussed in the [“Stack-Only Data: Copy”](https://doc.rust-lang.org/book/ch04-01-what-is-ownership.html#stack-only-data-copy) section would apply.
+
+### Tuple Structs
+
+- Tuple과 유사한 구조체로 filed name이 없이 field type만을 정의한 구조체
+- Named tuple
+
+```rust
+struct Color(i32, i32, i32);
+struct Point(i32, i32, i32);
+
+fn main() {
+    let black = Color(0, 0, 0);
+    let origin = Point(0, 0, 0);
+}
+```
+
+## Trait
+
+- copy
+- move
+- drop?
 
 ## To be considered
 
 - Integer Overflow: https://doc.rust-lang.org/book/ch03-02-data-types.html#integer-overflow
+- 역참조 강제(deref coercion)
 
-## Useful code
+
+## collections
+
+### String
+
+- `to_string()`: Display trait이 구현된 모든 type에 사용 가능
+- `+` 연산동작 추천 X
+- String의 index 접근 금지됨
+- `"नमस्ते".chars()`과 같이 문자소(grapheme)로 접근해야 함
+
+```rust
+let data = "initial contents";
+let s = data.to_string();
+// the method also works on a literal directly:
+let s = "initial contents".to_string();
+let s = String::from("initial contents"); // 위와 동일
+
+let mut s = String::from("foo");
+s.push_str("bar");
+
+let mut s = String::from("lo");
+s.push('l');
+
+let s1 = String::from("Hello, ");
+let s2 = String::from("world!");
+let s3 = s1 + &s2; // s1은 여기서 이동되어 더이상 쓸 수 없음을 유의하세요
+
+let s1 = String::from("tic");
+let s2 = String::from("tac");
+let s3 = String::from("toe");
+let s = format!("{}-{}-{}", s1, s2, s3);
+
+for c in "नमस्ते".chars() { // 문자소 반환
+    println!("{}", c);
+}
+for b in "नमस्ते".bytes() { // byte 반환
+    println!("{}", b);
+}
+```
+
+### hash map
+
+## Useful code or crates
+
 
 ### Read stdin
 
@@ -599,4 +1082,222 @@ let index: usize = index
     .parse()
     .expect("Index entered was not a number");
 
+```
+
+## Modules
+
+Rust provides a powerful module system that can be used to hierarchically split code in logical units (modules), and manage visibility (public/private) between them.
+
+A module is a collection of items: functions, structs, traits, impl blocks, and even other modules.
+
+> Rust의 module이란 코드를 계층화/조직화 (namespace)하고, pub(public) 키워드를 통해 코드의 접근성 제어하여, 코드의 재사용성을 높이기 위한 방법
+
+```rust
+mod my_mod { // module my_mod
+  pub fn public_func() {
+    // ... 외부에서 호출 가능
+  }
+  fn private_func() {
+    // ... module 외부에서 호출 불가
+    // ... 같은 module 내에선 접근 가능
+  }
+
+  pub mod nested_mod { // module nested_mod
+    pub(in crate::my_mod) fn nested_ {
+      // ... crate::my_mode에서만 public function
+    }
+    pub(self) fn fname {
+      // ... pub(self) == private
+    }
+    pub(super) fn fname {
+      // ... parent module에서만 보임
+    }
+  }
+  
+  pub(crate) fn public_function_in_crate() {
+    // ... 속한 crate에서만 접근 가능
+  }
+}
+```
+
+## Macro
+
+- `macro_rules` allows users to define syntax extension in a declarative way.
+- `MacroRule` = `MacroMatcher => MacroTranscriber`로 구성, `MacroRule`은 `;`으로 구분
+- Each macro by example has a name, and one or more rules. Each rule has two parts: a matcher, describing the syntax that it matches, and a transcriber, describing the syntax that will replace a successfully matched invocation.
+- Both the matcher and the transcriber must be surrounded by delimiters. Macros can expand to expressions, statements, items (including traits, impls, and foreign items), types, or patterns.
+- **Transcribing**: 처음 match된 MacroMatcher의 MacroTranscriber로 code 변환하고 못찾거나 오류 발생시 중단
+- `()`, `[]`, `{}` 모든 괄호는 MacroMatch, MacroRule에서 모두 사용가능
+
+
+
+> - [macros-by-example](https://doc.rust-lang.org/reference/macros-by-example.html)
+> - [Rust by example](https://doc.rust-lang.org/rust-by-example/macros.html)
+
+## Testing
+
+- `#[test]` 함수가 test함수임을 선언
+- `cargo test -- --nocapture --test-threads=1`
+- `cargo test -- -h`으로 testing option 확인해보기
+- `cargo test TESTNAME`: 단일 테스트 항목 실행
+- `cargo test -- --ignored`: `#[ignore]`로 설정된 테스트 항목 테스트
+- unit test는 mod test 만들고, `#[cfg(test)]` cfg attribute를 설정하여 구성; `cargo test`시에만 컴파일/실행
+
+```rust
+#[derive(Debug, PartialEq, Eq)]
+pub struct Rectangle {
+  length: u32,
+  width: u32,
+}
+
+impl Rectangle {
+  pub fn can_hold(&self, other: &Rectangle) -> bool {
+      self.length > other.length && self.width > other.width
+  }
+}
+
+#[allow(dead_code)]
+fn add_two(a: i32) -> i32 {
+  if a > 100 {
+      panic!("value must be less than or equal to 100.");
+  }
+  a + 2
+}
+
+#[cfg(test)]
+mod tests {
+  use super::*;
+
+  #[test]
+  fn larger_can_hold_smaller() {
+      let larger = Rectangle { length: 8, width: 7 };
+      let smaller = Rectangle { length: 5, width: 1 };
+
+      assert!(larger.can_hold(&smaller), "{:?}", larger);
+  }
+
+  #[test]
+  fn smaller_cannot_hold_larger() {
+      let larger = Rectangle { length: 8, width: 7 };
+      let smaller = Rectangle { length: 5, width: 1 };
+
+      assert!(!smaller.can_hold(&larger), "{:?}", smaller);
+  }
+
+  #[test]
+  fn it_adds_two() {
+      // assert_eq!와 assert_ne!는 
+      // 각각 ==과 != 연산자 사용하므로
+      // PartialEq와 Debug 트레잇을 구현해 함
+      assert_eq!(4, add_two(2));
+      assert_ne!(4, add_two(3));
+  }
+
+  #[test]
+  #[should_panic]
+  fn greater_than_100() {
+      add_two(200);
+  }
+
+  #[test]
+  #[should_panic(expected = "value must be less than or equal to 100")]
+  fn greater_than_100_2() {
+      add_two(200);
+  }
+}
+```
+
+## Rust Attributes
+
+> - [REF1](https://doc.rust-lang.org/rust-by-example/attribute.html)
+> - [REF2](https://sjquant.tistory.com/53)
+
+An attribute is **metadata** applied to some `module`, `crate` or `item`. This metadata can be used to/for:
+
+- conditional compilation of code
+- set crate name, version and type (binary or library)
+- disable lints (warnings)
+- enable compiler features (macros, glob imports, etc.)
+- link to a foreign library
+- mark functions as unit tests
+- mark functions that will be part of a benchmark
+
+### Scope
+
+- `#![crate_attribute]` for a whole crate
+- `#[item_attribute]`: for a module or item
+
+다른 문서에서는 
+
+- `#![Attr]`: InnerAttribute로 선언된 범위 내에 적용
+- `#[Attr]`: OuterAttribute로 선언이후 오는 module, item에 적용
+
+### Attribute arguments
+
+Attribute는 Argument를 가질 수 있음
+
+- `#[attribute = "value"]`
+- `#[attribute(key = "value")]`
+- `#[attribute(value)]`
+- `#[attribute(value, value2, value3, value4, value5)]`
+
+### Frequently Used Attributes
+
+- `#[allow(dead_code)]`: used to disable linting of the following code block; the compiler option?
+- `#![crate_name = "rary"]`: The library is named "rary"
+- `#![crate_type = "lib"]`: This crate is a library; When the crate_type attribute is used, we no longer need to pass the `--crate-type` flag to rustc.
+- `#[cfg(target_os = "linux")]` This function only gets compiled if the target OS is linux
+- `#[cfg(not(target_os = "linux"))]`: And this function only gets compiled if the target OS is *not* linux
+
+> ❗`cfg!`, unlike `#[cfg]`, it is a **macro** that does not remove any code and only evaluates to true or false.
+> ```
+> if cfg!(target_os = "linux") {
+>   println!("Yes. It's definitely linux!");
+> } else {
+>   println!("Yes. It's definitely *not* linux!");
+> }
+> ```
+
+- `#[test]`: used for functional test
+- `#[cfg_attr(a, b)]`: 만약 #[cfg(a)]를 만족하면 #[b] attribute를 적용
+
+
+
+### Custom cfg
+
+사용자 `cfg`도 만들 수 있음!
+
+```rust
+#[cfg(mine)]
+fn cond_function() {
+    println!("mine cond!!!");
+}
+
+#[cfg(not(mine))]
+fn cond_function() {
+    println!("not mine cond!!!");
+}
+
+fn main() {
+   cond_function();
+}
+```
+
+```bash
+rustc --cfg mine main.rs && ./main
+RUSTFLAGS='--cfg mine' cargo run
+```
+
+### `derive` attribute
+
+- 특정한 Trait에 대한 기본적인 구현(impl)을 간편하게 제공
+- 기본적인 구현은 이미 정해져 있으며, 이런 Trait을 derivable 하다고 함
+- derivable Trait: `Eq`, `PartialEq`, `Copy`, `Clone`, `Debug` ...?
+
+```rust
+#[derive(PartialEq, Clone)]
+struct Foo<T> {
+    a: i32,
+    b: T,
+}
 ```

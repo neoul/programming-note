@@ -1,0 +1,4 @@
+
+fn bar() {
+    println!("bar!");
+}
