@@ -1,6 +1,3 @@
-rust/hello-rust/target
-rust/*/target
-rust/*/main
-rust/*/src/main
+rust/target
 *.html
 site

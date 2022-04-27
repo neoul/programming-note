@@ -30,8 +30,9 @@ macro_rules! create_fn {
     ($fname:ident) => {
         fn $fname() {
             // stringify macro coverts an `ident` into a string
-            println!("{:?}()", stringify!($fname));
+            println!("Called a function created by macro: {}()", stringify!($fname));
         }
+        $fname();
     };
 }
 
@@ -80,3 +81,26 @@ macro_rules! find_min {
     );
 }
 
+pub fn example() {
+    println!("hello rust!");
+    super::macros::introduce();
+    hello!();
+    create_fn!(my_create_fn);
+    execut_expr!(
+        10u32 + 100u32
+    );
+    execut_expr!(
+        {
+            let x = 1000u32;
+            let x = x * x + 2 * x - 1;
+            x
+        }
+    );
+    overload!(1i32 + 1 == 2i32; and 2i32 * 2 == 4i32);
+    overload!(true; or false);
+    
+    println!("{}", find_min!(1));
+    println!("{}", find_min!(1 + 2, 2));
+    println!("{}", find_min!(5, 2 * 3, 4));
+
+}

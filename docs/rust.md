@@ -51,19 +51,22 @@ A language empowering everyone to build reliable and efficient software.
     - [&str과 String Type](#str과-string-type)
     - [Functions](#functions)
     - [Associated function indication `::`](#associated-function-indication-)
+    - [closure](#closure)
     - [Statements and expressions](#statements-and-expressions)
     - [Control flow](#control-flow)
       - [`if..else`:](#ifelse)
       - [`loop`, `while` and `for`](#loop-while-and-for)
+      - [`match`](#match)
     - [Result type](#result-type)
     - [Reference](#reference)
-    - [Structs and methods](#structs-and-methods)
+    - [methods](#methods)
       - [Field Init Shorthand](#field-init-shorthand)
       - [Struct Update Syntax](#struct-update-syntax)
     - [Tuple Structs](#tuple-structs)
   - [Trait](#trait)
   - [To be considered](#to-be-considered)
   - [collections](#collections)
+    - [Box, stack and heap](#box-stack-and-heap)
     - [String](#string)
     - [hash map](#hash-map)
   - [Useful code or crates](#useful-code-or-crates)
@@ -77,6 +80,9 @@ A language empowering everyone to build reliable and efficient software.
     - [Frequently Used Attributes](#frequently-used-attributes)
     - [Custom cfg](#custom-cfg)
     - [`derive` attribute](#derive-attribute)
+    - [Keywords](#keywords)
+      - [`crate`](#crate)
+    - [Good answer to understand](#good-answer-to-understand)
 
 ## Why Rust?
 
@@ -116,12 +122,12 @@ Open-source high-level and low-level system programming language
 
 ## 내가 생각하는 rust 특성
 
-- Variable과 function type을 immutable 상태로 고정 ==> gabage collection이 필요없도록 만듦
+- Variable과 function type을 극도로 제어하여 gabage collection이 필요없도록 만듦
 
 ## Rust module system
 
 - `Crates`: It's the smallest piece of code the Rust compiler can run.
-- `Modules`: Groups of crates; Related code items or items that are used together
+- `Modules`: A number of modules become a crate; Related code items or items that are used together
 - `Path`: Paths to access and use the code or items in Rust
 - Third-party crate registry: [crates.io](https://crates.io)
 
@@ -155,6 +161,8 @@ use std::fmt
 
 > - **Emscripten SDK** - compile wasm code and generate javascript stub and wasm binary.  
 > - **Doc**: [🔗 WebAssembly](https://developer.mozilla.org/en-US/docs/WebAssembly)
+
+
 
 ## Latest version
 
@@ -738,6 +746,7 @@ a[1] = 100;
 - All letters of function names and variables are lowercase and underscores (`_`) separate words.
 - A set of parentheses and curly brackets are followed to the function name.
 - In function signatures, you must declare the type of each parameter that you want to input.
+- The function returns a concrete type: The Rust compiler needs to know how much space every function's return type requires.
 
 ```rust
 fn main() {
@@ -782,6 +791,105 @@ let mut guess = String::new();
 ```
 
 The `::` syntax in the `::new` line indicates that new is an associated function of the String type. An associated function is a function that’s implemented on a type, in this case String.
+
+
+### closure
+
+Closures are functions that can capture the enclosing environment. For example, a closure that captures the x variable:
+
+`|val| val + x`
+
+- **capturing** and **bollowing**: closure 함수가 variable에 할당될 때 동일 namespace에 있는 변수를 capture하여 사용함
+  - by reference: `&T`
+  - by mutable reference: `&mut T`
+  - by value: `T`
+- `move` 사용시 variable의 ownership을 가져감
+- input parameter로 사용가능
+  - `Fn`: the closure uses the captured value by reference (`&T`)
+  - `FnMut`: the closure uses the captured value by mutable reference (`&mut T`)
+  - `FnOnce`: the closure uses the captured value by value (`T`)
+- output parameter로 사용가능
+- iterator 동작을 구현할 때 사용 e.g. `Iterator::any`
+
+
+```rust
+// Increment via closures and functions.
+fn function(i: i32) -> i32 {
+    i + 1
+}
+
+// Closures are anonymous, here we are binding them to references
+// Annotation is identical to function annotation but is optional
+// as are the `{}` wrapping the body. These nameless functions
+// are assigned to appropriately named variables.
+let closure_annotated = |i: i32| -> i32 { i + 1 };
+let closure_inferred = |i| i + 1;
+
+let mut i = 1;
+i = function(i); // 2
+i = closure_annotated(i); // 3
+i = closure_inferred(i); // 4
+println!("closure example i: {}", i);
+// let i = 1;
+// Call the function and closures.
+println!("function: {}", function(i)); // 5
+println!("closure_annotated: {}", closure_annotated(i)); // 5
+println!("closure_inferred: {}", closure_inferred(i)); // 5
+
+// A closure taking no arguments which returns an `i32`.
+// The return type is inferred.
+let one = || 1;
+println!("closure returning one: {}", one());
+
+use std::mem;
+let color = String::from("green");
+
+// bollow immutable reference of the color variable.
+let print = || println!("`color`: {}", color);
+print();
+
+let _reborrow = &color;
+print();
+
+// A move or reborrow is allowed after the final use of `print`
+let _color_moved = color;
+// print(); // 호출 불가; color already moved to _color_moved
+
+
+let mut count = 0;
+// bollow mutable count reference.
+let mut inc = || {
+    count += 1;
+    println!("`count`: {}", count);
+};
+
+// Call the closure using a mutable borrow.
+inc();
+
+// The closure no longer needs to borrow `&mut count`. Therefore, it is
+// possible to reborrow without an error
+let _count_reborrowed = &mut count; 
+
+// `consume` consumes the variable so this can only be called once.
+let movable = Box::new(3);
+let consume = || {
+    println!("`movable`: {:?}", movable);
+    mem::drop(movable);
+};
+consume();
+// consume(); // 호출 불가; The bollowed variable is not available.
+// ^ TODO: Try uncommenting this line.
+
+// move 사용시 ownership을 가져감
+let haystack = vec![1, 2, 3];
+let contains = move |needle| haystack.contains(needle);
+println!("{}", contains(&1));
+
+
+```
+
+
+
 
 ### Statements and expressions
 
@@ -880,6 +988,191 @@ for number in (1..4).rev() {
 println!("LIFTOFF!!!");
 ```
 
+#### `match`
+
+```rust
+fn main() {
+  // Destructuring values in match
+  // - rust는 복잡한 type을 match로 wrapping structure를 벗겨내어 처리함
+  // - destructuring type이 다를 경우 match, if let 할당 불가
+  // - destructuring 
+  let member = 13;
+  match member {
+      1 => println!("1"),
+      2 | 3 | 4 => println!("2,3,4"),
+      5..=10 => println!("5..10"),
+      _ => println!("_")
+  }
+
+  // tuple
+  let triple = (0, 1, -3);
+  match triple {
+      (0, y, z) => println!("{},{}", y, z),
+      (1, ..) => println!("first is 1"), // .. ignore the rest
+      _ => println!("??")
+  }
+
+  // arrays/slices
+  let array = [3, -2, 6];
+  match array {
+      [0, second, third] => {
+          println!("second {}, thrid {}", second, third);
+      }
+      [1, _, third] => println!("thrid {}", third), // ignore a value with _
+      // The code below would not compile
+      // [-1, second] => println!("compile error"),
+      // store middle values to another array/slice
+      [3, middle @.., last] => println!("{:?} {:?}", middle, last),
+      _ => ()
+  }
+
+  // enums
+  #[allow(dead_code)]
+  #[derive(Debug)]
+  enum Color {
+      Red,
+      Blue,
+      Green,
+      RGB(u32, u32, u32),
+      CMYK(u32, u32, u32, u32)
+  }
+  let color = Color::RGB(122, 17, 40);
+  match color {
+      Color::Red   => println!("The color is Red!"),
+      Color::Blue  => println!("The color is Blue!"),
+      Color::Green => println!("The color is Green!"),
+      Color::RGB(r, g, b) =>
+          println!("Red: {}, green: {}, and blue: {}!", r, g, b),
+      Color::CMYK(c, m, y, k) =>
+          println!("Cyan: {}, magenta: {}, yellow: {}, key (black): {}!",
+              c, m, y, k),
+      // all matching case must be in the scope.
+  }
+
+  // pointers/ref
+  // dereference in matching
+  let reference: &u32 = &4;
+  match reference {
+      &val => println!("{:?}", val) // if matched, it drops `&`
+  }
+  // To avoid the `&`, you dereference before matching.
+  match *reference {
+      val => println!("{:?}", val)
+  }
+
+  let _not_a_reference = 3;
+  let ref _is_a_reference = 3; // &i32; explicit reference
+  let value = 5;
+  let mut mut_value = 6;
+
+  let rr = match value { // create the reference of r
+      ref r => r
+  };
+  println!("{:?}, {:?}", value, rr);
+  match mut_value {
+      ref mut m => {
+          // Got a reference. Gotta dereference it before we can add anything to it.
+          *m += 10;
+          println!("We added 10. `mut_value`: {:?}", m);
+      },
+  }
+
+  // structs
+  #[allow(dead_code)]
+  struct Foo {
+      x: (u32, u32),
+      y: u32
+  }
+  let foo = Foo {x: (10, 20), y: 30};
+  match foo { 
+      Foo { x: (1, b), y: c } => println!("b={:?} c={:?}", b, c),
+      Foo {y, ..} => println!("y={:?}, others=Don't Care", y) // match any values
+  }
+
+  // Guards
+  let pair = (3, 1);
+  match pair {
+      (x, y) if x == y => println!("Twins!"),
+      (x, _) if x%2 == 1 => println!("The first odd!"),
+      _ => println!("no correlation ...")
+  }
+
+  // binding to a value with inclusive range
+  let num = 3;
+  // @1..=10 inclusive range 사용해야 함
+  // exclusive range = @1..10
+  match num {
+      n @1..=10 => println!("num in 1..10 {}", n),
+      n => println!("num {}", n)
+  }
+
+  // binding to an enum variant value
+  #[allow(dead_code)]
+  fn some_number() -> Option<u32> {
+      Some(42)
+  }
+  match some_number() {
+      Some(n @ 42) => println!("Binding to an enum variant with value {:?}", n),
+      Some(n) => println!("Binding to an enum variant {:?}", n),
+      _ => ()
+  }
+
+  // match assign
+  let option = Some(10);
+  let i = match option {
+      Some(i) => i,
+      _ => panic!("?"),
+  };
+  println!("{}", i);
+
+  // if let
+  let num = Some(7);
+  let letter: Option<i32> = None;
+  // let emotion: Option<i32> = None;
+  if let Some(i) = num {
+      println!("i = {}", i);
+  } else {
+      println!("destructuring failed ...");
+  }
+
+  // match any enum value using if let
+  if let None = letter {
+      println!("letter is None");
+  }
+
+  if let Color::Blue = color {
+      println!("Blue");
+  } else if let Color::RGB(x, _, z @1..=100) = color {
+      println!("x={}, z={}", x, z);
+  } else {
+      println!("{:?}", color);
+  }
+
+  // while let
+  let mut optional = Some(0);
+  while let Some(i) = optional {
+      if i > 9 {
+          optional = None;
+      } else {
+          optional = Some(i+ 1);
+      }
+  }
+  optional = Some(0);
+  loop { // while let과 동일 동작
+      match optional {
+          Some(i) => {
+              if i > 9 {
+                  optional = None;
+              } else {
+                  optional = Some(i+1);
+              }
+          },
+          _ => break
+      }
+  }
+}
+```
+
 ### Result type
 
 Rust는 result type은 열거형(enumerations)의 에러처리 정보
@@ -901,7 +1194,7 @@ pub enum Result<T, E> {
 ### Reference
 
 
-### Structs and methods
+### methods
 
 Rust는 다음과 같이 struct와 method를 정의한다.
 
@@ -1013,9 +1306,27 @@ fn main() {
 
 ## Trait
 
-- copy
-- move
-- drop?
+A `trait` is a collection of methods defined for an unknown type: `Self`. They can access other methods declared in the same trait. Traits can be implemented for any data type.
+
+- Derive: 
+- [Operation overloading](https://doc.rust-lang.org/core/ops/)
+  - `Fn`, `FnMut`, and `FnOnce` traits for types that can be invoked like functions
+  - `+`, `+=`, `-`, `*`, `/` ... for operator traits
+- `Drop`: The `Drop` trait only has one method: `drop`, which is called automatically when an object goes out of scope.
+  - The main use of the Drop trait is to free the resources that the implementor instance owns.
+  - `Box`, `Vec`, `String`, `File`, and `Process`: the types implemented the `Drop` trait
+- `Iterators`: The Iterator trait is used to implement iterators over collections such as arrays.
+  - `fn next(&mut self) -> Option<Self::Item>` 구현해야 함
+- dyn Trait: https://doc.rust-lang.org/rust-by-example/trait/dyn.html
+- impl Trait: https://doc.rust-lang.org/rust-by-example/trait/impl_trait.html
+- Copy Trait: 할당시 resource move가 아닌 copy
+- Clone Trait: `.clone()`으로 명시적으로 copy
+- Supertraits: Rust doesn't have "inheritance", but you can define a trait as being a superset of another trait.
+- Disambiguating overlapping traits
+
+- https://cotigao.medium.com/dyn-impl-and-trait-objects-rust-fd7280521bea
+- https://modoocode.com/334
+
 
 ## To be considered
 
@@ -1024,6 +1335,82 @@ fn main() {
 
 
 ## collections
+
+### Box, stack and heap
+
+All values in Rust are stack allocated by default. Values can be boxed (allocated on the heap) by creating a `Box<T>`. A box is a smart pointer to a heap allocated value of type `T`. When a box goes out of scope, its destructor is called, the inner object is destroyed, and the memory on the heap is freed.
+
+```rust
+use std::mem;
+
+#[derive(Debug)]
+#[allow(dead_code)]
+struct Point {
+    x: f64,
+    y: f64,
+}
+#[derive(Debug)]
+#[allow(dead_code)]
+struct Rectangle {
+    top_left: Point,
+    bottom_right: Point,
+}
+
+fn origin() -> Point {
+    Point { x: 0f64, y: 0f64 }
+}
+fn boxed_origin() -> Box<Point> {
+    // allocate a point to heap
+    return Box::new(Point { x: 0.0, y: 0.0 });
+}
+
+// stack allocated variables
+let point: Point = origin();
+let rectangle: Rectangle = Rectangle {
+    top_left: origin(),
+    bottom_right: Point { x: 100.0, y: 100.0 },
+};
+// heap allocated variables
+let box_point: Box<Point> = Box::new(origin());
+let box_rectangle: Box<Rectangle> = Box::new(Rectangle {
+    top_left: origin(),
+    bottom_right: Point { x: 200.0, y: 200.0 },
+});
+
+// inner box in stack
+let doubleIndirectBox: Box<Box<Point>> = Box::new(boxed_origin());
+
+println!("{point:?}");
+println!(
+    "Point occupies {} bytes on the stack",
+    mem::size_of_val(&point)
+);
+println!(
+    "Rectangle occupies {} bytes on the stack",
+    mem::size_of_val(&rectangle)
+);
+
+// box size == pointer size
+println!(
+    "Boxed point occupies {} bytes on the stack",
+    mem::size_of_val(&box_point)
+);
+println!(
+    "Boxed rectangle occupies {} bytes on the stack",
+    mem::size_of_val(&box_rectangle)
+);
+println!(
+    "Boxed box occupies {} bytes on the stack",
+    mem::size_of_val(&doubleIndirectBox)
+);
+
+// Copy the data contained in `boxed_point` into `unboxed_point`
+let unboxed_point: Point = *box_point;
+println!(
+    "Unboxed point occupies {} bytes on the stack",
+    mem::size_of_val(&unboxed_point)
+);
+```
 
 ### String
 
@@ -1209,8 +1596,8 @@ mod tests {
 
 ## Rust Attributes
 
-> - [REF1](https://doc.rust-lang.org/rust-by-example/attribute.html)
-> - [REF2](https://sjquant.tistory.com/53)
+> - [rust-by-example](https://doc.rust-lang.org/rust-by-example/attribute.html)
+> - [sjquant.tistory.com](https://sjquant.tistory.com/53)
 
 An attribute is **metadata** applied to some `module`, `crate` or `item`. This metadata can be used to/for:
 
@@ -1301,3 +1688,35 @@ struct Foo<T> {
     b: T,
 }
 ```
+
+The following is a list of derivable traits:
+
+- Comparison traits: `Eq`, `PartialEq`, `Ord`, `PartialOrd`.
+- `Clone`, to create `T` from `&T` via a copy.
+- `Copy`, to give a type 'copy semantics' instead of 'move semantics'.
+- `Hash`, to compute a hash from `&T`.
+- `Default`, to create an empty instance of a data type.
+- `Debug`, to format a value using the `{:?}` formatter.
+
+### Keywords
+
+#### `crate`
+
+```rust
+
+// 사용하는 외부 crate 선언
+extern crate rand;
+extern crate my_crate as thing; // the alias of my_crate in my project
+extern crate std; // implicitly added to the root of every Rust project
+
+// item의 visibility를 현재 crate에 포함된 module로만 한정
+pub(crate) enum CoolMarkerType { }
+
+// The root of the current crate
+crate::foo::bar
+```
+
+### Good answer to understand
+
+- [whats-the-difference-between-self-and-self](https://stackoverflow.com/questions/32304595/whats-the-difference-between-self-and-self)
+- [Why is the `Sized` bound necessary in this trait?](https://stackoverflow.com/questions/30938499/why-is-the-sized-bound-necessary-in-this-trait)

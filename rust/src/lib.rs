@@ -7,7 +7,12 @@ mod tests {
     }
 }
 
-pub mod mymacro;
+pub mod macros;
 pub mod generics;
-
 pub mod structs;
+pub mod functions;
+pub mod boxes;
+pub mod closures;
+pub mod traits;
+pub mod iterators;
+pub mod supertraits;
