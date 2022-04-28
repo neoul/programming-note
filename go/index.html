@@ -1,197 +1,161 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
 <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <link rel="shortcut icon" href="../img/favicon.ico" />
-    <title>Go handbook - Programming Note</title>
-    <link rel="stylesheet" href="../css/theme.css" />
-    <link rel="stylesheet" href="../css/theme_extra.css" />
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
-    
-      <script>
-        // Current page data
-        var mkdocs_page_name = "Go handbook";
-        var mkdocs_page_input_path = "go.md";
-        var mkdocs_page_url = null;
-      </script>
-    
-    <script src="../js/jquery-3.6.0.min.js" defer></script>
-    <!--[if lt IE 9]>
-      <script src="../js/html5shiv.min.js"></script>
-    <![endif]-->
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
-      <script>hljs.initHighlightingOnLoad();</script> 
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>Go - Programming Note</title>
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="../css/highlight.css">
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Go";
+    var mkdocs_page_input_path = "go.md";
+    var mkdocs_page_url = "/go/";
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js"></script>
+  <script src="../js/modernizr-2.8.3.min.js"></script>
+  <script type="text/javascript" src="../js/highlight.pack.js"></script> 
+  
 </head>
 
 <body class="wy-body-for-nav" role="document">
 
   <div class="wy-grid-for-nav">
+
+    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
-    <div class="wy-side-scroll">
       <div class="wy-side-nav-search">
-          <a href=".." class="icon icon-home"> Programming Note
-        </a><div role="search">
+        <a href=".." class="icon icon-home"> Programming Note</a>
+        <div role="search">
   <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
-      <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+    <input type="text" name="q" placeholder="Search docs" />
   </form>
 </div>
       </div>
 
-      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <ul>
-                <li class="toctree-l1"><a class="reference internal" href="..">Programming Note</a>
-                </li>
-              </ul>
-              <ul>
-                <li class="toctree-l1"><a class="reference internal" href="../algorithm/">Algorithm note</a>
-                </li>
-              </ul>
-              <ul>
-                <li class="toctree-l1"><a class="reference internal" href="../cpp/">C++ study</a>
-                </li>
-              </ul>
-              <ul class="current">
-                <li class="toctree-l1 current"><a class="reference internal current" href="./">Go handbook</a>
-    <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#commands">commands</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#environment">environment</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#build-install-and-execute-a-go-executable-binary">Build, install and execute a Go executable binary</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#building-go-executables-for-multiple-platforms">Building Go Executables for Multiple Platforms</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#package">Package</a>
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+	<ul class="current">
+	  
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="..">Home</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../algorithm/">Algorithm</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../cpp/">Cpp</a>
+	    </li>
+          
+            <li class="toctree-l1 current">
+		
+    <a class="current" href="./">Go</a>
+    <ul class="subnav">
+            
+    <li class="toctree-l2"><a href="#go-handbook">Go handbook</a></li>
+    
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#import-other-packages">import other packages</a>
-    </li>
+        
+            <li><a class="toctree-l3" href="#commands">commands</a></li>
+        
+            <li><a class="toctree-l3" href="#environment">environment</a></li>
+        
+            <li><a class="toctree-l3" href="#build-install-and-execute-a-go-executable-binary">Build, install and execute a Go executable binary</a></li>
+        
+            <li><a class="toctree-l3" href="#building-go-executables-for-multiple-platforms">Building Go Executables for Multiple Platforms</a></li>
+        
+            <li><a class="toctree-l3" href="#package">Package</a></li>
+        
+            <li><a class="toctree-l3" href="#go-syntax">Go Syntax</a></li>
+        
+            <li><a class="toctree-l3" href="#cgo-golang-with-c">cgo (golang with C)</a></li>
+        
+            <li><a class="toctree-l3" href="#go-with-grpc">go with gRPC</a></li>
+        
+            <li><a class="toctree-l3" href="#useful-commands">Useful commands</a></li>
+        
+            <li><a class="toctree-l3" href="#useful-functions">Useful functions</a></li>
+        
+            <li><a class="toctree-l3" href="#useful-documents">Useful documents</a></li>
+        
+            <li><a class="toctree-l3" href="#grpc-with-simple-password-authentication">gRPC with simple password authentication</a></li>
+        
+            <li><a class="toctree-l3" href="#vscode-with-golang">vscode with golang</a></li>
+        
+            <li><a class="toctree-l3" href="#go-fuzzing">Go Fuzzing</a></li>
+        
         </ul>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#go-syntax">Go Syntax</a>
-        <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#type-syntax">type syntax</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#variables">variables</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#constant">constant</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#comment">Comment</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#control">control</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#type-conversion">type conversion</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#array-slice-map">array, slice, map</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#make-and-new">make() and new()</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#function">function</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#pointers">Pointers</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#structure-field-and-method">Structure (field and method)</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#anonymous-fields-in-go-structure">Anonymous fields in Go Structure</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#interface-collections-of-methods">Interface (collections of methods)</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#empty-interface">empty interface</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#errors">Errors</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#concurrency-goroutine">Concurrency (goroutine)</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#channel">Channel</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#channel-buffering">Channel Buffering</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#channel-synchronization-waitgroup">Channel Synchronization (Waitgroup)</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#select-for-channel">Select (for Channel)</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#context">context</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#cgo">cgo</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#command-line">Command-Line</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#empty-structure">empty structure</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#structtag">structTag</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#reflection">reflection</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#type-assertions">Type assertions</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#type-switches">Type switches</a>
-    </li>
-        </ul>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#cgo-golang-with-c">cgo (golang with C)</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#go-with-grpc">go with gRPC</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#useful-commands">Useful commands</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#useful-functions">Useful functions</a>
-        <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#panic-and-recover">panic() and recover()</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#osexit">os.Exit()</a>
-    </li>
-        </ul>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#useful-documents">Useful documents</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#grpc-with-simple-password-authentication">gRPC with simple password authentication</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#vscode-with-golang">vscode with golang</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#go-fuzzing">Go Fuzzing</a>
-    </li>
+    
+
     </ul>
-                </li>
-              </ul>
-              <ul>
-                <li class="toctree-l1"><a class="reference internal" href="../grpc/">gRPC handbook</a>
-                </li>
-              </ul>
-              <ul>
-                <li class="toctree-l1"><a class="reference internal" href="../javascript/">Javascript</a>
-                </li>
-              </ul>
-              <ul>
-                <li class="toctree-l1"><a class="reference internal" href="../python3/">Python3 handbook</a>
-                </li>
-              </ul>
-              <ul>
-                <li class="toctree-l1"><a class="reference internal" href="../rust/">Rust</a>
-                </li>
-              </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../grpc/">Grpc</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../javascript/">Javascript</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../python3/">Python3</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../rust/">Rust</a>
+	    </li>
+          
+        </ul>
       </div>
-    </div>
+      &nbsp;
     </nav>
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
-          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="..">Programming Note</a>
-        
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">Programming Note</a>
       </nav>
+
+      
       <div class="wy-nav-content">
-        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
-    <li><a href=".." class="icon icon-home" alt="Docs"></a> &raquo;</li><li>Go handbook</li>
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>Go</li>
     <li class="wy-breadcrumbs-aside">
+      
     </li>
   </ul>
   <hr/>
 </div>
-
-          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
-            <div class="section" itemprop="articleBody">
+          <div role="main">
+            <div class="section">
               
                 <h1 id="go-handbook">Go handbook</h1>
 <ul>
@@ -261,35 +225,39 @@
 <li><code>$GOPATH</code>: The path to Go packages to install and build</li>
 <li><code>$GOBIN</code>: The path to Go executable binaries built</li>
 </ul>
-<pre><code class="language-bash">#!/bin/bash
+<pre><code class="bash">#!/bin/bash
 export GO111MODULE=off
 export GOPATH=$HOME/go
 export GOBIN=$GOPATH/bin
 </code></pre>
+
 <h2 id="build-install-and-execute-a-go-executable-binary">Build, install and execute a Go executable binary</h2>
-<pre><code class="language-bash">cd go-project
+<pre><code class="bash">cd go-project
 source env.sh
 go install src/hello/hello.go
 hello
 </code></pre>
+
 <h2 id="building-go-executables-for-multiple-platforms">Building Go Executables for Multiple Platforms</h2>
-<pre><code class="language-bash">CFLAGS=&quot;-I$INCLUDE&quot; CPPFLAGS=&quot;-I$INCLUDE&quot; CC=$TARGET_ARCHITECTURE-gcc GOOS=linux GOARCH=arm64 CGO_ENABLED=1 go build
+<pre><code class="bash">CFLAGS=&quot;-I$INCLUDE&quot; CPPFLAGS=&quot;-I$INCLUDE&quot; CC=$TARGET_ARCHITECTURE-gcc GOOS=linux GOARCH=arm64 CGO_ENABLED=1 go build
 </code></pre>
+
 <h2 id="package">Package</h2>
 <p>Every Go program is made up of packages. Programs start running in package main.</p>
 <h3 id="import-other-packages">import other packages</h3>
-<pre><code class="language-go">import {
+<pre><code class="go">import {
     &quot;fmt&quot;
     &quot;math/rand&quot;
 }
 </code></pre>
+
 <h2 id="go-syntax">Go Syntax</h2>
 <h3 id="type-syntax">type syntax</h3>
 <ul>
 <li>타입 후위 정의: 변수 선언시 type은 뒤에 명시</li>
 <li>Go는 정적 타입 프로그래밍 언어</li>
 </ul>
-<pre><code class="language-go">// integer types
+<pre><code class="go">// integer types
 uint8, uint16, uint32, uint64, int8, int16, int32, int64
 
 // floating point number
@@ -315,13 +283,14 @@ f func(func(int,int) int, int) func(int, int) int
 // 선언과 함께 함수 구현/ 할당
 sum := func(a, b int) int { return a+b } (3, 4)
 </code></pre>
+
 <h3 id="variables">variables</h3>
 <ul>
 <li><code>var</code> keyword 사용</li>
 <li><code>:=</code> 축약형 존재 (<code>var</code> 생략)</li>
 <li>namespace: global vs local</li>
 </ul>
-<pre><code class="language-go">var x string
+<pre><code class="go">var x string
 x = &quot;hello world&quot;
 var y float32 = 10.0
 // implicit variable declaration and value assignment
@@ -332,22 +301,25 @@ var (
     c = 10
 )
 </code></pre>
+
 <h3 id="constant">constant</h3>
 <ul>
 <li><code>const</code> keyword 사용</li>
 <li>code 내에서 값 변경 불가</li>
 </ul>
-<pre><code class="language-go">const x string = &quot;Hello World&quot;
+<pre><code class="go">const x string = &quot;Hello World&quot;
 x = &quot;Some other string&quot; // error
 // e.g.
 math.Pi // const variable
 </code></pre>
+
 <h3 id="comment">Comment</h3>
-<pre><code class="language-go">// line comment
+<pre><code class="go">// line comment
 /* block comment */
 </code></pre>
+
 <h3 id="control">control</h3>
-<pre><code class="language-go">func control() {
+<pre><code class="go">func control() {
     // loop statement
     i := 1
     for i &lt;= 10 {
@@ -393,12 +365,14 @@ math.Pi // const variable
     }
 }
 </code></pre>
+
 <h3 id="type-conversion">type conversion</h3>
-<pre><code class="language-go">var x int = 10
+<pre><code class="go">var x int = 10
 float64(x)
 </code></pre>
+
 <h3 id="array-slice-map">array, slice, map</h3>
-<pre><code class="language-go">// array
+<pre><code class="go">// array
 var x [5]int
 x[0] = 10
 x[1] = 20
@@ -469,6 +443,7 @@ func main() {
     fmt.Println(y)
 }
 </code></pre>
+
 <h3 id="make-and-new">make() and new()</h3>
 <p><code>make()</code> is used for follows.</p>
 <ul>
@@ -477,15 +452,16 @@ func main() {
 <li>Create a slice with space preallocated or with len != cap</li>
 </ul>
 <p>It's a little harder to justify <code>new()</code>. The main thing it makes easier is creating pointers to non-composite types. The two functions below are equivalent. One's just a little more concise:</p>
-<pre><code class="language-go">func newInt1() *int { return new(int) }
+<pre><code class="go">func newInt1() *int { return new(int) }
 
 func newInt2() *int {
     var i int
     return &amp;i
 }
 </code></pre>
+
 <h3 id="function">function</h3>
-<pre><code class="language-go">func add(x int, y int) int {
+<pre><code class="go">func add(x int, y int) int {
     return x + y
 }
 
@@ -579,9 +555,10 @@ func main() {
     panic(&quot;Panic !! string&quot;)
 }
 </code></pre>
+
 <h3 id="pointers">Pointers</h3>
 <p>go는 garbage collection을 지원하므로 point 해제 (free)가 필요없음.</p>
-<pre><code class="language-go">func zero(xPtr *int) {
+<pre><code class="go">func zero(xPtr *int) {
     *xPtr = 0
 }
 func main() {
@@ -600,13 +577,14 @@ func main() {
     fmt.Println(*xPtr) // x는 1
 }
 </code></pre>
+
 <h3 id="structure-field-and-method">Structure (field and method)</h3>
 <ul>
 <li>Field가 대문자로 시작시 C++의 public의 특성을 가짐 (외부 package에서 참조 가능)</li>
 <li>Field가 소문자로 시작시 C++의 private의 특성을 가짐 (외부 package에서 참조 불가능)</li>
 <li>아래 예제에서 X, Y, Z는 외부 package에서 참조 가능</li>
 </ul>
-<pre><code class="language-go">
+<pre><code class="go">
 // Clircle blarara o
 type Circle struct {
     x float64
@@ -664,12 +642,13 @@ func main() {
     fmt.Println(&quot;method:&quot;, b.area())
 }
 </code></pre>
+
 <h3 id="anonymous-fields-in-go-structure">Anonymous fields in Go Structure</h3>
 <ul>
 <li>Type이름으로 field가 생성됨</li>
 <li>Anonymous field로 정의된 structure의 field 및 method를 선언된 structure가 상속함.</li>
 </ul>
-<pre><code class="language-go">type Kitchen struct {
+<pre><code class="go">type Kitchen struct {
     numOfPlates int
 }
 
@@ -689,6 +668,7 @@ func main() {
     fmt.Println(&quot;The Kitchen contents of this house are:&quot;, h.Kitchen)
 }
 </code></pre>
+
 <h3 id="interface-collections-of-methods">Interface (collections of methods)</h3>
 <ul>
 <li>Interfaces are named collections of method signatures.</li>
@@ -698,7 +678,7 @@ func main() {
 <li>Interface 변수는 1) interface type과 2) 실제 가리키는 data 주소로 이루어짐</li>
 </ul>
 <p><img alt="interface 구조" src="https://miro.medium.com/max/700/1*nLosvZkY_o-ltxnUNsRyqQ.png" /></p>
-<pre><code class="language-go">// Shape interface type definition
+<pre><code class="go">// Shape interface type definition
 type Shape interface {
     area() float64
     perimeter() float64
@@ -745,7 +725,8 @@ func showArea(shapes ...Shape) {
 // interface field in structure
 // [FIXME] how to ?
 </code></pre>
-<pre><code class="language-go">//  example 2.
+
+<pre><code class="go">//  example 2.
 type Abser interface {
     Abs() float64
 }
@@ -779,15 +760,17 @@ func (v *Vertex) Abs() float64 {
     return math.Sqrt(v.X*v.X + v.Y*v.Y)
 }
 </code></pre>
+
 <h3 id="empty-interface">empty interface</h3>
 <ul>
 <li>어떠한 Type도 담을 수 interface</li>
 </ul>
 <p><img alt="empty interface" src="https://miro.medium.com/max/513/1*EQuV1IIhITb12L2As1QndA.png" /></p>
-<pre><code class="language-go">func Marshal(v interface{}) ([]byte, error);
+<pre><code class="go">func Marshal(v interface{}) ([]byte, error);
 func Println(a ...interface{}) (n int, err error);
 </code></pre>
-<pre><code class="language-go">func main() {
+
+<pre><code class="go">func main() {
     var i interface{}
     describe(i)
 
@@ -805,13 +788,14 @@ func describe(i interface{}) {
 // (42, int)
 // (hello, string)
 </code></pre>
+
 <h3 id="errors">Errors</h3>
 <ul>
 <li>By convention, errors are the last return value and have type error, a built-in interface.</li>
 <li><code>errors.New</code> constructs a basic error value with the given error message.</li>
 <li>A <code>nil</code> value in the error position indicates that there was <strong>no error</strong>.</li>
 </ul>
-<pre><code class="language-go">func f1(arg int) (int, error) {
+<pre><code class="go">func f1(arg int) (int, error) {
     if arg == 42 {
         return -1, errors.New(&quot;can't work with 42&quot;)
     }
@@ -828,8 +812,9 @@ func main() {
     }
 }
 </code></pre>
+
 <h3 id="concurrency-goroutine">Concurrency (goroutine)</h3>
-<pre><code class="language-go">// goroutine to support concurrency
+<pre><code class="go">// goroutine to support concurrency
 package main
 import (
     &quot;fmt&quot;
@@ -856,9 +841,10 @@ func main() {
     fmt.Println(&quot;done&quot;)
 }
 </code></pre>
+
 <h3 id="channel">Channel</h3>
 <p>Channels are the pipes that connect concurrent goroutines. You can send values into channels from one goroutine and receive those values into another goroutine.</p>
-<pre><code class="language-go">package main
+<pre><code class="go">package main
 
 import &quot;fmt&quot;
 
@@ -872,15 +858,17 @@ func main() {
     fmt.Println(msg)
 }
 </code></pre>
-<pre><code class="language-go"># Channel direction
+
+<pre><code class="go"># Channel direction
 # channel의 방향을 지정가능함.
 
 func pinger(c chan&lt;- string)
 func printer(c &lt;-chan string)
 </code></pre>
+
 <h3 id="channel-buffering">Channel Buffering</h3>
 <p>By default channels are unbuffered, meaning that they will only accept sends (chan &lt;-) if there is a corresponding receive (&lt;- chan) ready to receive the sent value.</p>
-<pre><code class="language-go">package main
+<pre><code class="go">package main
 
 import &quot;fmt&quot;
 
@@ -895,8 +883,9 @@ func main() {
     fmt.Println(&lt;-messages)
 }
 </code></pre>
+
 <h3 id="channel-synchronization-waitgroup">Channel Synchronization (Waitgroup)</h3>
-<pre><code class="language-go">package main
+<pre><code class="go">package main
 
 import (
     &quot;fmt&quot;
@@ -916,7 +905,8 @@ func main() {
     &lt;-done
 }
 </code></pre>
-<pre><code class="language-go">// goroutine with WaitGroup
+
+<pre><code class="go">// goroutine with WaitGroup
 package main
 
 import &quot;sync&quot;
@@ -949,9 +939,10 @@ func main() {
     }
 }
 </code></pre>
+
 <h3 id="select-for-channel">Select (for Channel)</h3>
 <p>Go’s select lets you wait on multiple channel operations. Combining goroutines and channels with select is a powerful feature of Go.</p>
-<pre><code class="language-go">package main
+<pre><code class="go">package main
 
 import (
     &quot;fmt&quot;
@@ -991,13 +982,14 @@ func main() {
     fmt.Scanln(&amp;input)
 }
 </code></pre>
+
 <h3 id="context">context</h3>
 <p>A way to think about context package in go is that it allows you to pass in a “context” to your program. Context like a timeout or deadline or a channel to indicate stop working and return.</p>
 <ul>
 <li>https://jaehue.github.io/post/how-to-use-golang-context/</li>
 <li>http://p.agnihotry.com/post/understanding_the_context_package_in_golang/</li>
 </ul>
-<pre><code class="language-go">func longFunc() string {
+<pre><code class="go">func longFunc() string {
     &lt;-time.After(time.Second * 3) // long running job
     return &quot;Success&quot;
 }
@@ -1017,8 +1009,9 @@ func longFuncWithCtx(ctx context.Context) (string, error) {
     }
 }
 </code></pre>
+
 <h3 id="cgo">cgo</h3>
-<pre><code class="language-go">package main
+<pre><code class="go">package main
 
 /*
 #include &lt;stdio.h&gt;
@@ -1042,7 +1035,8 @@ func main() {
     C.CExample()
 }
 </code></pre>
-<pre><code class="language-go">package test
+
+<pre><code class="go">package test
 
 /*
 #include &lt;stdio.h&gt;
@@ -1068,9 +1062,10 @@ func main() {
     C.hello() // Hello, world!
 }
 </code></pre>
+
 <h3 id="command-line">Command-Line</h3>
 <p>The way to get program start argument and options.</p>
-<pre><code class="language-go">
+<pre><code class="go">
 // Command-Line Arguments and Flags
 package main
 
@@ -1162,11 +1157,12 @@ func main() {
     flag.Parse()
 }
 </code></pre>
+
 <blockquote>
 <p>https://www.digitalocean.com/community/tutorials/how-to-use-the-flag-package-in-go</p>
 </blockquote>
 <h3 id="empty-structure">empty structure</h3>
-<pre><code class="language-go">package main
+<pre><code class="go">package main
 
 import &quot;fmt&quot;
 
@@ -1212,6 +1208,7 @@ func main() {
 }
 
 </code></pre>
+
 <h3 id="structtag">structTag</h3>
 <p>A StructTag is the tag string in a struct field.
 By convention, tag strings are a concatenation of optionally space-separated key:"value" pairs. Each key is a non-empty string consisting of non-control characters other than space (U+0020 ' '), quote (U+0022 '"'), and colon (U+003A ':'). Each value is quoted using U+0022 '"' characters and Go string literal syntax.</p>
@@ -1222,7 +1219,7 @@ By convention, tag strings are a concatenation of optionally space-separated key
 <blockquote>
 <p>Format: <code>type StructTag string</code></p>
 </blockquote>
-<pre><code class="language-go">package main
+<pre><code class="go">package main
 
 import (
     &quot;fmt&quot;
@@ -1240,8 +1237,9 @@ func main() {
     fmt.Println(field.Tag.Get(&quot;color&quot;), field.Tag.Get(&quot;species&quot;))
 }
 </code></pre>
+
 <h3 id="reflection">reflection</h3>
-<pre><code class="language-go">
+<pre><code class="go">
 type Person struct {
     name string `tag1:&quot;1&quot; tag2:&quot;2&quot;`
     age  int    `tag1:&quot;나이&quot; tag2:&quot;Age&quot;`
@@ -1298,6 +1296,7 @@ func main() {
     // fmt.Println(reflect.ValueOf(b).Elem()) // Runtime error
 }
 </code></pre>
+
 <h3 id="type-assertions">Type assertions</h3>
 <p>A type assertion doesn’t really convert an interface to another data type, but it provides access to an interface’s concrete value, which is typically what you want.</p>
 <p>The type assertion x.(T) asserts that the concrete value stored in x is of type T, and that x is not nil.</p>
@@ -1305,7 +1304,7 @@ func main() {
 <li>If T is not an interface, it asserts that the dynamic type of x is identical to T.</li>
 <li>If T is an interface, it asserts that the dynamic type of x implements T.</li>
 </ul>
-<pre><code class="language-go">var x interface{} = &quot;foo&quot;
+<pre><code class="go">var x interface{} = &quot;foo&quot;
 
 var s string = x.(string)
 fmt.Println(s)     // &quot;foo&quot;
@@ -1318,9 +1317,10 @@ fmt.Println(n, ok) // &quot;0 false&quot;
 
 n = x.(int)        // ILLEGAL
 </code></pre>
+
 <h3 id="type-switches">Type switches</h3>
 <p>type switch performs several type assertions in series and runs the first case with a matching type.</p>
-<pre><code class="language-go">var x interface{} = &quot;foo&quot;
+<pre><code class="go">var x interface{} = &quot;foo&quot;
 
 switch v := x.(type) {
 case nil:
@@ -1333,8 +1333,9 @@ default:
     fmt.Println(&quot;type unknown&quot;)        // here v has type interface{}
 }
 </code></pre>
+
 <h2 id="cgo-golang-with-c">cgo (golang with C)</h2>
-<pre><code class="language-go">package main
+<pre><code class="go">package main
 
 // typedef int (*intFunc) ();
 //
@@ -1357,18 +1358,20 @@ func main() {
     // Output: 42
 }
 </code></pre>
+
 <blockquote>
 <p>https://eli.thegreenplace.net/2019/passing-callbacks-and-pointers-to-cgo/</p>
 </blockquote>
 <h2 id="go-with-grpc">go with gRPC</h2>
-<pre><code class="language-bash">go get google.golang.org/grpc
+<pre><code class="bash">go get google.golang.org/grpc
 go get -u github.com/golang/protobuf/protoc-gen-go
 &lt;!-- plugins: grpc interface 생성함. --&gt;
 protoc -I &lt;PATH_TO_INCLUDE&gt; --go_out=plugins=grpc:&lt;PATH_TO_GENERATE&gt; &lt;PATH_TO_PROTO_FILE&gt;
 protoc -I &lt;PATH_TO_INCLUDE&gt; --go_out=noti &lt;PATH_TO_PROTO_FILE&gt;
 </code></pre>
+
 <h2 id="useful-commands">Useful commands</h2>
-<pre><code class="language-bash"># show go doc on web
+<pre><code class="bash"># show go doc on web
 go get -v golang.org/x/tools/cmd/godoc
 godoc fmt.Println
 
@@ -1378,6 +1381,7 @@ go build &lt;TARGET_DIR=PACKAGE&gt; # test build
 go install &lt;TARGET_DIR=PACKAGE&gt; # copy *.so to $GOPATH/pkg
 
 </code></pre>
+
 <h2 id="useful-functions">Useful functions</h2>
 <h3 id="panic-and-recover">panic() and recover()</h3>
 <p>They Generate an runtime error and recover (receive) the runtime error.</p>
@@ -1389,7 +1393,7 @@ go install &lt;TARGET_DIR=PACKAGE&gt; # copy *.so to $GOPATH/pkg
 <li>https://golang.org/doc/effective_go.html</li>
 </ul>
 <h2 id="grpc-with-simple-password-authentication">gRPC with simple password authentication</h2>
-<pre><code class="language-go">// client
+<pre><code class="go">// client
 grpc.Dial(target,
     grpc.WithInsecure(),
     grpc.WithPerRPCCredentials(&amp;loginCreds{
@@ -1447,13 +1451,15 @@ func authorize(ctx context.Context) error {
     return EmptyMetadataErr
 }
 </code></pre>
+
 <h2 id="vscode-with-golang">vscode with golang</h2>
 <blockquote>
 <p>https://github.com/Microsoft/vscode-go/issues/441</p>
 <p>https://rominirani.com/setup-go-development-environment-with-visual-studio-code-7ea5d643a51a</p>
 </blockquote>
-<pre><code class="language-shell">go get -u github.com/nsf/gocode
+<pre><code class="shell">go get -u github.com/nsf/gocode
 </code></pre>
+
 <h2 id="go-fuzzing">Go Fuzzing</h2>
 <p>Fuzzing is a type of automated testing which continuously manipulates inputs to a program to find bugs.</p>
 <blockquote>
@@ -1462,48 +1468,48 @@ func authorize(ctx context.Context) error {
 <p><img alt="Fuzzing Test" src="https://go.dev/doc/fuzz/example.png" /></p>
               
             </div>
-          </div><footer>
-    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
-        <a href="../cpp/" class="btn btn-neutral float-left" title="C++ study"><span class="icon icon-circle-arrow-left"></span> Previous</a>
-        <a href="../grpc/" class="btn btn-neutral float-right" title="gRPC handbook">Next <span class="icon icon-circle-arrow-right"></span></a>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../grpc/" class="btn btn-neutral float-right" title="Grpc">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../cpp/" class="btn btn-neutral" title="Cpp"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
     </div>
+  
 
   <hr/>
 
   <div role="contentinfo">
     <!-- Copyright etc -->
+    
   </div>
 
-  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
 </footer>
-          
+	  
         </div>
       </div>
 
     </section>
-
+    
   </div>
 
-  <div class="rst-versions" role="note" aria-label="Versions">
-  <span class="rst-current-version" data-toggle="rst-current-version">
-    
-    
-      <span><a href="../cpp/" style="color: #fcfcfc">&laquo; Previous</a></span>
-    
-    
-      <span><a href="../grpc/" style="color: #fcfcfc">Next &raquo;</a></span>
-    
-  </span>
+  <div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+      
+        <span><a href="../cpp/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../grpc/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
 </div>
-    <script>var base_url = '..';</script>
-    <script src="../js/theme_extra.js" defer></script>
-    <script src="../js/theme.js" defer></script>
-      <script src="../search/main.js" defer></script>
-    <script defer>
-        window.onload = function () {
-            SphinxRtdTheme.Navigation.enable(true);
-        };
-    </script>
+    <script src="../js/theme.js"></script>
 
 </body>
 </html>

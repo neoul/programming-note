@@ -1,124 +1,142 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
 <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <link rel="shortcut icon" href="../img/favicon.ico" />
-    <title>gRPC handbook - Programming Note</title>
-    <link rel="stylesheet" href="../css/theme.css" />
-    <link rel="stylesheet" href="../css/theme_extra.css" />
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
-    
-      <script>
-        // Current page data
-        var mkdocs_page_name = "gRPC handbook";
-        var mkdocs_page_input_path = "grpc.md";
-        var mkdocs_page_url = null;
-      </script>
-    
-    <script src="../js/jquery-3.6.0.min.js" defer></script>
-    <!--[if lt IE 9]>
-      <script src="../js/html5shiv.min.js"></script>
-    <![endif]-->
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
-      <script>hljs.initHighlightingOnLoad();</script> 
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>Grpc - Programming Note</title>
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="../css/highlight.css">
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Grpc";
+    var mkdocs_page_input_path = "grpc.md";
+    var mkdocs_page_url = "/grpc/";
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js"></script>
+  <script src="../js/modernizr-2.8.3.min.js"></script>
+  <script type="text/javascript" src="../js/highlight.pack.js"></script> 
+  
 </head>
 
 <body class="wy-body-for-nav" role="document">
 
   <div class="wy-grid-for-nav">
+
+    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
-    <div class="wy-side-scroll">
       <div class="wy-side-nav-search">
-          <a href=".." class="icon icon-home"> Programming Note
-        </a><div role="search">
+        <a href=".." class="icon icon-home"> Programming Note</a>
+        <div role="search">
   <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
-      <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+    <input type="text" name="q" placeholder="Search docs" />
   </form>
 </div>
       </div>
 
-      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <ul>
-                <li class="toctree-l1"><a class="reference internal" href="..">Programming Note</a>
-                </li>
-              </ul>
-              <ul>
-                <li class="toctree-l1"><a class="reference internal" href="../algorithm/">Algorithm note</a>
-                </li>
-              </ul>
-              <ul>
-                <li class="toctree-l1"><a class="reference internal" href="../cpp/">C++ study</a>
-                </li>
-              </ul>
-              <ul>
-                <li class="toctree-l1"><a class="reference internal" href="../go/">Go handbook</a>
-                </li>
-              </ul>
-              <ul class="current">
-                <li class="toctree-l1 current"><a class="reference internal current" href="./">gRPC handbook</a>
-    <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#grpc-reflection-grpc-service">grpc reflection (gRPC service 정보 조회용)</a>
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+	<ul class="current">
+	  
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="..">Home</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../algorithm/">Algorithm</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../cpp/">Cpp</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../go/">Go</a>
+	    </li>
+          
+            <li class="toctree-l1 current">
+		
+    <a class="current" href="./">Grpc</a>
+    <ul class="subnav">
+            
+    <li class="toctree-l2"><a href="#grpc-handbook">gRPC handbook</a></li>
+    
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#check-reflection-for-grpc-cli">Check reflection for gRPC CLI</a>
-    </li>
+        
+            <li><a class="toctree-l3" href="#grpc-reflection-grpc-service">grpc reflection (gRPC service 정보 조회용)</a></li>
+        
+            <li><a class="toctree-l3" href="#grpc-encryption-grpc-communication-channel-encryption">gRPC Encryption (gRPC communication channel encryption)</a></li>
+        
         </ul>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#grpc-encryption-grpc-communication-channel-encryption">gRPC Encryption (gRPC communication channel encryption)</a>
-        <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#terms">Terms</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#generate-ceritificate">Generate ceritificate (인증서 성성)</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#generate-crt-without-asking-subjectaltname">Generate crt without asking subjectAltName</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#another-example">another example</a>
-    </li>
-        </ul>
-    </li>
+    
+
     </ul>
-                </li>
-              </ul>
-              <ul>
-                <li class="toctree-l1"><a class="reference internal" href="../javascript/">Javascript</a>
-                </li>
-              </ul>
-              <ul>
-                <li class="toctree-l1"><a class="reference internal" href="../python3/">Python3 handbook</a>
-                </li>
-              </ul>
-              <ul>
-                <li class="toctree-l1"><a class="reference internal" href="../rust/">Rust</a>
-                </li>
-              </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../javascript/">Javascript</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../python3/">Python3</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../rust/">Rust</a>
+	    </li>
+          
+        </ul>
       </div>
-    </div>
+      &nbsp;
     </nav>
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
-          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="..">Programming Note</a>
-        
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">Programming Note</a>
       </nav>
+
+      
       <div class="wy-nav-content">
-        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
-    <li><a href=".." class="icon icon-home" alt="Docs"></a> &raquo;</li><li>gRPC handbook</li>
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>Grpc</li>
     <li class="wy-breadcrumbs-aside">
+      
     </li>
   </ul>
   <hr/>
 </div>
-
-          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
-            <div class="section" itemprop="articleBody">
+          <div role="main">
+            <div class="section">
               
                 <h1 id="grpc-handbook">gRPC handbook</h1>
 <h2 id="grpc-reflection-grpc-service">grpc reflection (gRPC service 정보 조회용)</h2>
 <p>gRPC Server Reflection provides information about publicly-accessible gRPC services on a server, and assists clients at runtime to construct RPC requests and responses without precompiled service information. It is used by gRPC CLI, which can be used to introspect server protos and send/receive test RPCs.</p>
-<pre><code class="language-go">
+<pre><code class="go">
 import &quot;google.golang.org/grpc/reflection&quot;
 
         s := grpc.NewServer()
@@ -129,14 +147,16 @@ import &quot;google.golang.org/grpc/reflection&quot;
                 log.Fatalf(&quot;failed to serve: %v&quot;, err)
         }
 </code></pre>
+
 <h3 id="check-reflection-for-grpc-cli">Check reflection for gRPC CLI</h3>
-<pre><code class="language-bash">git clone https://github.com/grpc/grpc
+<pre><code class="bash">git clone https://github.com/grpc/grpc
 cd grpc
 git submodule update --init
 make grpc_cli
 cd bins/opt # grpc_cli is in directory bins/opt/
 </code></pre>
-<pre><code class="language-bash">./grpc_cli ls localhost:50051
+
+<pre><code class="bash">./grpc_cli ls localhost:50051
 
 # Result
 grpc.examples.echo.Echo
@@ -170,6 +190,7 @@ message: &quot;Hello gRPC CLI&quot;
 
 Rpc succeeded with OK status
 </code></pre>
+
 <h2 id="grpc-encryption-grpc-communication-channel-encryption">gRPC Encryption (gRPC communication channel encryption)</h2>
 <h3 id="terms">Terms</h3>
 <ul>
@@ -185,7 +206,7 @@ Rpc succeeded with OK status
 <li><code>$ROOTCA.crt</code>: CA certificate file for <code>$SERVER.crt</code> (<code>$SERVER.pem</code>)</li>
 </ul>
 <h3 id="generate-ceritificate">Generate ceritificate (인증서 성성)</h3>
-<pre><code class="language-bash">openssl genrsa -out ca.key 2048
+<pre><code class="bash">openssl genrsa -out ca.key 2048
 openssl req -new -x509 -days 365 -key ca.key -subj &quot;/C=KR/L=AY/O=HFR,Inc./CN=HFR's Self Signed CA&quot; -out ca.crt
 
 openssl req -newkey rsa:2048 -nodes -keyout service.key -subj &quot;/C=KR/L=AY/O=HFR,Inc./CN=HFR NE&quot; -out service.csr
@@ -203,7 +224,8 @@ $ openssl x509 -req -sha256 -in server.csr -signkey server.key \
                -out server.crt -days 3650
 $ openssl req -new -x509 -sha256 -key server.key -out server.crt -days 36500 -subj &quot;/C=KR/ST=Gyeonggi/O=HFR,Inc./CN=HFR NE&quot;
 </code></pre>
-<pre><code class="language-bash"># Create ROOT certificate (TSL/SSL 인증서 생성하기)
+
+<pre><code class="bash"># Create ROOT certificate (TSL/SSL 인증서 생성하기)
 
 # The name of ROOT CA (Certificate Authority)
 export ROOTCA=&quot;HFR's Self Signed CA&quot;
@@ -238,8 +260,9 @@ openssl x509 -req -days 36500 -in $SERVER.csr -CA rootca.crt -CAkey rootca.key -
 
 
 </code></pre>
+
 <h3 id="generate-crt-without-asking-subjectaltname">Generate crt without asking subjectAltName</h3>
-<pre><code class="language-bash">openssl req -new -sha256 \
+<pre><code class="bash">openssl req -new -sha256 \
     -key domain.key \
     -subj &quot;/C=US/ST=CA/O=Acme, Inc./CN=example.com&quot; \
     -reqexts SAN \
@@ -247,8 +270,9 @@ openssl x509 -req -days 36500 -in $SERVER.csr -CA rootca.crt -CAkey rootca.key -
         &lt;(printf &quot;\n[SAN]\nsubjectAltName=DNS:example.com,DNS:www.example.com&quot;)) \
     -out domain.csr
 </code></pre>
+
 <h3 id="another-example">another example</h3>
-<pre><code class="language-bash"># Generate CA key:
+<pre><code class="bash"># Generate CA key:
 openssl genrsa -des3 -out ca.key 4096
 
 # Generate CA certificate:
@@ -280,48 +304,48 @@ openssl rsa -in client.key -out client.key
 </code></pre>
               
             </div>
-          </div><footer>
-    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
-        <a href="../go/" class="btn btn-neutral float-left" title="Go handbook"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
         <a href="../javascript/" class="btn btn-neutral float-right" title="Javascript">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../go/" class="btn btn-neutral" title="Go"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
     </div>
+  
 
   <hr/>
 
   <div role="contentinfo">
     <!-- Copyright etc -->
+    
   </div>
 
-  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
 </footer>
-          
+	  
         </div>
       </div>
 
     </section>
-
+    
   </div>
 
-  <div class="rst-versions" role="note" aria-label="Versions">
-  <span class="rst-current-version" data-toggle="rst-current-version">
-    
-    
-      <span><a href="../go/" style="color: #fcfcfc">&laquo; Previous</a></span>
-    
-    
-      <span><a href="../javascript/" style="color: #fcfcfc">Next &raquo;</a></span>
-    
-  </span>
+  <div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+      
+        <span><a href="../go/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../javascript/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
 </div>
-    <script>var base_url = '..';</script>
-    <script src="../js/theme_extra.js" defer></script>
-    <script src="../js/theme.js" defer></script>
-      <script src="../search/main.js" defer></script>
-    <script defer>
-        window.onload = function () {
-            SphinxRtdTheme.Navigation.enable(true);
-        };
-    </script>
+    <script src="../js/theme.js"></script>
 
 </body>
 </html>

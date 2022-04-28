@@ -1,43 +1,68 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+    
     <url>
-         <loc>None</loc>
-         <lastmod>2022-04-14</lastmod>
-         <changefreq>daily</changefreq>
+     <loc>/</loc>
+     <lastmod>2022-04-28</lastmod>
+     <changefreq>daily</changefreq>
     </url>
+    
+
+    
     <url>
-         <loc>None</loc>
-         <lastmod>2022-04-14</lastmod>
-         <changefreq>daily</changefreq>
+     <loc>/algorithm/</loc>
+     <lastmod>2022-04-28</lastmod>
+     <changefreq>daily</changefreq>
     </url>
+    
+
+    
     <url>
-         <loc>None</loc>
-         <lastmod>2022-04-14</lastmod>
-         <changefreq>daily</changefreq>
+     <loc>/cpp/</loc>
+     <lastmod>2022-04-28</lastmod>
+     <changefreq>daily</changefreq>
     </url>
+    
+
+    
     <url>
-         <loc>None</loc>
-         <lastmod>2022-04-14</lastmod>
-         <changefreq>daily</changefreq>
+     <loc>/go/</loc>
+     <lastmod>2022-04-28</lastmod>
+     <changefreq>daily</changefreq>
     </url>
+    
+
+    
     <url>
-         <loc>None</loc>
-         <lastmod>2022-04-14</lastmod>
-         <changefreq>daily</changefreq>
+     <loc>/grpc/</loc>
+     <lastmod>2022-04-28</lastmod>
+     <changefreq>daily</changefreq>
     </url>
+    
+
+    
     <url>
-         <loc>None</loc>
-         <lastmod>2022-04-14</lastmod>
-         <changefreq>daily</changefreq>
+     <loc>/javascript/</loc>
+     <lastmod>2022-04-28</lastmod>
+     <changefreq>daily</changefreq>
     </url>
+    
+
+    
     <url>
-         <loc>None</loc>
-         <lastmod>2022-04-14</lastmod>
-         <changefreq>daily</changefreq>
+     <loc>/python3/</loc>
+     <lastmod>2022-04-28</lastmod>
+     <changefreq>daily</changefreq>
     </url>
+    
+
+    
     <url>
-         <loc>None</loc>
-         <lastmod>2022-04-14</lastmod>
-         <changefreq>daily</changefreq>
+     <loc>/rust/</loc>
+     <lastmod>2022-04-28</lastmod>
+     <changefreq>daily</changefreq>
     </url>
+    
+
 </urlset>

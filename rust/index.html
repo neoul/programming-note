@@ -1,195 +1,191 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
 <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <link rel="shortcut icon" href="../img/favicon.ico" />
-    <title>Rust - Programming Note</title>
-    <link rel="stylesheet" href="../css/theme.css" />
-    <link rel="stylesheet" href="../css/theme_extra.css" />
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
-    
-      <script>
-        // Current page data
-        var mkdocs_page_name = "Rust";
-        var mkdocs_page_input_path = "rust.md";
-        var mkdocs_page_url = null;
-      </script>
-    
-    <script src="../js/jquery-3.6.0.min.js" defer></script>
-    <!--[if lt IE 9]>
-      <script src="../js/html5shiv.min.js"></script>
-    <![endif]-->
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
-      <script>hljs.initHighlightingOnLoad();</script> 
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>Rust - Programming Note</title>
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="../css/highlight.css">
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Rust";
+    var mkdocs_page_input_path = "rust.md";
+    var mkdocs_page_url = "/rust/";
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js"></script>
+  <script src="../js/modernizr-2.8.3.min.js"></script>
+  <script type="text/javascript" src="../js/highlight.pack.js"></script> 
+  
 </head>
 
 <body class="wy-body-for-nav" role="document">
 
   <div class="wy-grid-for-nav">
+
+    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
-    <div class="wy-side-scroll">
       <div class="wy-side-nav-search">
-          <a href=".." class="icon icon-home"> Programming Note
-        </a><div role="search">
+        <a href=".." class="icon icon-home"> Programming Note</a>
+        <div role="search">
   <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
-      <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+    <input type="text" name="q" placeholder="Search docs" />
   </form>
 </div>
       </div>
 
-      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <ul>
-                <li class="toctree-l1"><a class="reference internal" href="..">Programming Note</a>
-                </li>
-              </ul>
-              <ul>
-                <li class="toctree-l1"><a class="reference internal" href="../algorithm/">Algorithm note</a>
-                </li>
-              </ul>
-              <ul>
-                <li class="toctree-l1"><a class="reference internal" href="../cpp/">C++ study</a>
-                </li>
-              </ul>
-              <ul>
-                <li class="toctree-l1"><a class="reference internal" href="../go/">Go handbook</a>
-                </li>
-              </ul>
-              <ul>
-                <li class="toctree-l1"><a class="reference internal" href="../grpc/">gRPC handbook</a>
-                </li>
-              </ul>
-              <ul>
-                <li class="toctree-l1"><a class="reference internal" href="../javascript/">Javascript</a>
-                </li>
-              </ul>
-              <ul>
-                <li class="toctree-l1"><a class="reference internal" href="../python3/">Python3 handbook</a>
-                </li>
-              </ul>
-              <ul class="current">
-                <li class="toctree-l1 current"><a class="reference internal current" href="./">Rust</a>
-    <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#why-rust">Why Rust?</a>
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+	<ul class="current">
+	  
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="..">Home</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../algorithm/">Algorithm</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../cpp/">Cpp</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../go/">Go</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../grpc/">Grpc</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../javascript/">Javascript</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../python3/">Python3</a>
+	    </li>
+          
+            <li class="toctree-l1 current">
+		
+    <a class="current" href="./">Rust</a>
+    <ul class="subnav">
+            
+    <li class="toctree-l2"><a href="#rust">Rust</a></li>
+    
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#performance">Performance</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#reliability">Reliability</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#productivity">Productivity</a>
-    </li>
+        
+            <li><a class="toctree-l3" href="#why-rust">Why Rust?</a></li>
+        
+            <li><a class="toctree-l3" href="#roadamp-to-improve">Roadamp to improve</a></li>
+        
+            <li><a class="toctree-l3" href="#rust_1">Rust 특성</a></li>
+        
+            <li><a class="toctree-l3" href="#rust_2">내가 생각하는 rust 특성</a></li>
+        
+            <li><a class="toctree-l3" href="#rust-module-system">Rust module system</a></li>
+        
+            <li><a class="toctree-l3" href="#terms">Terms</a></li>
+        
+            <li><a class="toctree-l3" href="#latest-version">Latest version</a></li>
+        
+            <li><a class="toctree-l3" href="#rust-installation">Rust installation</a></li>
+        
+            <li><a class="toctree-l3" href="#helloworld-with-cargo">Helloworld with cargo</a></li>
+        
+            <li><a class="toctree-l3" href="#how-to-add-external-crates">How to add external crates</a></li>
+        
+            <li><a class="toctree-l3" href="#enabling-rust-backtrace">Enabling rust backtrace</a></li>
+        
+            <li><a class="toctree-l3" href="#rust-macro">Rust macro</a></li>
+        
+            <li><a class="toctree-l3" href="#prelude-imported-std-libraries">Prelude (imported std libraries)</a></li>
+        
+            <li><a class="toctree-l3" href="#rust-ownership">Rust ownership (값에 대한 소유권)</a></li>
+        
+            <li><a class="toctree-l3" href="#references-and-borrowing">References and Borrowing</a></li>
+        
+            <li><a class="toctree-l3" href="#rust-syntax">Rust Syntax</a></li>
+        
+            <li><a class="toctree-l3" href="#generics">Generics</a></li>
+        
+            <li><a class="toctree-l3" href="#traits">Traits</a></li>
+        
+            <li><a class="toctree-l3" href="#to-be-considered">To be considered</a></li>
+        
+            <li><a class="toctree-l3" href="#collections">collections</a></li>
+        
+            <li><a class="toctree-l3" href="#useful-code-or-crates">Useful code or crates</a></li>
+        
+            <li><a class="toctree-l3" href="#modules">Modules</a></li>
+        
+            <li><a class="toctree-l3" href="#macro">Macro</a></li>
+        
+            <li><a class="toctree-l3" href="#testing">Testing</a></li>
+        
+            <li><a class="toctree-l3" href="#rust-attributes">Rust Attributes</a></li>
+        
+            <li><a class="toctree-l3" href="#keywords">Keywords</a></li>
+        
+            <li><a class="toctree-l3" href="#good-answer-to-understand">Good answer to understand</a></li>
+        
+            <li><a class="toctree-l3" href="#associated-items">Associated items</a></li>
+        
+            <li><a class="toctree-l3" href="#rust-rfc">Rust RFC</a></li>
+        
         </ul>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#roadamp-to-improve">Roadamp to improve</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#rust_1">Rust 특성</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#rust_2">내가 생각하는 rust 특성</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#rust-module-system">Rust module system</a>
-        <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#rust-standard-libary-and-useful-crates">Rust standard libary and useful crates</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#how-to-use-crates">How to use crates?</a>
-    </li>
-        </ul>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#terms">Terms</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#latest-version">Latest version</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#rust-installation">Rust installation</a>
-        <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#cargo">Cargo</a>
-        <ul>
-    <li class="toctree-l4"><a class="reference internal" href="#cargotoml-toml-file-for-cargo-config">Cargo.toml (TOML file for cargo config)</a>
-    </li>
-        </ul>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#useful-development-tool">Useful development tool</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#rust-build-tools">Rust build tools</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#rustup-cargo-command-completion">Rustup &amp; cargo command completion</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#rust-cookbook">Rust Cookbook</a>
-    </li>
-        </ul>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#helloworld-with-cargo">Helloworld with cargo</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#how-to-add-external-crates">How to add external crates</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#enabling-rust-backtrace">Enabling rust backtrace</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#vscode-with-rust">vscode with rust</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#rust-macro">Rust macro</a>
-        <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#println">println!</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#todo">todo!</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#panic">panic!</a>
-    </li>
-        </ul>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#rust-syntax">Rust Syntax</a>
-        <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#constant-and-variable-declaration">Constant and Variable declaration</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#built-in-scalar-data-types">Built-in scalar data types</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#char-type">Char type</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#compound-types">Compound Types</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#tuple-type">Tuple Type</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#array-type">Array Type</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#str-string-type">&amp;str과 String Type</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#functions">Functions</a>
-    </li>
-        </ul>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#statements-and-expressions">Statements and expressions</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#to-be-considered">To be considered</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#useful-code">Useful code</a>
-        <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#read-stdin">Read stdin</a>
-    </li>
-        </ul>
-    </li>
+    
+
     </ul>
-                </li>
-              </ul>
+	    </li>
+          
+        </ul>
       </div>
-    </div>
+      &nbsp;
     </nav>
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
-          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="..">Programming Note</a>
-        
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">Programming Note</a>
       </nav>
+
+      
       <div class="wy-nav-content">
-        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
-    <li><a href=".." class="icon icon-home" alt="Docs"></a> &raquo;</li><li>Rust</li>
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>Rust</li>
     <li class="wy-breadcrumbs-aside">
+      
     </li>
   </ul>
   <hr/>
 </div>
-
-          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
-            <div class="section" itemprop="articleBody">
+          <div role="main">
+            <div class="section">
               
                 <h1 id="rust">Rust</h1>
 <p>A language empowering everyone to build reliable and efficient software.</p>
@@ -197,6 +193,117 @@
 <p class="admonition-title">Note</p>
 <p>이 문서는 <a href="https://docs.microsoft.com/ko-kr/learn/paths/rust-first-steps">rust-first-steps</a>, <a href="https://www.rust-lang.org">rust-lang.org</a>, <a href="https://doc.rust-lang.org/book/title-page.html">rust-doc</a> 을 보고 내용을 정리한 문서입니다.</p>
 </div>
+<ul>
+<li><a href="#rust">Rust</a></li>
+<li><a href="#why-rust">Why Rust?</a><ul>
+<li><a href="#performance">Performance</a></li>
+<li><a href="#reliability">Reliability</a></li>
+<li><a href="#productivity">Productivity</a></li>
+</ul>
+</li>
+<li><a href="#roadamp-to-improve">Roadamp to improve</a></li>
+<li><a href="#rust-특성">Rust 특성</a></li>
+<li><a href="#내가-생각하는-rust-특성">내가 생각하는 rust 특성</a></li>
+<li><a href="#rust-module-system">Rust module system</a><ul>
+<li><a href="#rust-standard-libary-and-useful-crates">Rust standard libary and useful crates</a></li>
+<li><a href="#how-to-use-crates">How to use crates?</a></li>
+</ul>
+</li>
+<li><a href="#terms">Terms</a></li>
+<li><a href="#latest-version">Latest version</a></li>
+<li><a href="#rust-installation">Rust installation</a><ul>
+<li><a href="#cargo">Cargo</a></li>
+<li><a href="#cargo-versioning">Cargo versioning</a></li>
+<li><a href="#cargotoml-toml-file-for-cargo-config">Cargo.toml (TOML file for cargo config)</a></li>
+<li><a href="#cargolock">Cargo.lock</a></li>
+<li><a href="#useful-development-tool">Useful development tool</a></li>
+<li><a href="#rust-build-tools">Rust build tools</a></li>
+<li><a href="#rustup--cargo-command-completion">Rustup &amp; cargo command completion</a></li>
+<li><a href="#rust-cookbook">Rust Cookbook</a></li>
+</ul>
+</li>
+<li><a href="#helloworld-with-cargo">Helloworld with cargo</a></li>
+<li><a href="#how-to-add-external-crates">How to add external crates</a></li>
+<li><a href="#enabling-rust-backtrace">Enabling rust backtrace</a></li>
+<li><a href="#rust-macro">Rust macro</a><ul>
+<li><a href="#println-print"><code>println!</code>, <code>print!</code></a></li>
+<li><a href="#todo"><code>todo!</code></a></li>
+<li><a href="#panic"><code>panic!</code></a></li>
+<li><a href="#dbg"><code>dbg!</code></a></li>
+</ul>
+</li>
+<li><a href="#prelude-imported-std-libraries">Prelude (imported std libraries)</a></li>
+<li><a href="#rust-ownership-값에-대한-소유권">Rust ownership (값에 대한 소유권)</a></li>
+<li><a href="#references-and-borrowing">References and Borrowing</a></li>
+<li><a href="#rust-syntax">Rust Syntax</a><ul>
+<li><a href="#comments">Comments</a></li>
+<li><a href="#document-comments">Document comments</a></li>
+<li><a href="#constants-and-variables">Constants and Variables</a></li>
+<li><a href="#built-in-scalar-data-types">Built-in scalar data types</a></li>
+<li><a href="#char-type">Char type</a></li>
+<li><a href="#compound-types">Compound Types</a></li>
+<li><a href="#tuple-type">Tuple Type</a></li>
+<li><a href="#array-type">Array Type</a></li>
+<li><a href="#str과-string-type">&amp;str과 String Type</a></li>
+<li><a href="#functions">Functions</a></li>
+<li><a href="#diverging-functions">Diverging functions</a></li>
+<li><a href="#associated-function-indication-">Associated function indication <code>::</code></a></li>
+<li><a href="#closure">closure</a></li>
+<li><a href="#call-chaining-using-closure">Call chaining using closure</a></li>
+<li><a href="#statements-and-expressions">Statements and expressions</a></li>
+<li><a href="#control-flow">Control flow</a></li>
+<li><a href="#ifelse"><code>if..else</code>:</a></li>
+<li><a href="#loop-while-and-for"><code>loop</code>, <code>while</code> and <code>for</code></a></li>
+<li><a href="#match"><code>match</code></a></li>
+<li><a href="#result-type">Result type</a></li>
+<li><a href="#reference">Reference</a></li>
+<li><a href="#methods">methods</a></li>
+<li><a href="#field-init-shorthand">Field Init Shorthand</a></li>
+<li><a href="#struct-update-syntax">Struct Update Syntax</a></li>
+<li><a href="#tuple-structs">Tuple Structs</a></li>
+</ul>
+</li>
+<li><a href="#generics">Generics</a><ul>
+<li><a href="#generic-type">Generic Type</a></li>
+<li><a href="#generic-functions">Generic functions</a></li>
+<li><a href="#generic-implementations-generic-methods">Generic Implementations (Generic methods)</a></li>
+<li><a href="#bounds">Bounds</a></li>
+<li><a href="#where-clause">Where clause</a></li>
+<li><a href="#associated-types">Associated types</a></li>
+<li><a href="#phantom-type-parameters">Phantom type parameters</a></li>
+</ul>
+</li>
+<li><a href="#traits">Traits</a></li>
+<li><a href="#to-be-considered">To be considered</a></li>
+<li><a href="#collections">collections</a><ul>
+<li><a href="#box-stack-and-heap">Box, stack and heap</a></li>
+<li><a href="#string">String</a></li>
+<li><a href="#hash-map">hash map</a></li>
+</ul>
+</li>
+<li><a href="#useful-code-or-crates">Useful code or crates</a><ul>
+<li><a href="#read-stdin">Read stdin</a></li>
+</ul>
+</li>
+<li><a href="#modules">Modules</a></li>
+<li><a href="#macro">Macro</a></li>
+<li><a href="#testing">Testing</a></li>
+<li><a href="#rust-attributes">Rust Attributes</a><ul>
+<li><a href="#scope">Scope</a></li>
+<li><a href="#attribute-arguments">Attribute arguments</a></li>
+<li><a href="#frequently-used-attributes">Frequently Used Attributes</a></li>
+<li><a href="#custom-cfg">Custom cfg</a></li>
+<li><a href="#derive-attribute"><code>derive</code> attribute</a></li>
+</ul>
+</li>
+<li><a href="#keywords">Keywords</a><ul>
+<li><a href="#crate"><code>crate</code></a></li>
+</ul>
+</li>
+<li><a href="#good-answer-to-understand">Good answer to understand</a></li>
+<li><a href="#associated-items">Associated items</a></li>
+<li><a href="#rust-rfc">Rust RFC</a></li>
+</ul>
 <h2 id="why-rust">Why Rust?</h2>
 <ul>
 <li>Performance</li>
@@ -228,12 +335,12 @@
 </ul>
 <h2 id="rust_2">내가 생각하는 rust 특성</h2>
 <ul>
-<li>Variable과 function type을 immutable 상태로 고정 ==&gt; gabage collection이 필요없도록 만듦</li>
+<li>Variable과 function type을 극도로 제어하여 gabage collection이 필요없도록 만듦</li>
 </ul>
 <h2 id="rust-module-system">Rust module system</h2>
 <ul>
 <li><code>Crates</code>: It's the smallest piece of code the Rust compiler can run.</li>
-<li><code>Modules</code>: Groups of crates; Related code items or items that are used together</li>
+<li><code>Modules</code>: A number of modules become a crate; Related code items or items that are used together</li>
 <li><code>Path</code>: Paths to access and use the code or items in Rust</li>
 <li>Third-party crate registry: <a href="https://crates.io">crates.io</a></li>
 </ul>
@@ -252,8 +359,9 @@
 <li><code>serde</code> - A third-party crate of serialization and deserialization operations for Rust data structures.</li>
 </ul>
 <h3 id="how-to-use-crates">How to use crates?</h3>
-<pre><code class="language-rust">use std::fmt
+<pre><code class="rust">use std::fmt
 </code></pre>
+
 <h2 id="terms">Terms</h2>
 <ul>
 <li>Wasm (WebAssembly)</li>
@@ -269,7 +377,7 @@
 <h2 id="latest-version">Latest version</h2>
 <p><code>Version 1.60.0</code></p>
 <h2 id="rust-installation">Rust installation</h2>
-<pre><code class="language-bash"># Install rust
+<pre><code class="bash"># Install rust
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 
 # Update rust
@@ -278,6 +386,7 @@ rustup update
 # Uninstall rust
 rustup self uninstall
 </code></pre>
+
 <ul>
 <li><code>vscode</code>: <a href="https://marketplace.visualstudio.com/items?itemName=matklad.rust-analyzer">🔗 ext install matklad.rust-analyzer</a></li>
 <li><code>vim</code>: <a href="https://github.com/rust-lang/rust.vim">🔗 rust.vim</a></li>
@@ -296,6 +405,7 @@ rustup self uninstall
 <li><code>cargo test</code>: test your project with</li>
 <li><code>cargo check</code>: checks your code to make sure it compiles but doesn’t produce an executable</li>
 <li><code>cargo doc</code>: build documentation for your project with</li>
+<li><code>cargo doc --open</code>: 현재 crate의 html 문서 생성</li>
 <li><code>cargo publish</code>: publish a library to <code>crates.io</code> with</li>
 <li>Add dependent crates to a project by adding the crate name to the Cargo.toml file.</li>
 <li><code>cargo fmt</code>: reformats your code according to the community code style.</li>
@@ -304,11 +414,18 @@ rustup self uninstall
 <blockquote>
 <p><strong>manual</strong>: <a href="https://doc.rust-lang.org/cargo/index.html">🔗 cargo doc</a></p>
 </blockquote>
+<h4 id="cargo-versioning">Cargo versioning</h4>
+<p>Cargo는 버전을 명시하는 표준에 해당하는 <a href="https://semver.org/">Semantic Versioning(semver)</a>을 이용합니다.</p>
+<pre><code class="toml"># Example
+rand = &quot;0.8.3&quot;
+</code></pre>
+
+<p>The number 0.8.3 is actually shorthand for ^0.8.3, which means any version that is at least 0.8.3 but below 0.9.0. </p>
 <h4 id="cargotoml-toml-file-for-cargo-config">Cargo.toml (TOML file for cargo config)</h4>
 <p><code>Cargo.toml</code>: TOML로 정의된 cargo configuration file</p>
 <p>TOML's syntax primarily consists of key = "value" pairs, [section names], and # comments. TOML's syntax somewhat resembles that of .INI files, but it includes a formal specification, whereas the INI file format suffers from many competing variants.</p>
 <p>Its specification includes a list of supported data types: String, Integer, Float, Boolean, Datetime, Array, and Table.</p>
-<pre><code class="language-toml"># This is a TOML document.
+<pre><code class="toml"># This is a TOML document.
 
 title = &quot;TOML Example&quot;
 
@@ -342,10 +459,17 @@ hosts = [
   &quot;omega&quot;
 ]
 </code></pre>
+
+<h4 id="cargolock">Cargo.lock</h4>
+<ul>
+<li><code>go.sum</code>과 같이 다운로드한 crate (package)에 대한 version과 정보를 명세하여, 이후 동일한 crate version으로 build의 일관성을 유지함.</li>
+<li><code>cargo update</code>: crate의 minor version만 업데이트함; major version을 변경하려면, Cargo.toml의 major version을 업데이트해야 한다.</li>
+</ul>
 <h3 id="useful-development-tool">Useful development tool</h3>
-<pre><code class="language-bash">rustup component add rustfmt
+<pre><code class="bash">rustup component add rustfmt
 rustup component add clippy
 </code></pre>
+
 <ul>
 <li><code>cargo fmt</code>: <code>rustfmt</code>; Automatic Formatting development tool</li>
 <li><code>cargo fix</code>: Automatically fix lint warnings reported by rustc</li>
@@ -364,19 +488,20 @@ rustup component add clippy
 </blockquote>
 <h3 id="rustup-cargo-command-completion">Rustup &amp; cargo command completion</h3>
 <p>Rust build tool에 대한 tab completion</p>
-<pre><code class="language-bash">mkdir -p ~/.local/share/bash-completion/completions
+<pre><code class="bash">mkdir -p ~/.local/share/bash-completion/completions
 rustup completions bash rustup &gt;&gt; ~/.local/share/bash-completion/completions/rustup
 rustup completions bash cargo &gt;&gt; ~/.local/share/bash-completion/completions/cargo
 source ~/.local/share/bash-completion/completions/rustup
 source ~/.local/share/bash-completion/completions/cargo
 </code></pre>
+
 <h3 id="rust-cookbook">Rust Cookbook</h3>
 <p>Rust crate의 종류를 분류한 cookbook에서 필요한 library를 가장 먼저 찾자!</p>
 <blockquote>
 <p>🔗 <a href="https://rust-lang-nursery.github.io/rust-cookbook">Rust Cookbook</a></p>
 </blockquote>
 <h2 id="helloworld-with-cargo">Helloworld with cargo</h2>
-<pre><code class="language-bash"># create new project
+<pre><code class="bash"># create new project
 cargo new hello-rust
 cd hello-rust
 tree
@@ -416,19 +541,22 @@ tree
 #        ├── hello-rust.d
 #        └── incremental
 </code></pre>
+
 <h2 id="how-to-add-external-crates">How to add external crates</h2>
 <p>외부 라이브러 사용법</p>
-<pre><code class="language-bash"># Edit Cargo.toml
+<pre><code class="bash"># Edit Cargo.toml
 [dependencies]
 ferris-says = &quot;0.2&quot;
 </code></pre>
-<pre><code class="language-rust">// in rust code
+
+<pre><code class="rust">// in rust code
 use ferris_says::say;
 </code></pre>
+
 <p><code>cargo build</code>: Cargo will install our dependency for us.</p>
 <h2 id="enabling-rust-backtrace">Enabling rust backtrace</h2>
 <p>Rust display the backtrace if running with <code>RUST_BACKTRACE=1</code>.</p>
-<pre><code class="language-bash">$ ./main 
+<pre><code class="bash">$ ./main 
 ..
 $ RUST_BACKTRACE=1 ./main 
 thread 'main' panicked at 'not yet implemented: To Do!', main.rs:2:5
@@ -439,41 +567,170 @@ stack backtrace:
    3: core::ops::function::FnOnce::call_once
 note: Some details are omitted, run with `RUST_BACKTRACE=full` for a verbose backtrace.
 </code></pre>
-<h2 id="vscode-with-rust">vscode with rust</h2>
-<blockquote>
-<p><a href="https://stackoverflow.com/questions/46885292/how-to-launch-a-rust-application-from-visual-studio-code">🔗 how-to-launch-a-rust-application-from-visual-studio-code</a></p>
-</blockquote>
+
 <h2 id="rust-macro">Rust macro</h2>
 <p>Rust macro는 개수가 가변적인 입력 인수를 취하는 함수</p>
 <ul>
-<li><code>println!</code></li>
+<li><code>println!</code>, <code>print!</code></li>
 <li><code>todo!</code></li>
 <li><code>panic!</code></li>
+<li><code>dbg!</code></li>
 </ul>
-<h3 id="println"><code>println!</code></h3>
+<h3 id="println-print"><code>println!</code>, <code>print!</code></h3>
 <p>가변 인수를 받아 <code>stdout</code>에 출력</p>
-<pre><code class="language-rust">// - If it called a function instead, it would be entered as println (without the `!`).
+<pre><code class="rust">// - If it called a function instead, it would be entered as println (without the `!`).
 // - &quot;Hello, world!&quot;: string representation of the string
-// - {} 인수의 값 대체
+// - {}에 인수의 값 대체 삽입; placeholder라 부름
 println!(&quot;Hello, {}!&quot;, &quot;world&quot;);
 </code></pre>
+
 <h3 id="todo"><code>todo!</code></h3>
 <p>완성되지 않은 함수의 prototype 점검 및 선언, 호출시 exception 발생</p>
-<pre><code class="language-rust">// todo! - Display &quot;Hello, world!&quot; with an exception.
+<pre><code class="rust">// todo! - Display &quot;Hello, world!&quot; with an exception.
 fn main() {
   todo!(&quot;Display the message by using the println!() macro&quot;);
 }
 </code></pre>
+
 <h3 id="panic"><code>panic!</code></h3>
 <p>The call to <code>panic!</code> causes the error message contained in the last two lines.</p>
-<pre><code class="language-rust">fn main() {
+<pre><code class="rust">fn main() {
     panic!(&quot;crash and burn&quot;);
 }
 </code></pre>
+
+<h3 id="dbg"><code>dbg!</code></h3>
+<p>Another way to print out a value using the Debug format is to use the <code>dbg!</code> macro, which takes ownership of an expression, prints the file and line number of where that dbg! macro call occurs in your code along with the resulting value of that expression, and returns ownership of the value.</p>
+<blockquote>
+<p>Note: print message to <code>stderr</code>.</p>
+</blockquote>
+<pre><code class="rust">#[derive(Debug)]
+struct Rectangle {
+    width: u32,
+    height: u32,
+}
+fn main() {
+    let scale = 2;
+    let rect = Rectangle {
+        width: dbg!(30 * scale),
+        height: 50,
+    };
+    let rect = dbg!(rect);
+    println!(
+        &quot;The area of the rectangle {:?} is {} square pixels.&quot;,
+        rect,
+        area(&amp;rect)
+    );
+}
+fn area(rect :&amp;Rectangle) -&gt; u32 {
+    return rect.width * rect.height;
+}
+// [src/main.rs:16] 30 * scale = 60
+// [src/main.rs:20] rect = Rectangle {
+//     width: 60,
+//     height: 50,
+// }
+// The area of the rectangle Rectangle { width: 60, height: 50 } is 3000 square pixels.
+</code></pre>
+
+<h2 id="prelude-imported-std-libraries">Prelude (imported std libraries)</h2>
+<p>The prelude is the list of things that Rust automatically imports into every Rust program. </p>
+<p><a href="https://doc.rust-lang.org/std/prelude/index.html">🔗 Module std::prelude</a></p>
+<p>For example ... </p>
+<ul>
+<li><code>std::result::Result::{self, Ok, Err}</code>, a type for functions that may succeed or fail. Like Option, its variants are exported as well.</li>
+<li><code>std::string::{String, ToString}</code>, heap-allocated strings.</li>
+<li><code>std::vec::Vec</code>, a growable, heap-allocated vector.</li>
+</ul>
+<h2 id="rust-ownership">Rust ownership (값에 대한 소유권)</h2>
+<ul>
+<li>Rust의 모든 값은 owner라는 변수를 가지며, 하나의 값은 하나의 owner 변수에만 종속될 수 있음</li>
+<li>만약, copy trait이 정의되어 있으면, deep copy를 수행하나 아닌 경우 ownership move가 일어남(?)</li>
+<li>ownership move: 다수의 변수가 하나의 값을 가리킬 수 없으며, ownership move (소유권 이전)가 수행됨</li>
+<li>owner가 종속 범위 (curly bracket)을 벗어나면, drop (free)됨 (C++ RAII 패턴)</li>
+</ul>
+<pre><code class="rust">let s1 = String::from(&quot;hello&quot;);
+let s2 = s1;
+
+// String은 copy trait이 정의되지 않아 ownership move가 발생하며, 이후 s1을 사용할 경우 오류 발생
+// error[E0382]: use of moved value: `rect` 발생
+</code></pre>
+
+<ul>
+<li>함수에 값을 인자로 넘길 경우 ownership도 변경됨</li>
+<li>deep copy: copy trait이 구현된 structure나 built-in scalar는 deep copy를 수행함</li>
+<li>shallow copy: rust에서는 일어나지 않음</li>
+<li>heap에 할당되는 가변 (mutable)의 structure는 보통 reference로 ownership 관리를 회피</li>
+</ul>
+<p>Here are some of the types that implement Copy:</p>
+<ul>
+<li>All the integer types, such as <code>u32</code>.</li>
+<li>The Boolean type, <code>bool</code>, with values true and false.</li>
+<li>All the floating point types, such as <code>f64</code>.</li>
+<li>The character type, <code>char</code>.</li>
+<li><code>Tuples</code>, if they only contain types that also implement Copy. For example, <code>(i32, i32)</code> implements Copy, but <code>(i32, String)</code> does not.</li>
+</ul>
+<blockquote>
+<ul>
+<li>https://velog.io/@timothy160620/Learning-Rust</li>
+<li>https://showx123.tistory.com/81</li>
+</ul>
+</blockquote>
+<h2 id="references-and-borrowing">References and Borrowing</h2>
+<p><img alt="Figure 4-5: A diagram of &amp;String s pointing at String s1" src="https://doc.rust-lang.org/book/img/trpl04-05.svg" /></p>
+<pre><code class="rust">fn main() {
+    let mut s = String::from(&quot;hello&quot;);
+    change(&amp;mut s);
+}
+
+fn change(some_string: &amp;mut String) {
+    some_string.push_str(&quot;, world&quot;);
+}
+</code></pre>
+
+<blockquote>
+<p>Note: The opposite of referencing by using &amp; is dereferencing, which is accomplished with the dereference operator, <code>*</code>. We’ll see some uses of the dereference operator in Chapter 8 and discuss details of dereferencing in Chapter 15.</p>
+</blockquote>
 <h2 id="rust-syntax">Rust Syntax</h2>
-<h3 id="constant-and-variable-declaration">Constant and Variable declaration</h3>
-<p>A value is not assigned, it is binded to a variable. python과 같은 bind 개념을 차용함</p>
-<pre><code class="language-rust">// 함수 선언
+<h3 id="comments">Comments</h3>
+<p>In Rust, the idiomatic comment style starts a comment with two slashes, and the comment continues until the end of the line.</p>
+<pre><code class="rust">// Hello, world.
+</code></pre>
+
+<h3 id="document-comments">Document comments</h3>
+<p>Rust also has a particular kind of comment for documentation, known conveniently as a documentation comment, that will generate HTML documentation. Documentation comments use three slashes, <code>///</code>, instead of two and support Markdown notation for formatting the text.</p>
+<pre><code class="rust">/// Adds one to the number given.
+///
+/// # Examples
+///
+/// ```
+/// let arg = 5;
+/// let answer = my_crate::add_one(arg);
+///
+/// assert_eq!(6, answer);
+/// ```
+pub fn add_one(x: i32) -&gt; i32 {
+    x + 1
+}
+</code></pre>
+
+<p>Another style of doc comment, <code>//!</code>, is used to describe the crate introduction.</p>
+<pre><code class="rust">//! # My Crate
+//!
+//! `my_crate` is a collection of utilities to make performing certain
+//! calculations more convenient.
+</code></pre>
+
+<blockquote>
+<p><a href="https://doc.rust-lang.org/book/ch14-02-publishing-to-crates-io.html">[FIXME] document comments 다시 읽기</a></p>
+</blockquote>
+<h3 id="constants-and-variables">Constants and Variables</h3>
+<ul>
+<li>A value is not assigned, it is binded to a variable. python과 같은 bind 개념을 차용함</li>
+<li>Constants must be computed at compile time.</li>
+<li>The equal sign (<code>=</code>) tells Rust we want to bind something to the variable now. </li>
+</ul>
+<pre><code class="rust">// 함수 선언
 fn func()
 
 // 변수 선언
@@ -512,9 +769,10 @@ spaces = spaces.len(); // cause an error
 // - constants must be computed at compile time.
 const THREE_HOURS_IN_SECONDS: u32 = 60 * 60 * 3;
 </code></pre>
+
 <h3 id="built-in-scalar-data-types">Built-in scalar data types</h3>
 <p>Rust에서 지원하는 scalar data type은 다음과 같다.</p>
-<pre><code class="language-rust">i8, i16, i32, i64 // signed integer number (default: i32)
+<pre><code class="rust">i8, i16, i32, i64 // signed integer number (default: i32)
 u8, u16, u32, u64 // unsigned integer number
 isize, usize // architecture-dependent number
 f32, f64 // floating point number (default f64)
@@ -525,12 +783,14 @@ char // A 21-bit integer represent a character
      // This is immutable string data! (Read-only)
 String // It is mutable string data allocated to the heap area.
 </code></pre>
+
 <ul>
 <li>Rust is a statically typed language. 따라서 compiler가 모든 변수의 정확한 data type을 알아야 함</li>
 <li><code>let VAR: TYPE</code>으로 variable의 type을 명시</li>
 <li><code>println!</code> 사용시 data type suffix를 추가해 compiler가 type을 인지하도록 입력해야 함.</li>
+<li><code>String</code> is a string type provided by the standard library that is a growable, UTF-8 encoded bit of text. This is not a built-in type.</li>
 </ul>
-<pre><code class="language-rust">// Integer literal
+<pre><code class="rust">// Integer literal
 let _i = 1000; // i32 assigned by default
 let _i: i32 = 1000i32; // suffix for type direction
 let _i: i32 = 98_222; // = 98222 Decimal for visual separation
@@ -574,6 +834,7 @@ let c = 'z';
 let z = 'ℤ';
 let heart_eyed_cat = '😻';
 </code></pre>
+
 <h3 id="char-type">Char type</h3>
 <ul>
 <li>Rust’s <code>char</code> type is four bytes in size and represents a Unicode Scalar Value.</li>
@@ -586,7 +847,7 @@ let heart_eyed_cat = '😻';
 <p>Compound types can group multiple values into one type. Rust has two primitive compound types: tuples and arrays.</p>
 <h3 id="tuple-type">Tuple Type</h3>
 <p>Tuples have a fixed length: once declared, they cannot grow or shrink in size.</p>
-<pre><code class="language-rust">let tup: (i32, f64, u8) = (500, 6.4, 1);
+<pre><code class="rust">let tup: (i32, f64, u8) = (500, 6.4, 1);
 
 // [Tuple destructuring]
 // To get the individual values out of a tuple ...
@@ -600,6 +861,7 @@ let five_hundred = x.0;
 let six_point_four = x.1;
 let one = x.2;
 </code></pre>
+
 <blockquote>
 <p>❓ The tuple without any values, (), is a special type that has only one value, also written (). The type is called the unit type and the value is called the unit value. Expressions implicitly return the unit value if they don’t return any other value.</p>
 </blockquote>
@@ -610,7 +872,7 @@ let one = x.2;
 <li>Arrays are useful when you want your data allocated on the stack rather than the heap.</li>
 <li>Flexible size array가 필요하다면 <code>Vec&lt;T&gt;</code>를 사용</li>
 </ul>
-<pre><code class="language-rust">let a = [1, 2, 3, 4, 5];
+<pre><code class="rust">let a = [1, 2, 3, 4, 5];
 let months = [&quot;January&quot;, &quot;February&quot;, &quot;March&quot;, &quot;April&quot;, &quot;May&quot;, &quot;June&quot;, &quot;July&quot;,
               &quot;August&quot;, &quot;September&quot;, &quot;October&quot;, &quot;November&quot;, &quot;December&quot;];
 let a: [i32; 5] = [1, 2, 3, 4, 5]; // [Type; Length]
@@ -624,6 +886,7 @@ let second = a[1];
 let mut a = [1, 2, 3, 4, 5];
 a[1] = 100;
 </code></pre>
+
 <h3 id="str-string-type">&amp;str과 String Type</h3>
 <ul>
 <li>&amp;str as a pointer to immutable string data. String literals are all of type &amp;str.</li>
@@ -634,8 +897,9 @@ a[1] = 100;
 <li>All letters of function names and variables are lowercase and underscores (<code>_</code>) separate words.</li>
 <li>A set of parentheses and curly brackets are followed to the function name.</li>
 <li>In function signatures, you must declare the type of each parameter that you want to input.</li>
+<li>The function returns a concrete type: The Rust compiler needs to know how much space every function's return type requires.</li>
 </ul>
-<pre><code class="language-rust">fn main() {
+<pre><code class="rust">fn main() {
   another_function(5);
   print_labeled_measurement(5, 'h');
 }
@@ -669,7 +933,137 @@ fn main() {
   println!(&quot;The value of x is: {}&quot;, x);
 }
 </code></pre>
-<h2 id="statements-and-expressions">Statements and expressions</h2>
+
+<h3 id="diverging-functions">Diverging functions</h3>
+<p>Diverging functions never return. They are marked using <code>!</code>, which is an empty type.</p>
+<blockquote>
+<p>server등의 non-terminated app에서 사용하면 될 듯 ...</p>
+</blockquote>
+<pre><code class="rust">fn foo() -&gt; ! {
+  panic!(&quot;This call never returns.&quot;);
+}
+</code></pre>
+
+<h3 id="associated-function-indication">Associated function indication <code>::</code></h3>
+<pre><code class="rust">let mut guess = String::new();
+</code></pre>
+
+<p>The <code>::</code> syntax in the <code>::new</code> line indicates that new is an associated function of the String type. An associated function is a function that’s implemented on a type, in this case String.</p>
+<h3 id="closure">closure</h3>
+<p>Closures are functions that can capture the enclosing environment. For example, a closure that captures the x variable:</p>
+<p><code>|val| val + x</code></p>
+<ul>
+<li><strong>capturing</strong> and <strong>bollowing</strong>: closure 함수가 variable에 할당될 때 동일 namespace에 있는 변수를 capture하여 사용함</li>
+<li>by reference: <code>&amp;T</code></li>
+<li>by mutable reference: <code>&amp;mut T</code></li>
+<li>by value: <code>T</code></li>
+<li><code>move</code> 사용시 variable의 ownership을 가져감 </li>
+<li>e.g. <code>let contains = move |needle| haystack.contains(needle);</code></li>
+<li>input &amp; output parameter로 사용가능</li>
+<li>type bound에 아래와 같은 argument function의 trait을 지정해야 함<ul>
+<li><code>Fn</code>: the closure uses the captured value by reference (<code>&amp;T</code>)</li>
+<li><code>FnMut</code>: the closure uses the captured value by mutable reference (<code>&amp;mut T</code>)</li>
+<li><code>FnOnce</code>: the closure uses the captured value by value (<code>T</code>)</li>
+</ul>
+</li>
+<li>iterator 동작을 구현할 때 사용 e.g. <code>Iterator::any</code></li>
+</ul>
+<pre><code class="rust">// Increment via closures and functions.
+fn function(i: i32) -&gt; i32 {
+    i + 1
+}
+
+// Closures are anonymous, here we are binding them to references
+// Annotation is identical to function annotation but is optional
+// as are the `{}` wrapping the body. These nameless functions
+// are assigned to appropriately named variables.
+let closure_annotated = |i: i32| -&gt; i32 { i + 1 };
+let closure_inferred = |i| i + 1;
+
+let mut i = 1;
+i = function(i); // 2
+i = closure_annotated(i); // 3
+i = closure_inferred(i); // 4
+println!(&quot;closure example i: {}&quot;, i);
+// let i = 1;
+// Call the function and closures.
+println!(&quot;function: {}&quot;, function(i)); // 5
+println!(&quot;closure_annotated: {}&quot;, closure_annotated(i)); // 5
+println!(&quot;closure_inferred: {}&quot;, closure_inferred(i)); // 5
+
+// A closure taking no arguments which returns an `i32`.
+// The return type is inferred.
+let one = || 1;
+println!(&quot;closure returning one: {}&quot;, one());
+
+use std::mem;
+let color = String::from(&quot;green&quot;);
+
+// bollow immutable reference of the color variable.
+let print = || println!(&quot;`color`: {}&quot;, color);
+print();
+
+let _reborrow = &amp;color;
+print();
+
+// A move or reborrow is allowed after the final use of `print`
+let _color_moved = color;
+// print(); // 호출 불가; color already moved to _color_moved
+
+
+let mut count = 0;
+// bollow mutable count reference.
+let mut inc = || {
+    count += 1;
+    println!(&quot;`count`: {}&quot;, count);
+};
+
+// Call the closure using a mutable borrow.
+inc();
+
+// The closure no longer needs to borrow `&amp;mut count`. Therefore, it is
+// possible to reborrow without an error
+let _count_reborrowed = &amp;mut count; 
+
+// `consume` consumes the variable so this can only be called once.
+let movable = Box::new(3);
+let consume = || {
+    println!(&quot;`movable`: {:?}&quot;, movable);
+    mem::drop(movable);
+};
+consume();
+// consume(); // 호출 불가; The bollowed variable is not available.
+// ^ TODO: Try uncommenting this line.
+
+// move 사용시 ownership을 가져감
+let haystack = vec![1, 2, 3];
+let contains = move |needle| haystack.contains(needle);
+println!(&quot;{}&quot;, contains(&amp;1));
+
+// Functional approach
+let sum_of_squared_odd_numbers: u32 =
+    (0..).map(|n| n * n)                             // All natural numbers squared
+          .take_while(|&amp;n_squared| n_squared &lt; upper) // Below upper limit
+          .filter(|&amp;n_squared| is_odd(n_squared))     // That are odd
+          .fold(0, |acc, n_squared| acc + n_squared); // Sum them
+println!(&quot;functional Approach: {}&quot;, sum_of_squared_odd_numbers);
+</code></pre>
+
+<h4 id="call-chaining-using-closure">Call chaining using closure</h4>
+<pre><code class="rust">// call chaining using closure
+fn is_odd(n: u32) -&gt; bool {
+    n % 2 == 1
+}
+let upper = 1000;
+let sum_of_squared_odd_numbers: u32 = (0..)
+    .map(|n| n * n) // All natural numbers squared
+    .take_while(|&amp;n_squared| n_squared &lt; upper) // Below upper limit
+    .filter(|&amp;n_squared| is_odd(n_squared)) // That are odd
+    .fold(0, |acc, n_squared| acc + n_squared); // Sum them
+println!(&quot;functional Approach: {}&quot;, sum_of_squared_odd_numbers);
+</code></pre>
+
+<h3 id="statements-and-expressions">Statements and expressions</h3>
 <p>Rust는 Statement와 expression의 구분이 다음과 같이 명확함.</p>
 <ul>
 <li>Statements are instructions that perform some action and do not return a value.</li>
@@ -681,7 +1075,7 @@ fn main() {
 <blockquote>
 <p>Expressions in rust: function call, value, {} (블록)</p>
 </blockquote>
-<pre><code class="language-rust">fn main() {
+<pre><code class="rust">fn main() {
   // error 발생 let y는 return value 없음
   // expression이 아니므로 x에 binding 불가
   let x = (let y = 6);
@@ -695,13 +1089,629 @@ fn main() {
   println!(&quot;The value of y is: {}&quot;, y);
 }
 </code></pre>
+
+<h3 id="control-flow">Control flow</h3>
+<h4 id="ifelse"><code>if..else</code>:</h4>
+<ul>
+<li>condition은 반드시 boolean을 반환해야 함</li>
+<li>parenthesis <code>()</code> 는 사용안함</li>
+<li><code>arms</code>: 갈래?; condition에 따라 실행되는 코드블록을 말함</li>
+<li><code>let</code> 할당 연산 (<code>=</code>)에 <code>if..else</code> 사용 가능</li>
+</ul>
+<pre><code class="rust">let number = 6;
+if number % 4 == 0 {
+  println!(&quot;number is divisible by 4&quot;);
+} else if number % 3 == 0 {
+  println!(&quot;number is divisible by 3&quot;);
+} else if number % 2 == 0 {
+  println!(&quot;number is divisible by 2&quot;);
+} else {
+  println!(&quot;number is not divisible by 4, 3, or 2&quot;);
+}
+
+if number { // error - expected bool, found integral variable
+  println!(&quot;number was three&quot;);
+}
+
+// 
+let number = if condition &gt; 4 {
+  if condition &gt; 8 {
+    11
+  } else {
+    5
+  }
+} else {
+  3
+};
+
+println!(&quot;The value of number is: {}&quot;, number); // 5
+</code></pre>
+
+<h4 id="loop-while-and-for"><code>loop</code>, <code>while</code> and <code>for</code></h4>
+<pre><code class="rust">loop {
+  println!(&quot;again!&quot;);
+  // ...
+  break;
+}
+
+let mut number = 3;
+while number != 0 {
+  println!(&quot;{}!&quot;, number);
+  number = number - 1;
+  println!(&quot;LIFTOFF!!!&quot;);
+}
+
+
+let a = [10, 20, 30, 40, 50];
+for element in a.iter() {
+  // for문 내에서 element 삭제해도 panic X
+  println!(&quot;the value is: {}&quot;, element);
+}
+
+// range
+for number in (1..4).rev() {
+  println!(&quot;{}!&quot;, number);
+}
+println!(&quot;LIFTOFF!!!&quot;);
+</code></pre>
+
+<h4 id="match"><code>match</code></h4>
+<pre><code class="rust">fn main() {
+  // Destructuring values in match
+  // - rust는 복잡한 type을 match로 wrapping structure를 벗겨내어 처리함
+  // - destructuring type이 다를 경우 match, if let 할당 불가
+  // - destructuring 
+  let member = 13;
+  match member {
+      1 =&gt; println!(&quot;1&quot;),
+      2 | 3 | 4 =&gt; println!(&quot;2,3,4&quot;),
+      5..=10 =&gt; println!(&quot;5..10&quot;),
+      _ =&gt; println!(&quot;_&quot;)
+  }
+
+  // tuple
+  let triple = (0, 1, -3);
+  match triple {
+      (0, y, z) =&gt; println!(&quot;{},{}&quot;, y, z),
+      (1, ..) =&gt; println!(&quot;first is 1&quot;), // .. ignore the rest
+      _ =&gt; println!(&quot;??&quot;)
+  }
+
+  // arrays/slices
+  let array = [3, -2, 6];
+  match array {
+      [0, second, third] =&gt; {
+          println!(&quot;second {}, thrid {}&quot;, second, third);
+      }
+      [1, _, third] =&gt; println!(&quot;thrid {}&quot;, third), // ignore a value with _
+      // The code below would not compile
+      // [-1, second] =&gt; println!(&quot;compile error&quot;),
+      // store middle values to another array/slice
+      [3, middle @.., last] =&gt; println!(&quot;{:?} {:?}&quot;, middle, last),
+      _ =&gt; ()
+  }
+
+  // enums
+  #[allow(dead_code)]
+  #[derive(Debug)]
+  enum Color {
+      Red,
+      Blue,
+      Green,
+      RGB(u32, u32, u32),
+      CMYK(u32, u32, u32, u32)
+  }
+  let color = Color::RGB(122, 17, 40);
+  match color {
+      Color::Red   =&gt; println!(&quot;The color is Red!&quot;),
+      Color::Blue  =&gt; println!(&quot;The color is Blue!&quot;),
+      Color::Green =&gt; println!(&quot;The color is Green!&quot;),
+      Color::RGB(r, g, b) =&gt;
+          println!(&quot;Red: {}, green: {}, and blue: {}!&quot;, r, g, b),
+      Color::CMYK(c, m, y, k) =&gt;
+          println!(&quot;Cyan: {}, magenta: {}, yellow: {}, key (black): {}!&quot;,
+              c, m, y, k),
+      // all matching case must be in the scope.
+  }
+
+  // pointers/ref
+  // dereference in matching
+  let reference: &amp;u32 = &amp;4;
+  match reference {
+      &amp;val =&gt; println!(&quot;{:?}&quot;, val) // if matched, it drops `&amp;`
+  }
+  // To avoid the `&amp;`, you dereference before matching.
+  match *reference {
+      val =&gt; println!(&quot;{:?}&quot;, val)
+  }
+
+  let _not_a_reference = 3;
+  let ref _is_a_reference = 3; // &amp;i32; explicit reference
+  let value = 5;
+  let mut mut_value = 6;
+
+  let rr = match value { // create the reference of r
+      ref r =&gt; r
+  };
+  println!(&quot;{:?}, {:?}&quot;, value, rr);
+  match mut_value {
+      ref mut m =&gt; {
+          // Got a reference. Gotta dereference it before we can add anything to it.
+          *m += 10;
+          println!(&quot;We added 10. `mut_value`: {:?}&quot;, m);
+      },
+  }
+
+  // structs
+  #[allow(dead_code)]
+  struct Foo {
+      x: (u32, u32),
+      y: u32
+  }
+  let foo = Foo {x: (10, 20), y: 30};
+  match foo { 
+      Foo { x: (1, b), y: c } =&gt; println!(&quot;b={:?} c={:?}&quot;, b, c),
+      Foo {y, ..} =&gt; println!(&quot;y={:?}, others=Don't Care&quot;, y) // match any values
+  }
+
+  // Guards
+  let pair = (3, 1);
+  match pair {
+      (x, y) if x == y =&gt; println!(&quot;Twins!&quot;),
+      (x, _) if x%2 == 1 =&gt; println!(&quot;The first odd!&quot;),
+      _ =&gt; println!(&quot;no correlation ...&quot;)
+  }
+
+  // binding to a value with inclusive range
+  let num = 3;
+  // @1..=10 inclusive range 사용해야 함
+  // exclusive range = @1..10
+  match num {
+      n @1..=10 =&gt; println!(&quot;num in 1..10 {}&quot;, n),
+      n =&gt; println!(&quot;num {}&quot;, n)
+  }
+
+  // binding to an enum variant value
+  #[allow(dead_code)]
+  fn some_number() -&gt; Option&lt;u32&gt; {
+      Some(42)
+  }
+  match some_number() {
+      Some(n @ 42) =&gt; println!(&quot;Binding to an enum variant with value {:?}&quot;, n),
+      Some(n) =&gt; println!(&quot;Binding to an enum variant {:?}&quot;, n),
+      _ =&gt; ()
+  }
+
+  // match assign
+  let option = Some(10);
+  let i = match option {
+      Some(i) =&gt; i,
+      _ =&gt; panic!(&quot;?&quot;),
+  };
+  println!(&quot;{}&quot;, i);
+
+  // if let
+  let num = Some(7);
+  let letter: Option&lt;i32&gt; = None;
+  // let emotion: Option&lt;i32&gt; = None;
+  if let Some(i) = num {
+      println!(&quot;i = {}&quot;, i);
+  } else {
+      println!(&quot;destructuring failed ...&quot;);
+  }
+
+  // match any enum value using if let
+  if let None = letter {
+      println!(&quot;letter is None&quot;);
+  }
+
+  if let Color::Blue = color {
+      println!(&quot;Blue&quot;);
+  } else if let Color::RGB(x, _, z @1..=100) = color {
+      println!(&quot;x={}, z={}&quot;, x, z);
+  } else {
+      println!(&quot;{:?}&quot;, color);
+  }
+
+  // while let
+  let mut optional = Some(0);
+  while let Some(i) = optional {
+      if i &gt; 9 {
+          optional = None;
+      } else {
+          optional = Some(i+ 1);
+      }
+  }
+  optional = Some(0);
+  loop { // while let과 동일 동작
+      match optional {
+          Some(i) =&gt; {
+              if i &gt; 9 {
+                  optional = None;
+              } else {
+                  optional = Some(i+1);
+              }
+          },
+          _ =&gt; break
+      }
+  }
+}
+</code></pre>
+
+<h3 id="result-type">Result type</h3>
+<p>Rust는 result type은 열거형(enumerations)의 에러처리 정보</p>
+<p>variants: enumeration data</p>
+<pre><code class="rust">// io::Result
+pub type Result&lt;T&gt; = Result&lt;T, Error&gt;;
+
+// std::result::Result
+Enum std::result::Result
+pub enum Result&lt;T, E&gt; {
+    Ok(T),
+    Err(E),
+}
+</code></pre>
+
+<h3 id="reference">Reference</h3>
+<h3 id="methods">methods</h3>
+<p>Rust는 다음과 같이 struct와 method를 정의한다.</p>
+<pre><code class="rust">#[derive(Debug)]
+struct Rectangle {
+    width: u32,
+    height: u32,
+}
+
+impl Rectangle {
+    // method definition in implement block
+    fn area(&amp;self) -&gt; u32 {
+        self.width * self.height
+    }
+
+    // Associated Functions
+    fn square(size: u32) -&gt; Rectangle {
+        Rectangle{
+            width: size,
+            height: size,
+        }
+    }
+}
+
+fn main() {
+    let scale = 2;
+    let rect = Rectangle {
+        width: dbg!(30 * scale),
+        height: 50,
+    };
+
+    // dbg! return the ownership of the input object
+    let rect = dbg!(rect);
+
+    println!(
+        &quot;The area of the rectangle {:?} is {} square pixels.&quot;,
+        rect,
+        rect.area()
+    );
+
+    let square = Rectangle::square(100);
+    let rect1 = Rectangle { height: 50, width: 30 };
+    let rect2 = Rectangle { height: 40, width: 10 };
+    let rect3 = Rectangle { height: 45, width: 60 };
+
+    println!(&quot;Can rect1 hold rect2? {}&quot;, rect1.can_hold(&amp;rect2));
+    println!(&quot;Can rect1 hold rect3? {}&quot;, rect1.can_hold(&amp;rect3));
+    println!(&quot;Can square hold rect1? {}&quot;, square.can_hold(&amp;rect1));
+}
+</code></pre>
+
+<ul>
+<li>The <code>&amp;self</code> is actually short for <code>self: &amp;Self</code>.</li>
+<li>mutable 선언시, <code>&amp;mut self</code>, field 수정 가능</li>
+<li>Note that the entire instance must be mutable; Rust doesn’t allow us to mark only certain fields as mutable.</li>
+<li>Associated Function은 self가 없는 관련 함수 (class 함수와 유사), 생성자 함수에 주로 사용</li>
+<li>Associated Function은 struct에 대한 namespace syntax(<code>::</code>)로 접근/사용 가능</li>
+<li>다수의 impl block 사용 가능</li>
+</ul>
+<h4 id="field-init-shorthand">Field Init Shorthand</h4>
+<p>생성함수에서 field name과 function argument을 동일하게 입력하여 짧게 쓰는 방법</p>
+<pre><code class="rust">fn build_user(email: String, username: String) -&gt; User {
+  User {
+    email, // field init shorthand
+    username,
+    active: true,
+    sign_in_count: 1,
+  }
+}
+</code></pre>
+
+<h4 id="struct-update-syntax">Struct Update Syntax</h4>
+<p>앞서 사용한 인스턴스의 값을 사용해 구조체 업데이트하는 방법</p>
+<pre><code class="rust">fn main() {
+  // --snip--
+  let user1 = User {
+      // init ...
+  };
+
+  let user2 = User {
+      email: String::from(&quot;another@example.com&quot;),
+      ..user1 // user1의 값으로 structure update
+  };
+}
+</code></pre>
+
+<blockquote>
+<p>Note that the struct update syntax uses = like an assignment; this is because it moves the data, just as we saw in the <a href="https://doc.rust-lang.org/book/ch04-01-what-is-ownership.html#ways-variables-and-data-interact-move">“Ways Variables and Data Interact: Move”</a> section. In this example, we can no longer use user1 after creating user2 because the String in the username field of user1 was moved into user2. The types of active and sign_in_count are types that implement the Copy trait, so the behavior we discussed in the <a href="https://doc.rust-lang.org/book/ch04-01-what-is-ownership.html#stack-only-data-copy">“Stack-Only Data: Copy”</a> section would apply.</p>
+</blockquote>
+<h3 id="tuple-structs">Tuple Structs</h3>
+<ul>
+<li>Tuple과 유사한 구조체로 filed name이 없이 field type만을 정의한 구조체</li>
+<li>Named tuple</li>
+</ul>
+<pre><code class="rust">struct Color(i32, i32, i32);
+struct Point(i32, i32, i32);
+
+fn main() {
+    let black = Color(0, 0, 0);
+    let origin = Point(0, 0, 0);
+}
+</code></pre>
+
+<h2 id="generics">Generics</h2>
+<p>Generics is the topic of generalizing types and functionalities to broader cases. This is extremely useful for reducing code duplication in many ways, but can call for rather involved syntax. </p>
+<ul>
+<li><strong>Generic type</strong>: Generic type parameter <code>&lt;T&gt;</code>가 사용된 모든 type</li>
+<li><strong>Concrete type</strong>: generic type parameter가 사용되지 않은 (type이 명시된) 모든 type</li>
+<li><strong>Generic bounds</strong>: Generic type이 가져야 할 type의 특성을 규정하기 위해 사용 <code>&lt;T: Bounds&gt;</code>; 주로 trait이 bound로 쓰임 e.g. <code>fn printme&lt;T: std::fmt::Debug&gt; (x: T)</code></li>
+<li>It places further constraints on the kind of the Generic types.</li>
+<li><code>where</code> can also be used to apply bounds in some cases to be more expressive.</li>
+<li><strong>Multiple generic bounds</strong>: Multiple bounds for a single type can be applied with a <code>+</code>. Like normal, different types are separated with <code>,</code>. e.g. <code>fn compare_prints&lt;T: Debug + Display&gt;(t: &amp;T)</code></li>
+<li><strong>Associated types</strong>: trait generics에서 내부적으로 사용될 type을 정의하여 가독성을 높이는 방법</li>
+</ul>
+<blockquote>
+<p>Good Aricle: <a href="https://oswalt.dev/2021/06/using-generic-types-in-rust/">Using Generic Types in Rust</a>
+The combination of generics and traits in Rust gives us the same kind of flexibility that we are seeking in a dynamically typed language, but without any of the runtime tradeoffs. </p>
+</blockquote>
+<h3 id="generic-type">Generic Type</h3>
+<pre><code class="rust">struct A; // A concrete type
+struct Single(A); // A concrete type; a tuple structure
+struct SingleGen&lt;T&gt;(T); // A generic type
+let _char: SingleGen&lt;char&gt; = SingleGen('a');
+let _t    = SingleGen(A); // Uses `A` defined at the top.
+let _i32  = SingleGen(6); // Uses `i32`.
+let _char = SingleGen('a'); // Uses `char`.
+</code></pre>
+
+<h3 id="generic-functions">Generic functions</h3>
+<pre><code class="rust">fn foo&lt;T&gt;(arg: T) { ... }
+fn bar(s: SGen&lt;A&gt;) { ... } // not a generic function
+
+generic::&lt;char&gt;(SGen('a')); // call with explicitly specified type parameters
+generic(SGen('c')); // call with implicitly specified type parameters
+</code></pre>
+
+<h3 id="generic-implementations-generic-methods">Generic Implementations (Generic methods)</h3>
+<pre><code class="rust">struct S; // Concrete type `S`
+struct GenericVal&lt;T&gt;(T); // Generic type `GenericVal`
+
+// implementation 선언시 다음과 같이 특정 type을 명세할 수 있음
+impl GenericVal&lt;f32&gt; {} // Specify `f32`
+impl GenericVal&lt;S&gt; {} // Specify `S` as defined above
+
+// `&lt;T&gt;` Must precede the type to remain generic
+impl&lt;T&gt; GenericVal&lt;T&gt; {}
+
+impl&lt;T&gt; Point&lt;T&gt; {
+    fn x(&amp;self) -&gt; &amp;T {
+        &amp;self.x
+    }
+}
+
+// NewStruct doesn't use any generic types,
+// so we don't need to specify any here.
+struct NewStruct {}
+impl NewStruct {
+    // We can still, however, define our own generic parameters
+    // on an individual method as desired
+    fn x&lt;T&gt;(&amp;self, foo: T) -&gt; T {
+        foo
+    }
+}
+</code></pre>
+
+<h3 id="bounds">Bounds</h3>
+<h3 id="where-clause">Where clause</h3>
+<p>Where clause는 generic bound에서 선행 표현되는 복잡한 type 정의를 후위에 표현하여 코드의 가독성을 높이는 방법</p>
+<pre><code class="rust">// 선행 표현
+impl&lt;K:Hash+Eq,V&gt; HashMap&lt;K, V&gt; {}
+
+// 후위 표현 with where
+impl&lt;K,V&gt; HashMap&lt;K, V&gt;
+    where K : Hash + Eq {}
+
+impl &lt;A: TraitB + TraitC, D: TraitE + TraitF&gt; MyTrait&lt;A, D&gt; for YourType {}
+
+// Expressing bounds with a `where` clause
+impl &lt;A, D&gt; MyTrait&lt;A, D&gt; for YourType where
+    A: TraitB + TraitC,
+    D: TraitE + TraitF {}
+</code></pre>
+
+<blockquote>
+<p><a href="https://github.com/rust-lang/rfcs/blob/master/text/0135-where.md">Rust RFC for <code>where</code></a></p>
+</blockquote>
+<h3 id="associated-types">Associated types</h3>
+<p>The use of "Associated types" improves the overall readability of code by moving inner types locally into a trait as output types. Syntax for the trait definition is as follows:</p>
+<pre><code class="rust">// TRAIT = TRAIT_HEADER '{' TRAIT_ITEM* '}'
+// TRAIT_ITEM =
+//   ... &lt;existing productions&gt;
+//   | 'const' IDENT ':' TYPE [ '=' CONST_EXP ] ';'
+//   | 'type' IDENT [ ':' BOUNDS ] [ WHERE_CLAUSE ] [ '=' TYPE ] ';'
+//   | 'lifetime' LIFETIME_IDENT ';'
+
+trait Graph {
+    type N: Show + Hash;
+    type E: Show + Hash;
+    ...
+}
+
+impl Graph for MyGraph {
+    // Both MyNode and MyEdge must implement Show and Hash
+    type N = MyNode;
+    type E = MyEdge;
+    ...
+}
+
+fn print_nodes&lt;G: Graph&gt;(g: &amp;G) {
+    // here, can assume G::N implements Show
+    ...
+}
+</code></pre>
+
+<p>https://github.com/rust-lang/rfcs/blob/master/text/0195-associated-items.md</p>
+<h3 id="phantom-type-parameters">Phantom type parameters</h3>
+<ul>
+<li><a href="https://doc.rust-lang.org/nomicon/phantom-data.html">phantom-data</a></li>
+<li><a href="https://doc.rust-lang.org/rust-by-example/generics/phantom.html">Phantom type parameters</a></li>
+</ul>
+<h2 id="traits">Traits</h2>
+<p>A <code>trait</code> is a collection of methods defined for an unknown type: <code>Self</code>. They can access other methods declared in the same trait. Traits can be implemented for any data type.</p>
+<ul>
+<li>Derive: </li>
+<li><a href="https://doc.rust-lang.org/core/ops/">Operation overloading</a></li>
+<li><code>Fn</code>, <code>FnMut</code>, and <code>FnOnce</code> traits for types that can be invoked like functions</li>
+<li><code>+</code>, <code>+=</code>, <code>-</code>, <code>*</code>, <code>/</code> ... for operator traits</li>
+<li><code>Drop</code>: The <code>Drop</code> trait only has one method: <code>drop</code>, which is called automatically when an object goes out of scope.</li>
+<li>The main use of the Drop trait is to free the resources that the implementor instance owns.</li>
+<li><code>Box</code>, <code>Vec</code>, <code>String</code>, <code>File</code>, and <code>Process</code>: the types implemented the <code>Drop</code> trait</li>
+<li><code>Iterators</code>: The Iterator trait is used to implement iterators over collections such as arrays.</li>
+<li><code>fn next(&amp;mut self) -&gt; Option&lt;Self::Item&gt;</code> 구현해야 함</li>
+<li>dyn Trait: https://doc.rust-lang.org/rust-by-example/trait/dyn.html</li>
+<li>impl Trait: https://doc.rust-lang.org/rust-by-example/trait/impl_trait.html</li>
+<li>Copy Trait: 할당시 resource move가 아닌 copy</li>
+<li>Clone Trait: <code>.clone()</code>으로 명시적으로 copy</li>
+<li>Supertraits: Rust doesn't have "inheritance", but you can define a trait as being a superset of another trait.</li>
+<li>Disambiguating overlapping traits</li>
+<li>https://cotigao.medium.com/dyn-impl-and-trait-objects-rust-fd7280521bea</li>
+<li>https://modoocode.com/334</li>
+</ul>
 <h2 id="to-be-considered">To be considered</h2>
 <ul>
 <li>Integer Overflow: https://doc.rust-lang.org/book/ch03-02-data-types.html#integer-overflow</li>
+<li>역참조 강제(deref coercion)</li>
 </ul>
-<h2 id="useful-code">Useful code</h2>
+<h2 id="collections">collections</h2>
+<h3 id="box-stack-and-heap">Box, stack and heap</h3>
+<p>All values in Rust are stack allocated by default. Values can be boxed (allocated on the heap) by creating a <code>Box&lt;T&gt;</code>. A box is a smart pointer to a heap allocated value of type <code>T</code>. When a box goes out of scope, its destructor is called, the inner object is destroyed, and the memory on the heap is freed.</p>
+<pre><code class="rust">use std::mem;
+
+#[derive(Debug)]
+#[allow(dead_code)]
+struct Point {
+    x: f64,
+    y: f64,
+}
+#[derive(Debug)]
+#[allow(dead_code)]
+struct Rectangle {
+    top_left: Point,
+    bottom_right: Point,
+}
+
+fn origin() -&gt; Point {
+    Point { x: 0f64, y: 0f64 }
+}
+fn boxed_origin() -&gt; Box&lt;Point&gt; {
+    // allocate a point to heap
+    return Box::new(Point { x: 0.0, y: 0.0 });
+}
+
+// stack allocated variables
+let point: Point = origin();
+let rectangle: Rectangle = Rectangle {
+    top_left: origin(),
+    bottom_right: Point { x: 100.0, y: 100.0 },
+};
+// heap allocated variables
+let box_point: Box&lt;Point&gt; = Box::new(origin());
+let box_rectangle: Box&lt;Rectangle&gt; = Box::new(Rectangle {
+    top_left: origin(),
+    bottom_right: Point { x: 200.0, y: 200.0 },
+});
+
+// inner box in stack
+let doubleIndirectBox: Box&lt;Box&lt;Point&gt;&gt; = Box::new(boxed_origin());
+
+println!(&quot;{point:?}&quot;);
+println!(
+    &quot;Point occupies {} bytes on the stack&quot;,
+    mem::size_of_val(&amp;point)
+);
+println!(
+    &quot;Rectangle occupies {} bytes on the stack&quot;,
+    mem::size_of_val(&amp;rectangle)
+);
+
+// box size == pointer size
+println!(
+    &quot;Boxed point occupies {} bytes on the stack&quot;,
+    mem::size_of_val(&amp;box_point)
+);
+println!(
+    &quot;Boxed rectangle occupies {} bytes on the stack&quot;,
+    mem::size_of_val(&amp;box_rectangle)
+);
+println!(
+    &quot;Boxed box occupies {} bytes on the stack&quot;,
+    mem::size_of_val(&amp;doubleIndirectBox)
+);
+
+// Copy the data contained in `boxed_point` into `unboxed_point`
+let unboxed_point: Point = *box_point;
+println!(
+    &quot;Unboxed point occupies {} bytes on the stack&quot;,
+    mem::size_of_val(&amp;unboxed_point)
+);
+</code></pre>
+
+<h3 id="string">String</h3>
+<ul>
+<li><code>to_string()</code>: Display trait이 구현된 모든 type에 사용 가능</li>
+<li><code>+</code> 연산동작 추천 X</li>
+<li>String의 index 접근 금지됨</li>
+<li><code>"नमस्ते".chars()</code>과 같이 문자소(grapheme)로 접근해야 함</li>
+</ul>
+<pre><code class="rust">let data = &quot;initial contents&quot;;
+let s = data.to_string();
+// the method also works on a literal directly:
+let s = &quot;initial contents&quot;.to_string();
+let s = String::from(&quot;initial contents&quot;); // 위와 동일
+
+let mut s = String::from(&quot;foo&quot;);
+s.push_str(&quot;bar&quot;);
+
+let mut s = String::from(&quot;lo&quot;);
+s.push('l');
+
+let s1 = String::from(&quot;Hello, &quot;);
+let s2 = String::from(&quot;world!&quot;);
+let s3 = s1 + &amp;s2; // s1은 여기서 이동되어 더이상 쓸 수 없음을 유의하세요
+
+let s1 = String::from(&quot;tic&quot;);
+let s2 = String::from(&quot;tac&quot;);
+let s3 = String::from(&quot;toe&quot;);
+let s = format!(&quot;{}-{}-{}&quot;, s1, s2, s3);
+
+for c in &quot;नमस्ते&quot;.chars() { // 문자소 반환
+    println!(&quot;{}&quot;, c);
+}
+for b in &quot;नमस्ते&quot;.bytes() { // byte 반환
+    println!(&quot;{}&quot;, b);
+}
+</code></pre>
+
+<h3 id="hash-map">hash map</h3>
+<h2 id="useful-code-or-crates">Useful code or crates</h2>
 <h3 id="read-stdin">Read stdin</h3>
-<pre><code class="language-rust">use std::io;
+<pre><code class="rust">use std::io;
 // ...
 // Read a string from stdin
 let mut index = String::new();
@@ -714,47 +1724,298 @@ let index: usize = index
     .expect(&quot;Index entered was not a number&quot;);
 
 </code></pre>
+
+<h2 id="modules">Modules</h2>
+<p>Rust provides a powerful module system that can be used to hierarchically split code in logical units (modules), and manage visibility (public/private) between them.</p>
+<p>A module is a collection of items: functions, structs, traits, impl blocks, and even other modules.</p>
+<blockquote>
+<p>Rust의 module이란 코드를 계층화/조직화 (namespace)하고, pub(public) 키워드를 통해 코드의 접근성 제어하여, 코드의 재사용성을 높이기 위한 방법</p>
+</blockquote>
+<pre><code class="rust">mod my_mod { // module my_mod
+  pub fn public_func() {
+    // ... 외부에서 호출 가능
+  }
+  fn private_func() {
+    // ... module 외부에서 호출 불가
+    // ... 같은 module 내에선 접근 가능
+  }
+
+  pub mod nested_mod { // module nested_mod
+    pub(in crate::my_mod) fn nested_ {
+      // ... crate::my_mode에서만 public function
+    }
+    pub(self) fn fname {
+      // ... pub(self) == private
+    }
+    pub(super) fn fname {
+      // ... parent module에서만 보임
+    }
+  }
+
+  pub(crate) fn public_function_in_crate() {
+    // ... 속한 crate에서만 접근 가능
+  }
+}
+</code></pre>
+
+<h2 id="macro">Macro</h2>
+<ul>
+<li><code>macro_rules</code> allows users to define syntax extension in a declarative way.</li>
+<li><code>MacroRule</code> = <code>MacroMatcher =&gt; MacroTranscriber</code>로 구성, <code>MacroRule</code>은 <code>;</code>으로 구분</li>
+<li>Each macro by example has a name, and one or more rules. Each rule has two parts: a matcher, describing the syntax that it matches, and a transcriber, describing the syntax that will replace a successfully matched invocation.</li>
+<li>Both the matcher and the transcriber must be surrounded by delimiters. Macros can expand to expressions, statements, items (including traits, impls, and foreign items), types, or patterns.</li>
+<li><strong>Transcribing</strong>: 처음 match된 MacroMatcher의 MacroTranscriber로 code 변환하고 못찾거나 오류 발생시 중단</li>
+<li><code>()</code>, <code>[]</code>, <code>{}</code> 모든 괄호는 MacroMatch, MacroRule에서 모두 사용가능</li>
+</ul>
+<blockquote>
+<ul>
+<li><a href="https://doc.rust-lang.org/reference/macros-by-example.html">macros-by-example</a></li>
+<li><a href="https://doc.rust-lang.org/rust-by-example/macros.html">Rust by example</a></li>
+</ul>
+</blockquote>
+<h2 id="testing">Testing</h2>
+<ul>
+<li><code>#[test]</code> 함수가 test함수임을 선언</li>
+<li><code>cargo test -- --nocapture --test-threads=1</code></li>
+<li><code>cargo test -- -h</code>으로 testing option 확인해보기</li>
+<li><code>cargo test TESTNAME</code>: 단일 테스트 항목 실행</li>
+<li><code>cargo test -- --ignored</code>: <code>#[ignore]</code>로 설정된 테스트 항목 테스트</li>
+<li>unit test는 mod test 만들고, <code>#[cfg(test)]</code> cfg attribute를 설정하여 구성; <code>cargo test</code>시에만 컴파일/실행</li>
+</ul>
+<pre><code class="rust">#[derive(Debug, PartialEq, Eq)]
+pub struct Rectangle {
+  length: u32,
+  width: u32,
+}
+
+impl Rectangle {
+  pub fn can_hold(&amp;self, other: &amp;Rectangle) -&gt; bool {
+      self.length &gt; other.length &amp;&amp; self.width &gt; other.width
+  }
+}
+
+#[allow(dead_code)]
+fn add_two(a: i32) -&gt; i32 {
+  if a &gt; 100 {
+      panic!(&quot;value must be less than or equal to 100.&quot;);
+  }
+  a + 2
+}
+
+#[cfg(test)]
+mod tests {
+  use super::*;
+
+  #[test]
+  fn larger_can_hold_smaller() {
+      let larger = Rectangle { length: 8, width: 7 };
+      let smaller = Rectangle { length: 5, width: 1 };
+
+      assert!(larger.can_hold(&amp;smaller), &quot;{:?}&quot;, larger);
+  }
+
+  #[test]
+  fn smaller_cannot_hold_larger() {
+      let larger = Rectangle { length: 8, width: 7 };
+      let smaller = Rectangle { length: 5, width: 1 };
+
+      assert!(!smaller.can_hold(&amp;larger), &quot;{:?}&quot;, smaller);
+  }
+
+  #[test]
+  fn it_adds_two() {
+      // assert_eq!와 assert_ne!는 
+      // 각각 ==과 != 연산자 사용하므로
+      // PartialEq와 Debug 트레잇을 구현해 함
+      assert_eq!(4, add_two(2));
+      assert_ne!(4, add_two(3));
+  }
+
+  #[test]
+  #[should_panic]
+  fn greater_than_100() {
+      add_two(200);
+  }
+
+  #[test]
+  #[should_panic(expected = &quot;value must be less than or equal to 100&quot;)]
+  fn greater_than_100_2() {
+      add_two(200);
+  }
+}
+</code></pre>
+
+<h2 id="rust-attributes">Rust Attributes</h2>
+<blockquote>
+<ul>
+<li><a href="https://doc.rust-lang.org/rust-by-example/attribute.html">rust-by-example</a></li>
+<li><a href="https://sjquant.tistory.com/53">sjquant.tistory.com</a></li>
+</ul>
+</blockquote>
+<p>An attribute is <strong>metadata</strong> applied to some <code>module</code>, <code>crate</code> or <code>item</code>. This metadata can be used to/for:</p>
+<ul>
+<li>conditional compilation of code</li>
+<li>set crate name, version and type (binary or library)</li>
+<li>disable lints (warnings)</li>
+<li>enable compiler features (macros, glob imports, etc.)</li>
+<li>link to a foreign library</li>
+<li>mark functions as unit tests</li>
+<li>mark functions that will be part of a benchmark</li>
+</ul>
+<h3 id="scope">Scope</h3>
+<ul>
+<li><code>#![crate_attribute]</code> for a whole crate</li>
+<li><code>#[item_attribute]</code>: for a module or item</li>
+</ul>
+<p>다른 문서에서는 </p>
+<ul>
+<li><code>#![Attr]</code>: InnerAttribute로 선언된 범위 내에 적용</li>
+<li><code>#[Attr]</code>: OuterAttribute로 선언이후 오는 module, item에 적용</li>
+</ul>
+<h3 id="attribute-arguments">Attribute arguments</h3>
+<p>Attribute는 Argument를 가질 수 있음</p>
+<ul>
+<li><code>#[attribute = "value"]</code></li>
+<li><code>#[attribute(key = "value")]</code></li>
+<li><code>#[attribute(value)]</code></li>
+<li><code>#[attribute(value, value2, value3, value4, value5)]</code></li>
+</ul>
+<h3 id="frequently-used-attributes">Frequently Used Attributes</h3>
+<ul>
+<li><code>#[allow(dead_code)]</code>: used to disable linting of the following code block; the compiler option?</li>
+<li><code>#![crate_name = "rary"]</code>: The library is named "rary"</li>
+<li><code>#![crate_type = "lib"]</code>: This crate is a library; When the crate_type attribute is used, we no longer need to pass the <code>--crate-type</code> flag to rustc.</li>
+<li><code>#[cfg(target_os = "linux")]</code> This function only gets compiled if the target OS is linux</li>
+<li><code>#[cfg(not(target_os = "linux"))]</code>: And this function only gets compiled if the target OS is <em>not</em> linux</li>
+</ul>
+<blockquote>
+<p>❗<code>cfg!</code>, unlike <code>#[cfg]</code>, it is a <strong>macro</strong> that does not remove any code and only evaluates to true or false.
+<code>if cfg!(target_os = "linux") {
+  println!("Yes. It's definitely linux!");
+} else {
+  println!("Yes. It's definitely *not* linux!");
+}</code></p>
+</blockquote>
+<ul>
+<li><code>#[test]</code>: used for functional test</li>
+<li><code>#[cfg_attr(a, b)]</code>: 만약 #[cfg(a)]를 만족하면 #[b] attribute를 적용</li>
+</ul>
+<h3 id="custom-cfg">Custom cfg</h3>
+<p>사용자 <code>cfg</code>도 만들 수 있음!</p>
+<pre><code class="rust">#[cfg(mine)]
+fn cond_function() {
+    println!(&quot;mine cond!!!&quot;);
+}
+
+#[cfg(not(mine))]
+fn cond_function() {
+    println!(&quot;not mine cond!!!&quot;);
+}
+
+fn main() {
+   cond_function();
+}
+</code></pre>
+
+<pre><code class="bash">rustc --cfg mine main.rs &amp;&amp; ./main
+RUSTFLAGS='--cfg mine' cargo run
+</code></pre>
+
+<h3 id="derive-attribute"><code>derive</code> attribute</h3>
+<ul>
+<li>특정한 Trait에 대한 기본적인 구현(impl)을 간편하게 제공</li>
+<li>기본적인 구현은 이미 정해져 있으며, 이런 Trait을 derivable 하다고 함</li>
+<li>derivable Trait: <code>Eq</code>, <code>PartialEq</code>, <code>Copy</code>, <code>Clone</code>, <code>Debug</code> ...?</li>
+</ul>
+<pre><code class="rust">#[derive(PartialEq, Clone)]
+struct Foo&lt;T&gt; {
+    a: i32,
+    b: T,
+}
+</code></pre>
+
+<p>The following is a list of derivable traits:</p>
+<ul>
+<li>Comparison traits: <code>Eq</code>, <code>PartialEq</code>, <code>Ord</code>, <code>PartialOrd</code>.</li>
+<li><code>Clone</code>, to create <code>T</code> from <code>&amp;T</code> via a copy.</li>
+<li><code>Copy</code>, to give a type 'copy semantics' instead of 'move semantics'.</li>
+<li><code>Hash</code>, to compute a hash from <code>&amp;T</code>.</li>
+<li><code>Default</code>, to create an empty instance of a data type.</li>
+<li><code>Debug</code>, to format a value using the <code>{:?}</code> formatter.</li>
+</ul>
+<h2 id="keywords">Keywords</h2>
+<h3 id="crate"><code>crate</code></h3>
+<pre><code class="rust">
+// 사용하는 외부 crate 선언
+extern crate rand;
+extern crate my_crate as thing; // the alias of my_crate in my project
+extern crate std; // implicitly added to the root of every Rust project
+
+// item의 visibility를 현재 crate에 포함된 module로만 한정
+pub(crate) enum CoolMarkerType { }
+
+// The root of the current crate
+crate::foo::bar
+</code></pre>
+
+<h2 id="good-answer-to-understand">Good answer to understand</h2>
+<ul>
+<li><a href="https://stackoverflow.com/questions/32304595/whats-the-difference-between-self-and-self">whats-the-difference-between-self-and-self</a></li>
+<li><a href="https://stackoverflow.com/questions/30938499/why-is-the-sized-bound-necessary-in-this-trait">Why is the <code>Sized</code> bound necessary in this trait?</a></li>
+</ul>
+<h2 id="associated-items">Associated items</h2>
+<p>This following RFC extends traits with associated items, which make generic programming more convenient, scalable, and powerful. In particular, traits will consist of a set of methods, together with:</p>
+<blockquote>
+<p>https://github.com/rust-lang/rfcs/blob/master/text/0195-associated-items.md</p>
+</blockquote>
+<ul>
+<li>Associated functions (already present as "static" functions)</li>
+<li>Associated consts</li>
+<li>Associated types</li>
+<li>Associated lifetimes</li>
+</ul>
+<h2 id="rust-rfc">Rust RFC</h2>
+<p>https://github.com/rust-lang/rfcs/tree/master/text</p>
               
             </div>
-          </div><footer>
-    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
-        <a href="../python3/" class="btn btn-neutral float-left" title="Python3 handbook"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="../python3/" class="btn btn-neutral" title="Python3"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
     </div>
+  
 
   <hr/>
 
   <div role="contentinfo">
     <!-- Copyright etc -->
+    
   </div>
 
-  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
 </footer>
-          
+	  
         </div>
       </div>
 
     </section>
-
+    
   </div>
 
-  <div class="rst-versions" role="note" aria-label="Versions">
-  <span class="rst-current-version" data-toggle="rst-current-version">
-    
-    
-      <span><a href="../python3/" style="color: #fcfcfc">&laquo; Previous</a></span>
-    
-    
-  </span>
+  <div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+      
+        <span><a href="../python3/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+    </span>
 </div>
-    <script>var base_url = '..';</script>
-    <script src="../js/theme_extra.js" defer></script>
-    <script src="../js/theme.js" defer></script>
-      <script src="../search/main.js" defer></script>
-    <script defer>
-        window.onload = function () {
-            SphinxRtdTheme.Navigation.enable(true);
-        };
-    </script>
+    <script src="../js/theme.js"></script>
 
 </body>
 </html>
