@@ -16,3 +16,5 @@ pub mod closures;
 pub mod traits;
 pub mod iterators;
 pub mod supertraits;
+pub mod multipletraits;
+pub mod wheres;

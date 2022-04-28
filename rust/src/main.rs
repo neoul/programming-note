@@ -1,24 +1,23 @@
-use study::{iterators, supertraits};
-
-extern crate study;
+extern crate rust;
 
 
 fn main() {
     println!("hello rust!");
-    crate::study::macros::example();
+    crate::rust::macros::example();
 
-    use study::generics::Point;
-    let p = Point::new(2.0, 3.0);
-    println!("p.x={}, p.y={}", p.x(), p.y());
-
-    use study::functions;
+    use rust::functions;
     if functions::example() == () {
         println!("function return () unit type");
     }
 
-    crate::study::boxes::example();
-    study::closures::example();
-    study::traits::example();
+    crate::rust::boxes::example();
+    rust::closures::example();
+    rust::traits::example();
+
+    use rust::{iterators, supertraits, multipletraits};
     iterators::example();
     supertraits::example();
+    multipletraits::example();
+    rust::wheres::example();
+    rust::generics::example();
 }

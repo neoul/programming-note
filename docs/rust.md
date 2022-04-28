@@ -50,8 +50,10 @@ A language empowering everyone to build reliable and efficient software.
     - [Array Type](#array-type)
     - [&str과 String Type](#str과-string-type)
     - [Functions](#functions)
+    - [Diverging functions](#diverging-functions)
     - [Associated function indication `::`](#associated-function-indication-)
     - [closure](#closure)
+      - [Call chaining using closure](#call-chaining-using-closure)
     - [Statements and expressions](#statements-and-expressions)
     - [Control flow](#control-flow)
       - [`if..else`:](#ifelse)
@@ -63,7 +65,15 @@ A language empowering everyone to build reliable and efficient software.
       - [Field Init Shorthand](#field-init-shorthand)
       - [Struct Update Syntax](#struct-update-syntax)
     - [Tuple Structs](#tuple-structs)
-  - [Trait](#trait)
+  - [Generics](#generics)
+    - [Generic Type](#generic-type)
+    - [Generic functions](#generic-functions)
+    - [Generic Implementations (Generic methods)](#generic-implementations-generic-methods)
+    - [Bounds](#bounds)
+    - [Where clause](#where-clause)
+    - [Associated types](#associated-types)
+    - [Phantom type parameters](#phantom-type-parameters)
+  - [Traits](#traits)
   - [To be considered](#to-be-considered)
   - [collections](#collections)
     - [Box, stack and heap](#box-stack-and-heap)
@@ -80,9 +90,11 @@ A language empowering everyone to build reliable and efficient software.
     - [Frequently Used Attributes](#frequently-used-attributes)
     - [Custom cfg](#custom-cfg)
     - [`derive` attribute](#derive-attribute)
-    - [Keywords](#keywords)
-      - [`crate`](#crate)
-    - [Good answer to understand](#good-answer-to-understand)
+  - [Keywords](#keywords)
+    - [`crate`](#crate)
+  - [Good answer to understand](#good-answer-to-understand)
+  - [Associated items](#associated-items)
+  - [Rust RFC](#rust-rfc)
 
 ## Why Rust?
 
@@ -784,6 +796,18 @@ fn main() {
 }
 ```
 
+### Diverging functions
+
+Diverging functions never return. They are marked using `!`, which is an empty type.
+
+> server등의 non-terminated app에서 사용하면 될 듯 ...
+
+```rust
+fn foo() -> ! {
+  panic!("This call never returns.");
+}
+```
+
 ### Associated function indication `::`
 
 ```rust
@@ -803,12 +827,13 @@ Closures are functions that can capture the enclosing environment. For example, 
   - by reference: `&T`
   - by mutable reference: `&mut T`
   - by value: `T`
-- `move` 사용시 variable의 ownership을 가져감
-- input parameter로 사용가능
-  - `Fn`: the closure uses the captured value by reference (`&T`)
-  - `FnMut`: the closure uses the captured value by mutable reference (`&mut T`)
-  - `FnOnce`: the closure uses the captured value by value (`T`)
-- output parameter로 사용가능
+- `move` 사용시 variable의 ownership을 가져감 
+  - e.g. `let contains = move |needle| haystack.contains(needle);`
+- input & output parameter로 사용가능
+  - type bound에 아래와 같은 argument function의 trait을 지정해야 함
+    - `Fn`: the closure uses the captured value by reference (`&T`)
+    - `FnMut`: the closure uses the captured value by mutable reference (`&mut T`)
+    - `FnOnce`: the closure uses the captured value by value (`T`)
 - iterator 동작을 구현할 때 사용 e.g. `Iterator::any`
 
 
@@ -885,9 +910,30 @@ let haystack = vec![1, 2, 3];
 let contains = move |needle| haystack.contains(needle);
 println!("{}", contains(&1));
 
-
+// Functional approach
+let sum_of_squared_odd_numbers: u32 =
+    (0..).map(|n| n * n)                             // All natural numbers squared
+          .take_while(|&n_squared| n_squared < upper) // Below upper limit
+          .filter(|&n_squared| is_odd(n_squared))     // That are odd
+          .fold(0, |acc, n_squared| acc + n_squared); // Sum them
+println!("functional Approach: {}", sum_of_squared_odd_numbers);
 ```
 
+#### Call chaining using closure
+
+```rust
+// call chaining using closure
+fn is_odd(n: u32) -> bool {
+    n % 2 == 1
+}
+let upper = 1000;
+let sum_of_squared_odd_numbers: u32 = (0..)
+    .map(|n| n * n) // All natural numbers squared
+    .take_while(|&n_squared| n_squared < upper) // Below upper limit
+    .filter(|&n_squared| is_odd(n_squared)) // That are odd
+    .fold(0, |acc, n_squared| acc + n_squared); // Sum them
+println!("functional Approach: {}", sum_of_squared_odd_numbers);
+```
 
 
 
@@ -1304,7 +1350,138 @@ fn main() {
 }
 ```
 
-## Trait
+## Generics
+
+Generics is the topic of generalizing types and functionalities to broader cases. This is extremely useful for reducing code duplication in many ways, but can call for rather involved syntax. 
+
+- **Generic type**: Generic type parameter `<T>`가 사용된 모든 type
+- **Concrete type**: generic type parameter가 사용되지 않은 (type이 명시된) 모든 type
+- **Generic bounds**: Generic type이 가져야 할 type의 특성을 규정하기 위해 사용 `<T: Bounds>`; 주로 trait이 bound로 쓰임 e.g. `fn printme<T: std::fmt::Debug> (x: T)`
+  - It places further constraints on the kind of the Generic types.
+  - `where` can also be used to apply bounds in some cases to be more expressive.
+- **Multiple generic bounds**: Multiple bounds for a single type can be applied with a `+`. Like normal, different types are separated with `,`. e.g. `fn compare_prints<T: Debug + Display>(t: &T)`
+- **Associated types**: trait generics에서 내부적으로 사용될 type을 정의하여 가독성을 높이는 방법
+
+
+> Good Aricle: [Using Generic Types in Rust](https://oswalt.dev/2021/06/using-generic-types-in-rust/)
+> The combination of generics and traits in Rust gives us the same kind of flexibility that we are seeking in a dynamically typed language, but without any of the runtime tradeoffs. 
+
+### Generic Type
+
+```rust
+struct A; // A concrete type
+struct Single(A); // A concrete type; a tuple structure
+struct SingleGen<T>(T); // A generic type
+let _char: SingleGen<char> = SingleGen('a');
+let _t    = SingleGen(A); // Uses `A` defined at the top.
+let _i32  = SingleGen(6); // Uses `i32`.
+let _char = SingleGen('a'); // Uses `char`.
+```
+
+### Generic functions
+
+```rust
+fn foo<T>(arg: T) { ... }
+fn bar(s: SGen<A>) { ... } // not a generic function
+
+generic::<char>(SGen('a')); // call with explicitly specified type parameters
+generic(SGen('c')); // call with implicitly specified type parameters
+```
+
+### Generic Implementations (Generic methods)
+
+```rust
+struct S; // Concrete type `S`
+struct GenericVal<T>(T); // Generic type `GenericVal`
+
+// implementation 선언시 다음과 같이 특정 type을 명세할 수 있음
+impl GenericVal<f32> {} // Specify `f32`
+impl GenericVal<S> {} // Specify `S` as defined above
+
+// `<T>` Must precede the type to remain generic
+impl<T> GenericVal<T> {}
+
+impl<T> Point<T> {
+    fn x(&self) -> &T {
+        &self.x
+    }
+}
+
+// NewStruct doesn't use any generic types,
+// so we don't need to specify any here.
+struct NewStruct {}
+impl NewStruct {
+    // We can still, however, define our own generic parameters
+    // on an individual method as desired
+    fn x<T>(&self, foo: T) -> T {
+        foo
+    }
+}
+```
+
+### Bounds
+
+### Where clause
+
+Where clause는 generic bound에서 선행 표현되는 복잡한 type 정의를 후위에 표현하여 코드의 가독성을 높이는 방법
+
+```rust
+// 선행 표현
+impl<K:Hash+Eq,V> HashMap<K, V> {}
+
+// 후위 표현 with where
+impl<K,V> HashMap<K, V>
+    where K : Hash + Eq {}
+
+impl <A: TraitB + TraitC, D: TraitE + TraitF> MyTrait<A, D> for YourType {}
+
+// Expressing bounds with a `where` clause
+impl <A, D> MyTrait<A, D> for YourType where
+    A: TraitB + TraitC,
+    D: TraitE + TraitF {}
+```
+
+> [Rust RFC for `where`](https://github.com/rust-lang/rfcs/blob/master/text/0135-where.md)
+
+### Associated types
+
+The use of "Associated types" improves the overall readability of code by moving inner types locally into a trait as output types. Syntax for the trait definition is as follows:
+
+```rust
+// TRAIT = TRAIT_HEADER '{' TRAIT_ITEM* '}'
+// TRAIT_ITEM =
+//   ... <existing productions>
+//   | 'const' IDENT ':' TYPE [ '=' CONST_EXP ] ';'
+//   | 'type' IDENT [ ':' BOUNDS ] [ WHERE_CLAUSE ] [ '=' TYPE ] ';'
+//   | 'lifetime' LIFETIME_IDENT ';'
+
+trait Graph {
+    type N: Show + Hash;
+    type E: Show + Hash;
+    ...
+}
+
+impl Graph for MyGraph {
+    // Both MyNode and MyEdge must implement Show and Hash
+    type N = MyNode;
+    type E = MyEdge;
+    ...
+}
+
+fn print_nodes<G: Graph>(g: &G) {
+    // here, can assume G::N implements Show
+    ...
+}
+```
+
+https://github.com/rust-lang/rfcs/blob/master/text/0195-associated-items.md
+
+### Phantom type parameters
+
+- [phantom-data](https://doc.rust-lang.org/nomicon/phantom-data.html)
+- [Phantom type parameters](https://doc.rust-lang.org/rust-by-example/generics/phantom.html)
+
+## Traits
 
 A `trait` is a collection of methods defined for an unknown type: `Self`. They can access other methods declared in the same trait. Traits can be implemented for any data type.
 
@@ -1323,7 +1500,6 @@ A `trait` is a collection of methods defined for an unknown type: `Self`. They c
 - Clone Trait: `.clone()`으로 명시적으로 copy
 - Supertraits: Rust doesn't have "inheritance", but you can define a trait as being a superset of another trait.
 - Disambiguating overlapping traits
-
 - https://cotigao.medium.com/dyn-impl-and-trait-objects-rust-fd7280521bea
 - https://modoocode.com/334
 
@@ -1698,9 +1874,9 @@ The following is a list of derivable traits:
 - `Default`, to create an empty instance of a data type.
 - `Debug`, to format a value using the `{:?}` formatter.
 
-### Keywords
+## Keywords
 
-#### `crate`
+### `crate`
 
 ```rust
 
@@ -1716,7 +1892,23 @@ pub(crate) enum CoolMarkerType { }
 crate::foo::bar
 ```
 
-### Good answer to understand
+
+## Good answer to understand
 
 - [whats-the-difference-between-self-and-self](https://stackoverflow.com/questions/32304595/whats-the-difference-between-self-and-self)
 - [Why is the `Sized` bound necessary in this trait?](https://stackoverflow.com/questions/30938499/why-is-the-sized-bound-necessary-in-this-trait)
+
+## Associated items
+
+This following RFC extends traits with associated items, which make generic programming more convenient, scalable, and powerful. In particular, traits will consist of a set of methods, together with:
+
+> https://github.com/rust-lang/rfcs/blob/master/text/0195-associated-items.md
+
+- Associated functions (already present as "static" functions)
+- Associated consts
+- Associated types
+- Associated lifetimes
+
+## Rust RFC
+
+https://github.com/rust-lang/rfcs/tree/master/text

@@ -72,13 +72,19 @@ pub fn example() {
 
     // Closure as input parameter
     // 내부 captured variable의 type을 T로 가져와 실행 (ownership가져오므로 한번 수행)
-    fn apply_t<F>(f: F) where F: FnOnce() {
+    fn apply_t<F>(f: F)
+    where
+        F: FnOnce(),
+    {
         f();
     }
 
     // 내부 captured variable의 type을 &T로 가져와 실행
     // A function which takes a closure and returns an `i32`.
-    fn apply_ref_t<F>(f: F) -> i32 where F: Fn(i32) -> i32 {
+    fn apply_ref_t<F>(f: F) -> i32
+    where
+        F: Fn(i32) -> i32,
+    {
         f(3)
     }
 
@@ -104,4 +110,40 @@ pub fn example() {
     // `double` satisfies `apply_to_3`'s trait bound
     let double = |x| 2 * x;
     println!("3 doubled: {}", apply_ref_t(double));
+
+    // closure as an output parameter
+    fn create_fn() -> impl Fn() {
+        let text = "Fn".to_owned();
+        move || println!("This is a: {}", text)
+    }
+
+    fn create_fnmut() -> impl FnMut() {
+        let text = "FnMut".to_owned();
+        move || println!("This is a: {}", text)
+    }
+
+    fn create_fnonce() -> impl FnOnce() {
+        let text = "FnOnce".to_owned();
+        move || println!("This is a: {}", text)
+    }
+
+    let fn_plain = create_fn();
+    let mut fn_mut = create_fnmut();
+    let fn_once = create_fnonce();
+
+    fn_plain();
+    fn_mut();
+    fn_once();
+
+    // Functional approach
+    fn is_odd(n: u32) -> bool {
+        n % 2 == 1
+    }
+    let upper = 1000;
+    let sum_of_squared_odd_numbers: u32 = (0..)
+        .map(|n| n * n) // All natural numbers squared
+        .take_while(|&n_squared| n_squared < upper) // Below upper limit
+        .filter(|&n_squared| is_odd(n_squared)) // That are odd
+        .fold(0, |acc, n_squared| acc + n_squared); // Sum them
+    println!("functional Approach: {}", sum_of_squared_odd_numbers);
 }
