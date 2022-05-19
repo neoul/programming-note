@@ -39,32 +39,31 @@ A language empowering everyone to build reliable and efficient software.
   - [Prelude (imported std libraries)](#prelude-imported-std-libraries)
   - [Rust ownership (값에 대한 소유권)](#rust-ownership-값에-대한-소유권)
   - [References and Borrowing](#references-and-borrowing)
-  - [Rust Syntax](#rust-syntax)
-    - [Comments](#comments)
+  - [Comments](#comments)
     - [Document comments](#document-comments)
-    - [Constants and Variables](#constants-and-variables)
-    - [Built-in scalar data types](#built-in-scalar-data-types)
-    - [Char type](#char-type)
-    - [Compound Types](#compound-types)
+  - [Constants and Variables](#constants-and-variables)
+  - [Built-in scalar data types](#built-in-scalar-data-types)
+  - [Char type](#char-type)
+  - [Compound Types](#compound-types)
     - [Tuple Type](#tuple-type)
     - [Array Type](#array-type)
     - [&str과 String Type](#str과-string-type)
-    - [Functions](#functions)
+  - [Functions](#functions)
     - [Diverging functions](#diverging-functions)
     - [Associated function indication `::`](#associated-function-indication-)
-    - [closure](#closure)
-      - [Call chaining using closure](#call-chaining-using-closure)
-    - [Statements and expressions](#statements-and-expressions)
-    - [Control flow](#control-flow)
-      - [`if..else`:](#ifelse)
-      - [`loop`, `while` and `for`](#loop-while-and-for)
-      - [`match`](#match)
-    - [Result type](#result-type)
-    - [Reference](#reference)
-    - [methods](#methods)
-      - [Field Init Shorthand](#field-init-shorthand)
-      - [Struct Update Syntax](#struct-update-syntax)
-    - [Tuple Structs](#tuple-structs)
+  - [closure](#closure)
+    - [Call chaining using closure](#call-chaining-using-closure)
+  - [Statements and expressions](#statements-and-expressions)
+  - [Control flow](#control-flow)
+    - [`if..else`:](#ifelse)
+    - [`loop`, `while` and `for`](#loop-while-and-for)
+    - [`match`](#match)
+  - [Result type](#result-type)
+  - [Reference](#reference)
+  - [methods](#methods)
+    - [Field Init Shorthand](#field-init-shorthand)
+    - [Struct Update Syntax](#struct-update-syntax)
+  - [Tuple Structs](#tuple-structs)
   - [Generics](#generics)
     - [Generic Type](#generic-type)
     - [Generic functions](#generic-functions)
@@ -95,6 +94,11 @@ A language empowering everyone to build reliable and efficient software.
   - [Good answer to understand](#good-answer-to-understand)
   - [Associated items](#associated-items)
   - [Rust RFC](#rust-rfc)
+  - [FFI (Foreign Function Interface)](#ffi-foreign-function-interface)
+    - [Calling foreign functions](#calling-foreign-functions)
+    - [Calling Rust code from C](#calling-rust-code-from-c)
+    - [가변 인자 함수 (variadic functions)](#가변-인자-함수-variadic-functions)
+  - [Logging](#logging)
 
 ## Why Rust?
 
@@ -536,10 +540,7 @@ fn change(some_string: &mut String) {
 > Note: The opposite of referencing by using & is dereferencing, which is accomplished with the dereference operator, `*`. We’ll see some uses of the dereference operator in Chapter 8 and discuss details of dereferencing in Chapter 15.
 
 
-
-## Rust Syntax
-
-### Comments
+## Comments
 
 In Rust, the idiomatic comment style starts a comment with two slashes, and the comment continues until the end of the line.
 
@@ -578,7 +579,7 @@ Another style of doc comment, `//!`, is used to describe the crate introduction.
 
 > [[FIXME] document comments 다시 읽기](https://doc.rust-lang.org/book/ch14-02-publishing-to-crates-io.html)
 
-### Constants and Variables
+## Constants and Variables
 
 - A value is not assigned, it is binded to a variable. python과 같은 bind 개념을 차용함
 - Constants must be computed at compile time.
@@ -625,7 +626,7 @@ spaces = spaces.len(); // cause an error
 const THREE_HOURS_IN_SECONDS: u32 = 60 * 60 * 3;
 ```
 
-### Built-in scalar data types
+## Built-in scalar data types
 
 Rust에서 지원하는 scalar data type은 다음과 같다.
 
@@ -693,7 +694,7 @@ let z = 'ℤ';
 let heart_eyed_cat = '😻';
 ```
 
-### Char type
+## Char type
 
 - Rust’s `char` type is four bytes in size and represents a Unicode Scalar Value.
 - Unicode Scalar Values range from `U+0000` to `U+D7FF` and `U+E000` to `U+10FFFF` inclusive.
@@ -701,7 +702,7 @@ let heart_eyed_cat = '😻';
 - Char literals use single quotes.`'C'`
 - [Storing UTF-8 Encoded Text with Strings](https://doc.rust-lang.org/book/ch08-02-strings.html#storing-utf-8-encoded-text-with-strings)
 
-### Compound Types
+## Compound Types
 
 Compound types can group multiple values into one type. Rust has two primitive compound types: tuples and arrays.
 
@@ -754,7 +755,7 @@ a[1] = 100;
 
 - &str as a pointer to immutable string data. String literals are all of type &str.
 
-### Functions
+## Functions
 
 - `fn` keyward를 사용
 - All letters of function names and variables are lowercase and underscores (`_`) separate words.
@@ -819,7 +820,7 @@ let mut guess = String::new();
 The `::` syntax in the `::new` line indicates that new is an associated function of the String type. An associated function is a function that’s implemented on a type, in this case String.
 
 
-### closure
+## closure
 
 Closures are functions that can capture the enclosing environment. For example, a closure that captures the x variable:
 
@@ -921,7 +922,7 @@ let sum_of_squared_odd_numbers: u32 =
 println!("functional Approach: {}", sum_of_squared_odd_numbers);
 ```
 
-#### Call chaining using closure
+### Call chaining using closure
 
 ```rust
 // call chaining using closure
@@ -939,7 +940,7 @@ println!("functional Approach: {}", sum_of_squared_odd_numbers);
 
 
 
-### Statements and expressions
+## Statements and expressions
 
 Rust는 Statement와 expression의 구분이 다음과 같이 명확함.
 
@@ -967,9 +968,9 @@ fn main() {
 }
 ```
 
-### Control flow
+## Control flow
 
-#### `if..else`:
+### `if..else`:
 
 - condition은 반드시 boolean을 반환해야 함
 - parenthesis `()` 는 사용안함
@@ -1006,7 +1007,7 @@ let number = if condition > 4 {
 println!("The value of number is: {}", number); // 5
 ```
 
-#### `loop`, `while` and `for`
+### `loop`, `while` and `for`
 
 ```rust
 loop {
@@ -1036,7 +1037,7 @@ for number in (1..4).rev() {
 println!("LIFTOFF!!!");
 ```
 
-#### `match`
+### `match`
 
 ```rust
 fn main() {
@@ -1221,7 +1222,7 @@ fn main() {
 }
 ```
 
-### Result type
+## Result type
 
 Rust는 result type은 열거형(enumerations)의 에러처리 정보
 
@@ -1239,10 +1240,10 @@ pub enum Result<T, E> {
 }
 ```
 
-### Reference
+## Reference
 
 
-### methods
+## methods
 
 Rust는 다음과 같이 struct와 method를 정의한다.
 
@@ -1302,7 +1303,7 @@ fn main() {
 - Associated Function은 struct에 대한 namespace syntax(`::`)로 접근/사용 가능
 - 다수의 impl block 사용 가능
 
-#### Field Init Shorthand
+### Field Init Shorthand
 
 생성함수에서 field name과 function argument을 동일하게 입력하여 짧게 쓰는 방법
 
@@ -1317,7 +1318,7 @@ fn build_user(email: String, username: String) -> User {
 }
 ```
 
-#### Struct Update Syntax
+### Struct Update Syntax
 
 앞서 사용한 인스턴스의 값을 사용해 구조체 업데이트하는 방법
 
@@ -1337,7 +1338,7 @@ fn main() {
 
 > Note that the struct update syntax uses = like an assignment; this is because it moves the data, just as we saw in the [“Ways Variables and Data Interact: Move”](https://doc.rust-lang.org/book/ch04-01-what-is-ownership.html#ways-variables-and-data-interact-move) section. In this example, we can no longer use user1 after creating user2 because the String in the username field of user1 was moved into user2. The types of active and sign_in_count are types that implement the Copy trait, so the behavior we discussed in the [“Stack-Only Data: Copy”](https://doc.rust-lang.org/book/ch04-01-what-is-ownership.html#stack-only-data-copy) section would apply.
 
-### Tuple Structs
+## Tuple Structs
 
 - Tuple과 유사한 구조체로 filed name이 없이 field type만을 정의한 구조체
 - Named tuple
@@ -2059,7 +2060,7 @@ int main(void) {
 - Compile with `-L` and `-l` options: `gcc call_rust.c -o call_rust -lrust_from_c -L./target/debug`
 - `export`되는 함수의 C header file의 자동 생성: https://github.com/eqrion/cbindgen
 
-#### 가변 인자 함수 (variadic functions)
+### 가변 인자 함수 (variadic functions)
 
 `...` 사용해 표현, `unsafe`로 validation skip
 
@@ -2074,3 +2075,50 @@ fn main() {
     }
 }
 ```
+
+## Logging
+
+[https://crates.io/crates/log](https://crates.io/crates/log)은 logging abstraction interface 만을 제공할 뿐 log output을 제공하지 않는다.
+따라서 [https://crates.io/crates/log](https://crates.io/crates/log)의 `In executables`에 logger를 import해야 실제 log를 화면에 출력할 수 있다.
+
+```toml
+[dependencies]
+    log = "0.4"
+    env_logger = "0.9.0" # 기본 logger
+```
+
+```rust
+mod foo {
+    mod bar {
+        pub fn run() {
+            log::warn!("[bar] warn");
+            log::info!("[bar] info");
+            log::debug!("[bar] debug");
+        }
+    }
+
+    pub fn run() {
+        log::warn!("[foo] warn");
+        log::info!("[foo] info");
+        log::debug!("[foo] debug");
+        bar::run();
+    }
+}
+
+fn main() {
+    env_logger::init();
+    log::warn!("[root] warn");
+    log::info!("[root] info");
+    log::debug!("[root] debug");
+    foo::run();
+}
+```
+
+`RUST_LOG`로 env_logger output을 끄거나 켤 수 있으며, logging은 module의 계층 구조에 따라
+logging할 target module을 logging level과 함께 RUST_LOG에 지정하면, log가 출력된다.
+
+```bash
+RUST_LOG="warn,test::foo=info,test::foo::bar=debug" ./test # Rust binary
+```
+
+이외 사용자의 환경변수 설정에 따라 log를 켜거나, log 포맷, log 저장위치등을 변경 가능하다. 찾아 보도록!

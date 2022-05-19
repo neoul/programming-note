@@ -1,5 +1,6 @@
 extern crate rust;
 
+use log::{info, warn};
 
 fn main() {
     println!("hello rust!");
@@ -20,4 +21,6 @@ fn main() {
     multipletraits::example();
     rust::wheres::example();
     rust::generics::example();
+    info!("INFO LOG");
+    warn!("WARN LOG");
 }
