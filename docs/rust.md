@@ -215,6 +215,8 @@ rustup self uninstall
 - Add dependent crates to a project by adding the crate name to the Cargo.toml file.
 - `cargo fmt`: reformats your code according to the community code style.
 - `cargo fix`: Automatically fix lint warnings reported by rustc
+- `cargo install`: `$HOME/.cargo/bin`에 crate binary를 설치
+  - `cargo install cargo-generate`: make a new Rust project by leveraging a pre-existing git repository as a template. e.g. 
 
 > **manual**: [🔗 cargo doc](https://doc.rust-lang.org/cargo/index.html)
 
@@ -1912,3 +1914,163 @@ This following RFC extends traits with associated items, which make generic prog
 ## Rust RFC
 
 https://github.com/rust-lang/rfcs/tree/master/text
+
+
+## FFI (Foreign Function Interface)
+
+다른 언어 코드에서 rust 함수를 호출하거나, rust 코드에서 외부 함수를 호출하는 방법
+
+### Calling foreign functions
+
+아래와 같이 `libc`는 crate으로 구현(wrapping)되어 있음
+
+```toml
+[dependencies]
+libc = "0.2.0"
+```
+
+- 외부 함수 코드는 safe하다 가정하고, `unsafe`로 감싸 코드를 검증하지 않음
+- wrapping 함수를 만드는게 일반적임
+- 외부 함수가 자원 해제를 하지 않을 경우 직접 Drop trait으로 자원 해제해야 함
+
+```rust
+use libc::{c_int, size_t};
+
+#[link(name = "snappy")] // 외부 library
+extern { // library내 함수 목록
+  fn snappy_compress(input: *const u8,
+                      input_length: size_t,
+                      compressed: *mut u8,
+                      compressed_length: *mut size_t) -> c_int;
+  fn snappy_uncompress(compressed: *const u8,
+                        compressed_length: size_t,
+                        uncompressed: *mut u8,
+                        uncompressed_length: *mut size_t) -> c_int;
+  fn snappy_max_compressed_length(source_length: size_t) -> size_t;
+  fn snappy_uncompressed_length(compressed: *const u8,
+                                compressed_length: size_t,
+                                result: *mut size_t) -> c_int;
+  fn snappy_validate_compressed_buffer(compressed: *const u8,
+                                        compressed_length: size_t) -> c_int;
+}
+
+pub fn validate_compressed_buffer(src: &[u8]) -> bool {
+  unsafe {
+      snappy_validate_compressed_buffer(src.as_ptr(), src.len() as size_t) == 0
+  }
+}
+
+pub fn compress(src: &[u8]) -> Vec<u8> {
+  unsafe {
+      let srclen = src.len() as size_t;
+      let psrc = src.as_ptr();
+
+      let mut dstlen = snappy_max_compressed_length(srclen);
+      let mut dst = Vec::with_capacity(dstlen as usize);
+      let pdst = dst.as_mut_ptr();
+
+      snappy_compress(psrc, srclen, pdst, &mut dstlen);
+      dst.set_len(dstlen as usize);
+      dst
+  }
+}
+
+pub fn uncompress(src: &[u8]) -> Option<Vec<u8>> {
+  unsafe {
+      let srclen = src.len() as size_t;
+      let psrc = src.as_ptr();
+
+      let mut dstlen: size_t = 0;
+      snappy_uncompressed_length(psrc, srclen, &mut dstlen);
+
+      let mut dst = Vec::with_capacity(dstlen as usize);
+      let pdst = dst.as_mut_ptr();
+
+      if snappy_uncompress(psrc, srclen, pdst, &mut dstlen) == 0 {
+          dst.set_len(dstlen as usize);
+          Some(dst)
+      } else {
+          None // SNAPPY_INVALID_INPUT
+      }
+  }
+}
+
+#[cfg(test)]
+mod tests {
+  use super::*;
+
+  #[test]
+  fn valid() {
+      let d = vec![0xde, 0xad, 0xd0, 0x0d];
+      let c: &[u8] = &compress(&d);
+      assert!(validate_compressed_buffer(c));
+      assert!(uncompress(c) == Some(d));
+  }
+
+  #[test]
+  fn invalid() {
+      let d = vec![0, 0, 0, 0];
+      assert!(!validate_compressed_buffer(&d));
+      assert!(uncompress(&d).is_none());
+  }
+
+  #[test]
+  fn empty() {
+      let d = vec![];
+      assert!(!validate_compressed_buffer(&d));
+      assert!(uncompress(&d).is_none());
+      let c = compress(&d);
+      assert!(validate_compressed_buffer(&c));
+      assert!(uncompress(&c) == Some(d));
+  }
+}
+
+fn main() {
+    let x = unsafe { snappy_max_compressed_length(100) };
+    println!("max compressed length of a 100 byte buffer: {}", x);
+}
+```
+
+### Calling Rust code from C
+
+lib일 경우 C에서 쉽게 rust 함수에 접근 가능함
+
+```rust
+#[no_mangle] // turns off Rust's name mangling
+pub extern "C" fn hello_from_rust() { // extern "C"로 C에서 호출가능한 형식으로 함수명 유지
+    println!("Hello from Rust!");
+}
+```
+
+Cargo.toml에 C dynamic library 명시 (staticlib도 가능)
+
+```toml
+[lib]
+crate-type = ["cdylib"]
+```
+
+```c
+int main(void) {
+  hello_from_rust();
+  return 0;
+}
+```
+
+- Compile with `-L` and `-l` options: `gcc call_rust.c -o call_rust -lrust_from_c -L./target/debug`
+- `export`되는 함수의 C header file의 자동 생성: https://github.com/eqrion/cbindgen
+
+#### 가변 인자 함수 (variadic functions)
+
+`...` 사용해 표현, `unsafe`로 validation skip
+
+```rust
+extern {
+    fn foo(x: i32, ...);
+}
+
+fn main() {
+    unsafe {
+        foo(10, 20, 30, 40, 50);
+    }
+}
+```
