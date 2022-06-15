@@ -82,6 +82,9 @@ A language empowering everyone to build reliable and efficient software.
     - [Read stdin](#read-stdin)
   - [Modules](#modules)
   - [Macro](#macro)
+    - [Declarative Macros](#declarative-macros)
+    - [Procedural Macros](#procedural-macros)
+    - [Links for macro](#links-for-macro)
   - [Testing](#testing)
   - [Rust Attributes](#rust-attributes)
     - [Scope](#scope)
@@ -99,6 +102,7 @@ A language empowering everyone to build reliable and efficient software.
     - [Calling Rust code from C](#calling-rust-code-from-c)
     - [가변 인자 함수 (variadic functions)](#가변-인자-함수-variadic-functions)
   - [Logging](#logging)
+  - [lib.rs and main.rs](#librs-and-mainrs)
 
 ## Why Rust?
 
@@ -1688,6 +1692,18 @@ mod my_mod { // module my_mod
 
 ## Macro
 
+Rust macro system의 macro 종류는 다음과 같다.
+
+> - Declarative Macros
+> - Procedural Macros
+>   - Function-like macros
+>   - Derive mode macros
+>   - Attribute macros
+
+### Declarative Macros
+
+흔히 사용하는 "선언적" 형태의 매크로로 Rust의 Declarative Macro는 단순 문자열 치환이 아니라 Rust Abstract Syntax Tree를 직접 제어하는 방식이다.
+
 - `macro_rules` allows users to define syntax extension in a declarative way.
 - `MacroRule` = `MacroMatcher => MacroTranscriber`로 구성, `MacroRule`은 `;`으로 구분
 - Each macro by example has a name, and one or more rules. Each rule has two parts: a matcher, describing the syntax that it matches, and a transcriber, describing the syntax that will replace a successfully matched invocation.
@@ -1696,7 +1712,18 @@ mod my_mod { // module my_mod
 - `()`, `[]`, `{}` 모든 괄호는 MacroMatch, MacroRule에서 모두 사용가능
 
 
+### Procedural Macros
 
+컴파일 시점에 macro 함수를 실행시켜 코드를 업데이트하는 **매크로**로 `#[proc_macro]`로 선언된 macro 함수는 컴파일 시점에 TokenStream을 받아 TokenStream을 출력하고, 그 출력된 TokenStream으로 코드를 치환해 컴파일하는 매크로이다.
+
+- Procedural Macro를 사용해 원본 코드에는 없는 함수를 생성하거나 (function generation),
+- macro로 정의된 namespace block을 TokenStream으로 받아 해당 block을 치환할 수 있다.
+- 이러한 동작을 통해 compile time에 Python의 decorator와 같은 함수를 작성할 수 있다.
+- 추가 정보는 [good article for rust macro](http://www.secmem.org/blog/2019/02/10/rust-procedural-macros-by-example/)에 너무 잘 설명되어 있어 생략한다.
+
+### Links for macro
+
+> - [good article for rust macro](http://www.secmem.org/blog/2019/02/10/rust-procedural-macros-by-example/)
 > - [macros-by-example](https://doc.rust-lang.org/reference/macros-by-example.html)
 > - [Rust by example](https://doc.rust-lang.org/rust-by-example/macros.html)
 
@@ -2122,3 +2149,19 @@ RUST_LOG="warn,test::foo=info,test::foo::bar=debug" ./test # Rust binary
 ```
 
 이외 사용자의 환경변수 설정에 따라 log를 켜거나, log 포맷, log 저장위치등을 변경 가능하다. 찾아 보도록!
+
+```rust
+// 우선순위 위 ==> 아래
+//! [`error!`]
+//! [`warn!`]
+//! [`info!`]
+//! [`debug!`]
+//! [`trace!`]
+```
+
+## lib.rs and main.rs
+
+rust library 작성시 main.rs를 통해 동작확인 가능
+
+https://stackoverflow.com/questions/26946646/package-with-both-a-library-and-a-binary
+
