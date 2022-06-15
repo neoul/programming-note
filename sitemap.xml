@@ -1,68 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-
-    
     <url>
-     <loc>/</loc>
-     <lastmod>2022-04-28</lastmod>
+     <loc>None</loc>
+     <lastmod>2022-06-15</lastmod>
      <changefreq>daily</changefreq>
     </url>
-    
-
-    
     <url>
-     <loc>/algorithm/</loc>
-     <lastmod>2022-04-28</lastmod>
+     <loc>None</loc>
+     <lastmod>2022-06-15</lastmod>
      <changefreq>daily</changefreq>
     </url>
-    
-
-    
     <url>
-     <loc>/cpp/</loc>
-     <lastmod>2022-04-28</lastmod>
+     <loc>None</loc>
+     <lastmod>2022-06-15</lastmod>
      <changefreq>daily</changefreq>
     </url>
-    
-
-    
     <url>
-     <loc>/go/</loc>
-     <lastmod>2022-04-28</lastmod>
+     <loc>None</loc>
+     <lastmod>2022-06-15</lastmod>
      <changefreq>daily</changefreq>
     </url>
-    
-
-    
     <url>
-     <loc>/grpc/</loc>
-     <lastmod>2022-04-28</lastmod>
+     <loc>None</loc>
+     <lastmod>2022-06-15</lastmod>
      <changefreq>daily</changefreq>
     </url>
-    
-
-    
     <url>
-     <loc>/javascript/</loc>
-     <lastmod>2022-04-28</lastmod>
+     <loc>None</loc>
+     <lastmod>2022-06-15</lastmod>
      <changefreq>daily</changefreq>
     </url>
-    
-
-    
     <url>
-     <loc>/python3/</loc>
-     <lastmod>2022-04-28</lastmod>
+     <loc>None</loc>
+     <lastmod>2022-06-15</lastmod>
      <changefreq>daily</changefreq>
     </url>
-    
-
-    
     <url>
-     <loc>/rust/</loc>
-     <lastmod>2022-04-28</lastmod>
+     <loc>None</loc>
+     <lastmod>2022-06-15</lastmod>
      <changefreq>daily</changefreq>
     </url>
-    
-
 </urlset>
