@@ -1,5 +1,6 @@
 extern crate rust;
 
+use log::{info, warn};
 
 fn main() {
     println!("hello rust!");

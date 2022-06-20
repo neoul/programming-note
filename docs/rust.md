@@ -39,34 +39,33 @@ A language empowering everyone to build reliable and efficient software.
   - [Prelude (imported std libraries)](#prelude-imported-std-libraries)
   - [Rust ownership (값에 대한 소유권)](#rust-ownership-값에-대한-소유권)
   - [References and Borrowing](#references-and-borrowing)
-  - [Rust Syntax](#rust-syntax)
-    - [Comments](#comments)
+  - [Comments](#comments)
     - [Document comments](#document-comments)
-    - [Constants and Variables](#constants-and-variables)
+  - [Constants and Variables](#constants-and-variables)
     - [const](#const)
     - [Built-in scalar data types](#built-in-scalar-data-types)
-    - [Char type](#char-type)
-    - [Compound Types](#compound-types)
+  - [Char type](#char-type)
+  - [Compound Types](#compound-types)
     - [Tuple Type](#tuple-type)
     - [Array Type](#array-type)
     - [Slice Type](#slice-type)
     - [&str과 String Type](#str과-string-type)
-    - [Functions](#functions)
+  - [Functions](#functions)
     - [Diverging functions](#diverging-functions)
     - [Associated function indication `::`](#associated-function-indication-)
-    - [closure](#closure)
-      - [Call chaining using closure](#call-chaining-using-closure)
-    - [Statements and expressions](#statements-and-expressions)
-    - [Control flow](#control-flow)
-      - [`if..else`:](#ifelse)
-      - [`loop`, `while` and `for`](#loop-while-and-for)
-      - [`match`](#match)
-    - [Result type](#result-type)
-    - [Reference](#reference)
-    - [methods](#methods)
-      - [Field Init Shorthand](#field-init-shorthand)
-      - [Struct Update Syntax](#struct-update-syntax)
-    - [Tuple Structs](#tuple-structs)
+  - [closure](#closure)
+    - [Call chaining using closure](#call-chaining-using-closure)
+  - [Statements and expressions](#statements-and-expressions)
+  - [Control flow](#control-flow)
+    - [`if..else`:](#ifelse)
+    - [`loop`, `while` and `for`](#loop-while-and-for)
+    - [`match`](#match)
+  - [Result type](#result-type)
+  - [Reference](#reference)
+  - [methods](#methods)
+    - [Field Init Shorthand](#field-init-shorthand)
+    - [Struct Update Syntax](#struct-update-syntax)
+  - [Tuple Structs](#tuple-structs)
   - [Generics](#generics)
     - [Generic Type](#generic-type)
     - [Generic functions](#generic-functions)
@@ -85,6 +84,9 @@ A language empowering everyone to build reliable and efficient software.
     - [Read stdin](#read-stdin)
   - [Modules](#modules)
   - [Macro](#macro)
+    - [Declarative Macros](#declarative-macros)
+    - [Procedural Macros](#procedural-macros)
+    - [Links for macro](#links-for-macro)
   - [Testing](#testing)
   - [Rust Attributes](#rust-attributes)
     - [Scope](#scope)
@@ -97,6 +99,12 @@ A language empowering everyone to build reliable and efficient software.
   - [Good answer to understand](#good-answer-to-understand)
   - [Associated items](#associated-items)
   - [Rust RFC](#rust-rfc)
+  - [FFI (Foreign Function Interface)](#ffi-foreign-function-interface)
+    - [Calling foreign functions](#calling-foreign-functions)
+    - [Calling Rust code from C](#calling-rust-code-from-c)
+    - [가변 인자 함수 (variadic functions)](#가변-인자-함수-variadic-functions)
+  - [Logging](#logging)
+  - [lib.rs and main.rs](#librs-and-mainrs)
 
 ## Why Rust?
 
@@ -217,6 +225,8 @@ rustup self uninstall
 - Add dependent crates to a project by adding the crate name to the Cargo.toml file.
 - `cargo fmt`: reformats your code according to the community code style.
 - `cargo fix`: Automatically fix lint warnings reported by rustc
+- `cargo install`: `$HOME/.cargo/bin`에 crate binary를 설치
+  - `cargo install cargo-generate`: make a new Rust project by leveraging a pre-existing git repository as a template. e.g. 
 
 > **manual**: [🔗 cargo doc](https://doc.rust-lang.org/cargo/index.html)
 
@@ -536,10 +546,7 @@ fn change(some_string: &mut String) {
 > Note: The opposite of referencing by using & is dereferencing, which is accomplished with the dereference operator, `*`. We’ll see some uses of the dereference operator in Chapter 8 and discuss details of dereferencing in Chapter 15.
 
 
-
-## Rust Syntax
-
-### Comments
+## Comments
 
 In Rust, the idiomatic comment style starts a comment with two slashes, and the comment continues until the end of the line.
 
@@ -578,7 +585,7 @@ Another style of doc comment, `//!`, is used to describe the crate introduction.
 
 > [[FIXME] document comments 다시 읽기](https://doc.rust-lang.org/book/ch14-02-publishing-to-crates-io.html)
 
-### Constants and Variables
+## Constants and Variables
 
 - A value is not assigned, it is binded to a variable. python과 같은 bind 개념을 차용함
 - Constants must be computed at compile time.
@@ -699,7 +706,7 @@ let z = 'ℤ';
 let heart_eyed_cat = '😻';
 ```
 
-### Char type
+## Char type
 
 - Rust’s `char` type is four bytes in size and represents a Unicode Scalar Value.
 - Unicode Scalar Values range from `U+0000` to `U+D7FF` and `U+E000` to `U+10FFFF` inclusive.
@@ -707,7 +714,7 @@ let heart_eyed_cat = '😻';
 - Char literals use single quotes.`'C'`
 - [Storing UTF-8 Encoded Text with Strings](https://doc.rust-lang.org/book/ch08-02-strings.html#storing-utf-8-encoded-text-with-strings)
 
-### Compound Types
+## Compound Types
 
 Compound types can group multiple values into one type. Rust has two primitive compound types: tuples and arrays.
 
@@ -773,7 +780,7 @@ assert_eq!(slice, &[2, 3]);
 
 - &str as a pointer to immutable string data. String literals are all of type &str.
 
-### Functions
+## Functions
 
 - `fn` keyward를 사용
 - All letters of function names and variables are lowercase and underscores (`_`) separate words.
@@ -838,7 +845,7 @@ let mut guess = String::new();
 The `::` syntax in the `::new` line indicates that new is an associated function of the String type. An associated function is a function that’s implemented on a type, in this case String.
 
 
-### closure
+## closure
 
 Closures are functions that can capture the enclosing environment. For example, a closure that captures the x variable:
 
@@ -940,7 +947,7 @@ let sum_of_squared_odd_numbers: u32 =
 println!("functional Approach: {}", sum_of_squared_odd_numbers);
 ```
 
-#### Call chaining using closure
+### Call chaining using closure
 
 ```rust
 // call chaining using closure
@@ -958,7 +965,7 @@ println!("functional Approach: {}", sum_of_squared_odd_numbers);
 
 
 
-### Statements and expressions
+## Statements and expressions
 
 Rust는 Statement와 expression의 구분이 다음과 같이 명확함.
 
@@ -986,9 +993,9 @@ fn main() {
 }
 ```
 
-### Control flow
+## Control flow
 
-#### `if..else`:
+### `if..else`:
 
 - condition은 반드시 boolean을 반환해야 함
 - parenthesis `()` 는 사용안함
@@ -1025,7 +1032,7 @@ let number = if condition > 4 {
 println!("The value of number is: {}", number); // 5
 ```
 
-#### `loop`, `while` and `for`
+### `loop`, `while` and `for`
 
 ```rust
 loop {
@@ -1055,7 +1062,7 @@ for number in (1..4).rev() {
 println!("LIFTOFF!!!");
 ```
 
-#### `match`
+### `match`
 
 ```rust
 fn main() {
@@ -1240,7 +1247,7 @@ fn main() {
 }
 ```
 
-### Result type
+## Result type
 
 Rust는 result type은 열거형(enumerations)의 에러처리 정보
 
@@ -1258,10 +1265,10 @@ pub enum Result<T, E> {
 }
 ```
 
-### Reference
+## Reference
 
 
-### methods
+## methods
 
 Rust는 다음과 같이 struct와 method를 정의한다.
 
@@ -1321,7 +1328,7 @@ fn main() {
 - Associated Function은 struct에 대한 namespace syntax(`::`)로 접근/사용 가능
 - 다수의 impl block 사용 가능
 
-#### Field Init Shorthand
+### Field Init Shorthand
 
 생성함수에서 field name과 function argument을 동일하게 입력하여 짧게 쓰는 방법
 
@@ -1336,7 +1343,7 @@ fn build_user(email: String, username: String) -> User {
 }
 ```
 
-#### Struct Update Syntax
+### Struct Update Syntax
 
 앞서 사용한 인스턴스의 값을 사용해 구조체 업데이트하는 방법
 
@@ -1356,7 +1363,7 @@ fn main() {
 
 > Note that the struct update syntax uses = like an assignment; this is because it moves the data, just as we saw in the [“Ways Variables and Data Interact: Move”](https://doc.rust-lang.org/book/ch04-01-what-is-ownership.html#ways-variables-and-data-interact-move) section. In this example, we can no longer use user1 after creating user2 because the String in the username field of user1 was moved into user2. The types of active and sign_in_count are types that implement the Copy trait, so the behavior we discussed in the [“Stack-Only Data: Copy”](https://doc.rust-lang.org/book/ch04-01-what-is-ownership.html#stack-only-data-copy) section would apply.
 
-### Tuple Structs
+## Tuple Structs
 
 - Tuple과 유사한 구조체로 filed name이 없이 field type만을 정의한 구조체
 - Named tuple
@@ -1708,6 +1715,18 @@ mod my_mod { // module my_mod
 
 ## Macro
 
+Rust macro system의 macro 종류는 다음과 같다.
+
+> - Declarative Macros
+> - Procedural Macros
+>   - Function-like macros
+>   - Derive mode macros
+>   - Attribute macros
+
+### Declarative Macros
+
+흔히 사용하는 "선언적" 형태의 매크로로 Rust의 Declarative Macro는 단순 문자열 치환이 아니라 Rust Abstract Syntax Tree를 직접 제어하는 방식이다.
+
 - `macro_rules` allows users to define syntax extension in a declarative way.
 - `MacroRule` = `MacroMatcher => MacroTranscriber`로 구성, `MacroRule`은 `;`으로 구분
 - Each macro by example has a name, and one or more rules. Each rule has two parts: a matcher, describing the syntax that it matches, and a transcriber, describing the syntax that will replace a successfully matched invocation.
@@ -1716,7 +1735,18 @@ mod my_mod { // module my_mod
 - `()`, `[]`, `{}` 모든 괄호는 MacroMatch, MacroRule에서 모두 사용가능
 
 
+### Procedural Macros
 
+컴파일 시점에 macro 함수를 실행시켜 코드를 업데이트하는 **매크로**로 `#[proc_macro]`로 선언된 macro 함수는 컴파일 시점에 TokenStream을 받아 TokenStream을 출력하고, 그 출력된 TokenStream으로 코드를 치환해 컴파일하는 매크로이다.
+
+- Procedural Macro를 사용해 원본 코드에는 없는 함수를 생성하거나 (function generation),
+- macro로 정의된 namespace block을 TokenStream으로 받아 해당 block을 치환할 수 있다.
+- 이러한 동작을 통해 compile time에 Python의 decorator와 같은 함수를 작성할 수 있다.
+- 추가 정보는 [good article for rust macro](http://www.secmem.org/blog/2019/02/10/rust-procedural-macros-by-example/)에 너무 잘 설명되어 있어 생략한다.
+
+### Links for macro
+
+> - [good article for rust macro](http://www.secmem.org/blog/2019/02/10/rust-procedural-macros-by-example/)
 > - [macros-by-example](https://doc.rust-lang.org/reference/macros-by-example.html)
 > - [Rust by example](https://doc.rust-lang.org/rust-by-example/macros.html)
 
@@ -1935,3 +1965,226 @@ This following RFC extends traits with associated items, which make generic prog
 ## Rust RFC
 
 https://github.com/rust-lang/rfcs/tree/master/text
+
+
+## FFI (Foreign Function Interface)
+
+다른 언어 코드에서 rust 함수를 호출하거나, rust 코드에서 외부 함수를 호출하는 방법
+
+### Calling foreign functions
+
+아래와 같이 `libc`는 crate으로 구현(wrapping)되어 있음
+
+```toml
+[dependencies]
+libc = "0.2.0"
+```
+
+- 외부 함수 코드는 safe하다 가정하고, `unsafe`로 감싸 코드를 검증하지 않음
+- wrapping 함수를 만드는게 일반적임
+- 외부 함수가 자원 해제를 하지 않을 경우 직접 Drop trait으로 자원 해제해야 함
+
+```rust
+use libc::{c_int, size_t};
+
+#[link(name = "snappy")] // 외부 library
+extern { // library내 함수 목록
+  fn snappy_compress(input: *const u8,
+                      input_length: size_t,
+                      compressed: *mut u8,
+                      compressed_length: *mut size_t) -> c_int;
+  fn snappy_uncompress(compressed: *const u8,
+                        compressed_length: size_t,
+                        uncompressed: *mut u8,
+                        uncompressed_length: *mut size_t) -> c_int;
+  fn snappy_max_compressed_length(source_length: size_t) -> size_t;
+  fn snappy_uncompressed_length(compressed: *const u8,
+                                compressed_length: size_t,
+                                result: *mut size_t) -> c_int;
+  fn snappy_validate_compressed_buffer(compressed: *const u8,
+                                        compressed_length: size_t) -> c_int;
+}
+
+pub fn validate_compressed_buffer(src: &[u8]) -> bool {
+  unsafe {
+      snappy_validate_compressed_buffer(src.as_ptr(), src.len() as size_t) == 0
+  }
+}
+
+pub fn compress(src: &[u8]) -> Vec<u8> {
+  unsafe {
+      let srclen = src.len() as size_t;
+      let psrc = src.as_ptr();
+
+      let mut dstlen = snappy_max_compressed_length(srclen);
+      let mut dst = Vec::with_capacity(dstlen as usize);
+      let pdst = dst.as_mut_ptr();
+
+      snappy_compress(psrc, srclen, pdst, &mut dstlen);
+      dst.set_len(dstlen as usize);
+      dst
+  }
+}
+
+pub fn uncompress(src: &[u8]) -> Option<Vec<u8>> {
+  unsafe {
+      let srclen = src.len() as size_t;
+      let psrc = src.as_ptr();
+
+      let mut dstlen: size_t = 0;
+      snappy_uncompressed_length(psrc, srclen, &mut dstlen);
+
+      let mut dst = Vec::with_capacity(dstlen as usize);
+      let pdst = dst.as_mut_ptr();
+
+      if snappy_uncompress(psrc, srclen, pdst, &mut dstlen) == 0 {
+          dst.set_len(dstlen as usize);
+          Some(dst)
+      } else {
+          None // SNAPPY_INVALID_INPUT
+      }
+  }
+}
+
+#[cfg(test)]
+mod tests {
+  use super::*;
+
+  #[test]
+  fn valid() {
+      let d = vec![0xde, 0xad, 0xd0, 0x0d];
+      let c: &[u8] = &compress(&d);
+      assert!(validate_compressed_buffer(c));
+      assert!(uncompress(c) == Some(d));
+  }
+
+  #[test]
+  fn invalid() {
+      let d = vec![0, 0, 0, 0];
+      assert!(!validate_compressed_buffer(&d));
+      assert!(uncompress(&d).is_none());
+  }
+
+  #[test]
+  fn empty() {
+      let d = vec![];
+      assert!(!validate_compressed_buffer(&d));
+      assert!(uncompress(&d).is_none());
+      let c = compress(&d);
+      assert!(validate_compressed_buffer(&c));
+      assert!(uncompress(&c) == Some(d));
+  }
+}
+
+fn main() {
+    let x = unsafe { snappy_max_compressed_length(100) };
+    println!("max compressed length of a 100 byte buffer: {}", x);
+}
+```
+
+### Calling Rust code from C
+
+lib일 경우 C에서 쉽게 rust 함수에 접근 가능함
+
+```rust
+#[no_mangle] // turns off Rust's name mangling
+pub extern "C" fn hello_from_rust() { // extern "C"로 C에서 호출가능한 형식으로 함수명 유지
+    println!("Hello from Rust!");
+}
+```
+
+Cargo.toml에 C dynamic library 명시 (staticlib도 가능)
+
+```toml
+[lib]
+crate-type = ["cdylib"]
+```
+
+```c
+int main(void) {
+  hello_from_rust();
+  return 0;
+}
+```
+
+- Compile with `-L` and `-l` options: `gcc call_rust.c -o call_rust -lrust_from_c -L./target/debug`
+- `export`되는 함수의 C header file의 자동 생성: https://github.com/eqrion/cbindgen
+
+### 가변 인자 함수 (variadic functions)
+
+`...` 사용해 표현, `unsafe`로 validation skip
+
+```rust
+extern {
+    fn foo(x: i32, ...);
+}
+
+fn main() {
+    unsafe {
+        foo(10, 20, 30, 40, 50);
+    }
+}
+```
+
+## Logging
+
+[https://crates.io/crates/log](https://crates.io/crates/log)은 logging abstraction interface 만을 제공할 뿐 log output을 제공하지 않는다.
+따라서 [https://crates.io/crates/log](https://crates.io/crates/log)의 `In executables`에 logger를 import해야 실제 log를 화면에 출력할 수 있다.
+
+```toml
+[dependencies]
+    log = "0.4"
+    env_logger = "0.9.0" # 기본 logger
+```
+
+```rust
+mod foo {
+    mod bar {
+        pub fn run() {
+            log::warn!("[bar] warn");
+            log::info!("[bar] info");
+            log::debug!("[bar] debug");
+        }
+    }
+
+    pub fn run() {
+        log::warn!("[foo] warn");
+        log::info!("[foo] info");
+        log::debug!("[foo] debug");
+        bar::run();
+    }
+}
+
+fn main() {
+    env_logger::init();
+    log::warn!("[root] warn");
+    log::info!("[root] info");
+    log::debug!("[root] debug");
+    foo::run();
+}
+```
+
+`RUST_LOG`로 env_logger output을 끄거나 켤 수 있으며, logging은 module의 계층 구조에 따라
+logging할 target module을 logging level과 함께 RUST_LOG에 지정하면, log가 출력된다.
+
+```bash
+RUST_LOG="warn,test::foo=info,test::foo::bar=debug" ./test # Rust binary
+```
+
+이외 사용자의 환경변수 설정에 따라 log를 켜거나, log 포맷, log 저장위치등을 변경 가능하다. 찾아 보도록!
+
+```rust
+// 우선순위 위 ==> 아래
+//! [`error!`]
+//! [`warn!`]
+//! [`info!`]
+//! [`debug!`]
+//! [`trace!`]
+```
+
+## lib.rs and main.rs
+
+rust library 작성시 main.rs를 통해 동작확인 가능
+
+https://stackoverflow.com/questions/26946646/package-with-both-a-library-and-a-binary
+
