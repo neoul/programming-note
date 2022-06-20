@@ -43,11 +43,13 @@ A language empowering everyone to build reliable and efficient software.
     - [Comments](#comments)
     - [Document comments](#document-comments)
     - [Constants and Variables](#constants-and-variables)
+    - [const](#const)
     - [Built-in scalar data types](#built-in-scalar-data-types)
     - [Char type](#char-type)
     - [Compound Types](#compound-types)
     - [Tuple Type](#tuple-type)
     - [Array Type](#array-type)
+    - [Slice Type](#slice-type)
     - [&str과 String Type](#str과-string-type)
     - [Functions](#functions)
     - [Diverging functions](#diverging-functions)
@@ -623,6 +625,12 @@ spaces = spaces.len(); // cause an error
 const THREE_HOURS_IN_SECONDS: u32 = 60 * 60 * 3;
 ```
 
+### const
+
+사용방법, 위치가 다양함 확인 필요
+
+https://doc.rust-lang.org/reference/const_eval.html
+
 ### Built-in scalar data types
 
 Rust에서 지원하는 scalar data type은 다음과 같다.
@@ -746,6 +754,19 @@ let second = a[1];
 // mutable해야 Arrary element 변경 가능함
 let mut a = [1, 2, 3, 4, 5];
 a[1] = 100;
+```
+
+### Slice Type
+
+Array에 대한 reference로 사용되며, 소유권 (ownership)을 가지지 않는다.
+
+- Slices let you reference a contiguous sequence of elements in a collection rather than the whole collection.
+- A slice is a kind of reference, so it does not have ownership.
+
+```rust
+let a = [1, 2, 3, 4, 5];
+let slice = &a[1..3];
+assert_eq!(slice, &[2, 3]);
 ```
 
 ### &str과 String Type
@@ -1477,6 +1498,8 @@ fn print_nodes<G: Graph>(g: &G) {
 https://github.com/rust-lang/rfcs/blob/master/text/0195-associated-items.md
 
 ### Phantom type parameters
+
+Generic에서 lifetime이 쓰였으나, 내부에서는 lifetime이 쓰이지 않은 경우 phantom type으로 쓴 척하여 compile error 회피
 
 - [phantom-data](https://doc.rust-lang.org/nomicon/phantom-data.html)
 - [Phantom type parameters](https://doc.rust-lang.org/rust-by-example/generics/phantom.html)
