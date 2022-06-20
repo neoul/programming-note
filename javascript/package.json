@@ -1,0 +1,15 @@
+{
+  "dependencies": {
+    "yarn": "^1.22.19"
+  },
+  "scripts": {
+    "main": "node index.js",
+    "test": "jest"
+  },
+  "name": "study",
+  "version": "1.0.0",
+  "description": "javascript study",
+  "main": "index.js",
+  "author": "willing@daum.net",
+  "license": "MIT"
+}

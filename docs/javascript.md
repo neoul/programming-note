@@ -40,7 +40,7 @@
       - [객체 복사, 병합과 Object.assign](#객체-복사-병합과-objectassign)
       - [Methods and this](#methods-and-this)
       - [객체 생성 함수 constructor function](#객체-생성-함수-constructor-function)
-      - [옵셔널 체이닝(optional chaining) `?.`, `?.()`, `?.[]`](#옵셔널-체이닝optional-chaining---)
+      - [Optional chaining `?.`, `?.()`, `?.[]`](#optional-chaining---)
       - [object 순회 함수](#object-순회-함수)
     - [`symbol`](#symbol)
       - [객체의 형변환; Symbol.toPrimitive](#객체의-형변환-symboltoprimitive)
@@ -120,6 +120,8 @@
   - [nodejs](#nodejs)
     - [import package](#import-package)
     - [nodejs getting start](#nodejs-getting-start)
+  - [prototype](#prototype)
+  - [class](#class)
 
 ## Javascript engine
 
@@ -720,7 +722,6 @@ user.sayHi(); // sayHi의 this 차용; 결과 '보라'
 #### 객체 생성 함수 constructor function
 
 - 생성자 함수(constructor function)와 일반 함수에 기술적인 차이는 없음
-- 
 - 관례1: 함수 이름의 첫 글자는 대문자로 시작
 - 관례2: 반드시 'new' 연산자를 붙여 실행
 - new Constructor(...) 시
@@ -732,8 +733,7 @@ user.sayHi(); // sayHi의 this 차용; 결과 '보라'
 ```javascript
 // constructor function
 function User(name) {
-  // this = {};  (빈 객체가 암시적으로 만들어짐)
-  // 새로운 프로퍼티를 this에 추가함
+  // this = {}; 빈객체 생성
   this.name = name;
   this.isAdmin = false;
   // return this;  (this가 암시적으로 반환됨)
@@ -773,7 +773,7 @@ let bora = new User("이보라");
 bora.sayHi(); // 제 이름은 이보라입니다.
 ```
 
-#### 옵셔널 체이닝(optional chaining) `?.`, `?.()`, `?.[]`
+#### Optional chaining `?.`, `?.()`, `?.[]`
 
 - property 존재 유무 평가
 - method에서도 사용 가능
@@ -2890,3 +2890,72 @@ for(let key in user) alert(key); // name, surname
 
 - https://www.nextree.co.kr/p8574/
 
+
+## prototype
+
+- JavaScript는 prototype 기반언어
+- JavaScript에서 기본 데이터 타입을 제외한 모든 것이 객체
+- 객체가 자신을 만드는데 사용된 원형인 prototype 객체를 이용하여 객체를 생성함
+
+```javascript
+function User(name) {
+  this.name = name;
+}
+User.prototype.sayHi = function() {
+  alert(this.name);
+};
+
+// 사용법:
+let user = new User("John");
+user.sayHi();
+```
+
+## class
+
+- javascript class는 new keyword와 함께 호출하지 않으면, error
+- `[[IsClassConstructor]]: true`로 설정됨
+- class는 항상 엄격 모드 (use strict)
+- computed property: getter, setter를 사용해 property 값 제한
+- computed method name: string으로 method name을 조작
+
+```javascript
+class User {
+    constructor(name) {
+        this.name = name;
+        this._age = 11;
+    }
+    sayHi() {
+        console.log("Hi", this.name);
+    }
+    ['say' + 'Goodbye']() {
+        console.log("GoodBye!", this.name);
+    }
+    // getter
+    get age() {
+        return this._age;
+    }
+    // setter
+    set age(value) {
+        if (value < 18) {
+            console.log("Age must be larger than 18.");
+            return;
+        }
+        this._age = value;
+        console.log("this._age", this._age);
+    }
+    // class field
+    classfield = "클래스필드";
+
+    nonclassfield_show_age() {
+        console.log(this.age);
+    }
+}
+
+let user = new User("John");
+user.sayHi(); // Hi John
+user.age = 1; // Age must be larger than 18.
+user.sayGoodbye(); // GoodBye! John
+console.log(user.classfield, User.classfield); // 클래스필드 undefined; instance에 property 추가
+user.nonclassfield_show_age();
+setTimeout(user.nonclassfield_show_age, 1000); // undefined; refer이므로 this가 없음
+```
