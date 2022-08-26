@@ -24,6 +24,7 @@ A language empowering everyone to build reliable and efficient software.
       - [Cargo versioning](#cargo-versioning)
       - [Cargo.toml (TOML file for cargo config)](#cargotoml-toml-file-for-cargo-config)
       - [Cargo.lock](#cargolock)
+    - [Workspace](#workspace)
     - [Useful development tool](#useful-development-tool)
     - [Rust build tools](#rust-build-tools)
     - [Rustup & cargo command completion](#rustup--cargo-command-completion)
@@ -289,6 +290,24 @@ hosts = [
 
 - `go.sum`과 같이 다운로드한 crate (package)에 대한 version과 정보를 명세하여, 이후 동일한 crate version으로 build의 일관성을 유지함.
 - `cargo update`: crate의 minor version만 업데이트함; major version을 변경하려면, Cargo.toml의 major version을 업데이트해야 한다.
+
+### Workspace
+
+Workspace는 Cargo.lock과 output directory를 공유하는 a set of packages
+
+> https://doc.rust-lang.org/book/ch14-03-cargo-workspaces.html#creating-the-second-package-in-the-workspace
+
+아래와 같이 workspace 내에서는 package path를 통해 쉽게 package를 가져와 사용할 수 있다. Cargo.toml에 dependencies를 추가하고 사용하면 끝!
+
+```toml
+[dependencies]
+metalib = { path = "../metalib" }
+```
+
+```rust
+// ...
+use metalib;
+```
 
 ### Useful development tool
 
