@@ -1,4 +1,4 @@
 rust/target
 *.html
 site
-javascript/node_modules
+**/node_modules
