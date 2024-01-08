@@ -8,9 +8,9 @@ import {
 } from "@aws-sdk/client-secrets-manager";
 
 async function getSecrets() {
-    const secret_name = "aptos-account-dev";
+    const secret_name = "";
     const client = new SecretsManagerClient({
-      region: "ap-northeast-2",
+      region: "",
     });
     let response: any;
     try {
